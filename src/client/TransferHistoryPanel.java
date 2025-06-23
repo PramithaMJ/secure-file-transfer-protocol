@@ -287,4 +287,8 @@ public class TransferHistoryPanel extends JPanel {
         JOptionPane.showMessageDialog(this, details.toString(), 
             "Transfer Details", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public void refresh() {
+        refreshTable();
+    }
 }

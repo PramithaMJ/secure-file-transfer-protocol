@@ -1,12 +1,14 @@
 package client;
 
+import common.LoggingManager;
 import common.TransferRecord;
 import java.io.*;
 import java.util.*;
 import java.util.logging.*;
 
 public class TransferHistory {
-    private static final Logger logger = Logger.getLogger(TransferHistory.class.getName());
+    private static final Logger logger = LoggingManager.getLogger(TransferHistory.class.getName());
+    private static final String DATA_DIR = "data";
     private static final String HISTORY_FILE = "transfer_history.dat";
     
     private List<TransferRecord> transferRecords;
@@ -76,10 +78,26 @@ public class TransferHistory {
     }
     
     private void saveHistory() {
+        File dataDir = new File(DATA_DIR);
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+            logger.info("Created data directory");
+        }
+        
+        String filePath = DATA_DIR + File.separator + username + "_" + HISTORY_FILE;
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(username + "_" + HISTORY_FILE))) {
+                new FileOutputStream(filePath))) {
             oos.writeObject(transferRecords);
-            logger.info("Transfer history saved");
+            logger.info("Transfer history saved to " + filePath);
+            
+            for (TransferRecord record : transferRecords) {
+                LoggingManager.logTransfer(logger, record.getTransferId(), 
+                    "Saved transfer record", 
+                    "File: " + record.getFileName() + 
+                    ", Status: " + record.getStatus() +
+                    ", From: " + record.getSenderUsername() + 
+                    ", To: " + record.getReceiverUsername());
+            }
         } catch (IOException e) {
             logger.log(Level.WARNING, "Failed to save transfer history", e);
         }
@@ -87,16 +105,26 @@ public class TransferHistory {
 
     @SuppressWarnings("unchecked")
     private void loadHistory() {
-        File historyFile = new File(username + "_" + HISTORY_FILE);
+        String filePath = DATA_DIR + File.separator + username + "_" + HISTORY_FILE;
+        File historyFile = new File(filePath);
         if (!historyFile.exists()) {
-            logger.info("No history file found for user " + username);
+            logger.info("No history file found for user " + username + " at " + filePath);
             return;
         }
         
         try (ObjectInputStream ois = new ObjectInputStream(
                 new FileInputStream(historyFile))) {
             transferRecords = (List<TransferRecord>) ois.readObject();
-            logger.info("Loaded " + transferRecords.size() + " transfer records from history");
+            logger.info("Loaded " + transferRecords.size() + " transfer records from " + filePath);
+            
+            for (TransferRecord record : transferRecords) {
+                LoggingManager.logTransfer(logger, record.getTransferId(), 
+                    "Loaded transfer record", 
+                    "File: " + record.getFileName() + 
+                    ", Status: " + record.getStatus() +
+                    ", From: " + record.getSenderUsername() + 
+                    ", To: " + record.getReceiverUsername());
+            }
         } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.WARNING, "Failed to load transfer history", e);
         }

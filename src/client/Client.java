@@ -11,7 +11,7 @@ import java.util.logging.*;
 import javax.crypto.*;
 
 public class Client {
-    private static final Logger logger = Logger.getLogger(Client.class.getName());
+    private static final Logger logger = LoggingManager.getLogger(Client.class.getName());
     private static final int CHUNK_SIZE = 4096; // 4KB chunks
     private static final String DOWNLOADS_DIR = "downloads";
     
@@ -48,6 +48,9 @@ public class Client {
     }
     
     public void connect() throws IOException {
+        // Initialize logging at first connection
+        LoggingManager.initialize();
+        
         socket = new Socket(serverAddress, serverPort);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
@@ -56,17 +59,21 @@ public class Client {
         new Thread(this::processServerMessages).start();
         
         logger.info("Connected to server: " + serverAddress + ":" + serverPort);
+        LoggingManager.logSecurity(logger, "Established socket connection to " + serverAddress + ":" + serverPort);
     }
     
     public void disconnect() {
         try {
             if (connected) {
+                LoggingManager.logSecurity(logger, "Initiating secure disconnect from server");
                 sendToServer("DISCONNECT");
                 connected = false;
                 if (socket != null && !socket.isClosed()) {
                     socket.close();
+                    logger.info("Socket closed successfully");
                 }
                 transferThreadPool.shutdown();
+                LoggingManager.logSecurity(logger, "Disconnect complete, transfer thread pool shutdown");
             }
         } catch (IOException e) {
             logger.log(Level.WARNING, "Error during disconnect", e);
@@ -79,10 +86,13 @@ public class Client {
                 connect();
             }
             
+            LoggingManager.logSecurity(logger, "Creating user object with credentials for: " + username);
             this.user = new User(username);
             
+            LoggingManager.logSecurity(logger, "Loading transfer history for user: " + username);
             this.transferHistory = new TransferHistory(username);
             
+            LoggingManager.logSecurity(logger, "Sending authentication request to server");
             sendToServer(user);
             
             Object response = messageQueue.poll(5, TimeUnit.SECONDS);
@@ -91,13 +101,17 @@ public class Client {
                 String msg = (String) response;
                 if (msg.startsWith("LOGIN_SUCCESS") || msg.startsWith("REGISTER_SUCCESS")) {
                     logger.info("Logged in as: " + username);
+                    LoggingManager.logSecurity(logger, "Authentication successful for user: " + username);
                     return true;
+                } else {
+                    LoggingManager.logSecurity(logger, "Authentication failed for user: " + username);
                 }
             }
             
             return false;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error during login", e);
+            LoggingManager.logSecurity(logger, "Exception during authentication: " + e.getMessage());
             return false;
         }
     }
@@ -220,23 +234,32 @@ public class Client {
         try {
             Path path = Paths.get(filePath);
             byte[] fileData = Files.readAllBytes(path);
+            String fileName = path.getFileName().toString();
+            
+            LoggingManager.logTransfer(logger, transferId, "Starting file transfer", 
+                "File: " + fileName + ", Size: " + fileData.length + " bytes");
             
             FileTransferRequest request = activeTransfers.get(transferId);
             if (request == null) {
                 logger.warning("Transfer not found: " + transferId);
+                LoggingManager.logTransfer(logger, transferId, "Transfer aborted", "Transfer request not found");
                 return;
             }
             
+            LoggingManager.logCrypto(logger, "File chunking", "Starting file encryption with chunk size " + CHUNK_SIZE);
             List<SecureMessage> encryptedChunks = new ArrayList<>();
             for (int i = 0; i < fileData.length; i += CHUNK_SIZE) {
                 int chunkSize = Math.min(CHUNK_SIZE, fileData.length - i);
                 byte[] chunk = Arrays.copyOfRange(fileData, i, i + chunkSize);
                 
+                LoggingManager.logCrypto(logger, "Chunk encryption", "Encrypting chunk " + (encryptedChunks.size() + 1) + " of size " + chunkSize);
                 SecureMessage secureChunk = CryptoUtils.encryptChunk(chunk, symmetricKey, user.getHmacKey());
                 encryptedChunks.add(secureChunk);
             }
             
             logger.info("File split into " + encryptedChunks.size() + " encrypted chunks");
+            LoggingManager.logTransfer(logger, transferId, "File prepared", 
+                fileName + " chunked into " + encryptedChunks.size() + " encrypted segments");
             
             Integer startPoint = transferProgress.getOrDefault(transferId, 0);
             
@@ -248,12 +271,17 @@ public class Client {
                     if (Boolean.TRUE.equals(pausedTransfers.get(transferId))) {
                         logger.info("Transfer paused: " + transferId + " at chunk " + i);
                         transferProgress.put(transferId, i);
+                        LoggingManager.logTransfer(logger, transferId, "Transfer paused", 
+                            "Paused at chunk " + i + " of " + encryptedChunks.size());
                         return;
                     }
                     
                     transferProgress.put(transferId, i);
                     
                     SecureMessage chunk = encryptedChunks.get(i);
+                    LoggingManager.logTransfer(logger, transferId, "Sending chunk", 
+                        "Chunk " + i + " of " + encryptedChunks.size());
+                    
                     sendToServer("CHUNK|" + transferId + "|" + i + "|" + encryptedChunks.size());
                     sendToServer(chunk);
                     
@@ -266,15 +294,21 @@ public class Client {
                 }
                 
                 if (!Boolean.TRUE.equals(pausedTransfers.get(transferId))) {
+                    LoggingManager.logTransfer(logger, transferId, "Transfer finishing", "Sending completion notification");
                     sendToServer("TRANSFER_COMPLETE|" + transferId);
                     
                     TransferRecord record = transferHistory.getTransfer(transferId);
                     if (record != null) {
                         record.complete(filePath);
                         transferHistory.updateTransfer(record);
+                        LoggingManager.logTransfer(logger, transferId, "Transfer record updated", 
+                            "Status: Completed, File: " + fileName);
                     }
                     
                     logger.info("File transfer completed: " + transferId);
+                    LoggingManager.logTransfer(logger, transferId, "Transfer completed", 
+                        "All " + encryptedChunks.size() + " chunks of " + fileName + " sent successfully");
+                        
                     if (eventListener != null) {
                         eventListener.onTransferComplete(transferId);
                     }
@@ -287,6 +321,7 @@ public class Client {
             
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error sending file data", e);
+            LoggingManager.logTransfer(logger, transferId, "Transfer error", e.getMessage());
             if (eventListener != null) {
                 eventListener.onTransferError(transferId, "Error sending file: " + e.getMessage());
             }
@@ -295,9 +330,14 @@ public class Client {
     
     private void receiveFileChunk(String transferId, int chunkIndex, int totalChunks, SecureMessage chunk) {
         try {
+            LoggingManager.logTransfer(logger, transferId, "Receiving chunk", 
+                "Chunk " + chunkIndex + " of " + totalChunks);
+                
             FileTransferRequest request = activeTransfers.get(transferId);
             if (request == null) {
                 logger.warning("Transfer not found for chunk: " + transferId);
+                LoggingManager.logTransfer(logger, transferId, "Chunk processing failed", 
+                    "Transfer request not found");
                 return;
             }
             
@@ -378,7 +418,19 @@ public class Client {
             
             // If last chunk, mark as complete
             if (chunkIndex == totalChunks - 1) {
+                // Update transfer record to mark as complete
+                TransferRecord record = transferHistory.getTransfer(transferId);
+                if (record != null) {
+                    record.complete(downloadFile.getAbsolutePath());
+                    transferHistory.updateTransfer(record);
+                    LoggingManager.logTransfer(logger, transferId, "Transfer record updated", 
+                        "Status: Completed, File: " + request.getFileName());
+                }
+                
                 logger.info("File transfer completed: " + request.getFileName());
+                LoggingManager.logTransfer(logger, transferId, "Transfer completed", 
+                    "Successfully received file: " + request.getFileName() + " from " + request.getSenderUsername());
+                
                 if (eventListener != null) {
                     eventListener.onTransferComplete(transferId);
                 }
@@ -573,6 +625,8 @@ public class Client {
                     long fileSize = Long.parseLong(parts[4]);
                     
                     logger.info("Received transfer request: " + fileName + " from " + sender);
+                    LoggingManager.logTransfer(logger, transferId, "Received transfer request", 
+                        "File: " + fileName + ", From: " + sender + ", Size: " + fileSize + " bytes");
 
                     FileTransferRequest prelimRequest = new FileTransferRequest(
                         sender,
@@ -585,7 +639,11 @@ public class Client {
                     );
                     
                     activeTransfers.put(transferId, prelimRequest);
+                    
+                    if (eventListener != null) {
+                        eventListener.onTransferStarting(transferId, fileName);
                     }
+                }
                 break;
                 
             case "CHUNK":
@@ -608,8 +666,29 @@ public class Client {
             case "TRANSFER_COMPLETE":
                 if (parts.length >= 2) {
                     String transferId = parts[1];
-                    activeTransfers.remove(transferId);
-                    logger.info("Transfer completed: " + transferId);
+                    FileTransferRequest request = activeTransfers.remove(transferId);
+                    
+                    TransferRecord record = transferHistory.getTransfer(transferId);
+                    if (record != null && record.getStatus() != TransferRecord.TransferStatus.COMPLETED) {
+                        record.complete(null); // Will use default path
+                        transferHistory.updateTransfer(record);
+                        
+                        String fileName = (request != null) ? request.getFileName() : 
+                                        (record != null) ? record.getFileName() : "unknown";
+                                        
+                        String sender = (request != null) ? request.getSenderUsername() : 
+                                       (record != null) ? record.getSenderUsername() : "unknown";
+                                       
+                        String receiver = (request != null) ? request.getReceiverUsername() : 
+                                         (record != null) ? record.getReceiverUsername() : "unknown";
+                        
+                        LoggingManager.logTransfer(logger, transferId, "Transfer completed",
+                            "File: " + fileName + ", From: " + sender + ", To: " + receiver);
+                        
+                        logger.info("Transfer completed: " + fileName);
+                    } else {
+                        logger.info("Transfer completed: " + transferId);
+                    }
                 }
                 break;
                 
@@ -719,10 +798,15 @@ public class Client {
         }
     }
     
+    public TransferHistory getTransferHistory() {
+        return transferHistory;
+    }
+    
     public interface ClientEventListener {
         void onUserListUpdated(List<User> users);
         void onUserStatusChange(String username, boolean online);
         void onFileTransferRequest(FileTransferRequest request);
+        void onTransferStarting(String transferId, String fileName);
         void onTransferProgress(String transferId, int progress);
         void onTransferComplete(String transferId);
         void onTransferError(String transferId, String error);

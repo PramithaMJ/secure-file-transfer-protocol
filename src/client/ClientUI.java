@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.*;
 
 public class ClientUI extends JFrame implements Client.ClientEventListener {
-    private static final Logger logger = Logger.getLogger(ClientUI.class.getName());
+    private static final Logger logger = LoggingManager.getLogger(ClientUI.class.getName());
     
     private Client client;
     private String serverAddress = "localhost";
@@ -351,10 +351,30 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     public void onTransferComplete(String transferId) {
         SwingUtilities.invokeLater(() -> {
             String fileName = activeTransfers.remove(transferId);
+            
+            if (fileName == null && client != null) {
+                TransferHistory history = client.getTransferHistory();
+                if (history != null) {
+                    TransferRecord record = history.getTransfer(transferId);
+                    if (record != null) {
+                        fileName = record.getFileName() + " (" + 
+                                  (record.getSenderUsername().equals(client.getCurrentUser().getUsername()) ?
+                                   "to " + record.getReceiverUsername() :
+                                   "from " + record.getSenderUsername()) + ")";
+                    }
+                }
+            }
+            
+            if (fileName == null) {
+                fileName = "unknown file";
+            }
+            
             log("File transfer completed: " + fileName);
             updateStatus("File transfer completed");
             transferProgress.setValue(0);
             transferProgress.setString("Transfer complete");
+            
+            refreshTransferHistoryPanel();
         });
     }
     
@@ -410,6 +430,16 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
         });
     }
     
+    @Override
+    public void onTransferStarting(String transferId, String fileName) {
+        SwingUtilities.invokeLater(() -> {
+            activeTransfers.put(transferId, fileName);
+            transferProgress.setValue(0);
+            transferProgress.setString("Starting transfer: " + fileName);
+            log("Starting file transfer: " + fileName);
+        });
+    }
+    
     private void pauseCurrentTransfer() {
         if (currentTransferId != null) {
             if (client.pauseTransfer(currentTransferId)) {
@@ -434,24 +464,35 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
         }
     }
     
+    private void refreshTransferHistoryPanel() {
+        if (client != null && client.isConnected()) {
+            Component comp = ((JSplitPane)getContentPane().getComponent(1)).getRightComponent();
+            if (comp instanceof JTabbedPane) {
+                JTabbedPane tabs = (JTabbedPane)comp;
+                Component historyTab = tabs.getComponentAt(1);
+                if (historyTab instanceof TransferHistoryPanel) {
+                    ((TransferHistoryPanel)historyTab).refresh();
+                }
+            }
+        }
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            Handler fileHandler = new FileHandler("client.log");
-            fileHandler.setFormatter(new SimpleFormatter());
-            Logger.getLogger("").addHandler(fileHandler);
-            Logger.getLogger("").setLevel(Level.INFO);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        // Initialize our custom logging
+        LoggingManager.initialize();
+        Logger logger = LoggingManager.getLogger(ClientUI.class.getName());
+        logger.info("Starting Secure File Transfer Client application");
         
         SwingUtilities.invokeLater(() -> {
             ClientUI ui = new ClientUI();
             ui.setVisible(true);
+            logger.info("Client UI initialized and displayed");
         });
     }
 }

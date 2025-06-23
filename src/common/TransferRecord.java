@@ -38,7 +38,11 @@ public class TransferRecord implements Serializable {
     public void complete(String filePath) {
         this.status = TransferStatus.COMPLETED;
         this.completionTime = new Date();
-        this.filePath = filePath;
+        if (filePath != null) {
+            this.filePath = filePath;
+        } else if (this.filePath == null) {
+            this.filePath = "downloads/" + this.fileName;
+        }
     }
     
     public void fail() {
