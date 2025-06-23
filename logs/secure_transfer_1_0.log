@@ -1,35 +1,14 @@
-2025-06-23 11:49:19.253 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 11:49:19.290 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 11:49:19.715 INFO [client.ClientUI lambda$main$20] Client UI initialized and displayed
-2025-06-23 11:49:31.413 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 11:49:31.415 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 11:49:31.415 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Jayasooriya
-2025-06-23 11:49:31.582 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Jayasooriya
-2025-06-23 11:49:31.594 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 11:49:31.599 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
-2025-06-23 11:49:31.599 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 11:49:31.601 INFO [client.Client login] Logged in as: Jayasooriya
-2025-06-23 11:49:31.602 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Jayasooriya
-2025-06-23 11:49:31.604 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 11:49:31.604 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
-2025-06-23 11:49:54.755 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
-2025-06-23 11:49:54.758 INFO [client.Client disconnect] Socket closed successfully
-2025-06-23 11:49:54.758 WARNING [client.Client processServerMessages] Error processing server messages
-java.net.SocketException: Socket closed
-	at java.base/java.net.SocketInputStream.socketRead0(Native Method)
-	at java.base/java.net.SocketInputStream.socketRead(SocketInputStream.java:115)
-	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:168)
-	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:140)
-	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:200)
-	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2871)
-	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3198)
-	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3208)
-	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1855)
-	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2201)
-	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1687)
-	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:489)
-	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:447)
-	at client.Client.processServerMessages(Client.java:457)
-	at java.base/java.lang.Thread.run(Thread.java:829)
-
-2025-06-23 11:49:54.759 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
+2025-06-23 12:03:54.361 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-23 12:03:54.394 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-23 12:03:54.818 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
+2025-06-23 12:06:14.670 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-23 12:06:14.672 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-23 12:06:14.673 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Jayasooriya
+2025-06-23 12:06:14.902 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Jayasooriya
+2025-06-23 12:06:14.914 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
+2025-06-23 12:06:14.919 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-06-23 12:06:14.920 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-23 12:06:14.923 INFO [client.Client login] Logged in as: Jayasooriya
+2025-06-23 12:06:14.923 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Jayasooriya
+2025-06-23 12:06:14.927 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
+2025-06-23 12:06:14.927 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha

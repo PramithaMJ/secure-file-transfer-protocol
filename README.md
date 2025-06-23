@@ -32,6 +32,12 @@ This project implements a secure file transfer protocol that ensures confidentia
 
 ### Building the Project
 
+Buld with Java 11
+
+```bas
+cd "/Secure file transfer protocol" && rm -rf build && mkdir -p build && javac -source 11 -target 11 -d build src/common/*.java src/client/*.java src/server/*.java
+```
+
 ```bash
 # Compile all Java files
 cd "Secure file transfer protocol"

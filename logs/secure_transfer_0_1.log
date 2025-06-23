@@ -1,113 +1,33 @@
-2025-06-23 11:45:45.898 INFO [common.LoggingManager initialize] Loaded logging configuration from /Users/pramithajayasooriya/Developer/Secure file transfer protocol/resources/logging.properties
-2025-06-23 11:45:45.948 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 11:45:45.949 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 11:45:46.841 INFO [client.ClientUI lambda$main$20] Client UI initialized and displayed
-2025-06-23 11:46:32.490 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 11:46:32.492 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 11:46:32.493 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
-2025-06-23 11:46:32.670 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
-2025-06-23 11:46:32.674 INFO [client.TransferHistory loadHistory] No history file found for user Pramitha at data/Pramitha_transfer_history.dat
-2025-06-23 11:46:32.674 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 11:46:32.684 INFO [client.Client login] Logged in as: Pramitha
-2025-06-23 11:46:32.684 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
-2025-06-23 11:46:32.685 INFO [client.TransferHistory loadHistory] No history file found for user Pramitha at data/Pramitha_transfer_history.dat
-2025-06-23 11:47:18.047 INFO [client.Client initiateFileTransfer] Using public key of receiver: Jayasooriya
-2025-06-23 11:47:18.096 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
-2025-06-23 11:47:18.105 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Saved transfer record: File: architecture.pdf, Status: IN_PROGRESS, From: Pramitha, To: Jayasooriya
-2025-06-23 11:47:18.110 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Starting file transfer: File: architecture.pdf, Size: 138637 bytes
-2025-06-23 11:47:18.111 FINE [common.LoggingManager logCrypto] [CRYPTO] File chunking: Starting file encryption with chunk size 4096
-2025-06-23 11:47:18.114 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 1 of size 4096
-2025-06-23 11:47:18.120 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 2 of size 4096
-2025-06-23 11:47:18.121 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 3 of size 4096
-2025-06-23 11:47:18.122 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 4 of size 4096
-2025-06-23 11:47:18.123 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 5 of size 4096
-2025-06-23 11:47:18.124 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 6 of size 4096
-2025-06-23 11:47:18.124 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 7 of size 4096
-2025-06-23 11:47:18.125 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 8 of size 4096
-2025-06-23 11:47:18.125 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 9 of size 4096
-2025-06-23 11:47:18.126 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 10 of size 4096
-2025-06-23 11:47:18.126 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 11 of size 4096
-2025-06-23 11:47:18.127 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 12 of size 4096
-2025-06-23 11:47:18.127 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 13 of size 4096
-2025-06-23 11:47:18.128 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 14 of size 4096
-2025-06-23 11:47:18.128 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 15 of size 4096
-2025-06-23 11:47:18.129 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 16 of size 4096
-2025-06-23 11:47:18.129 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 17 of size 4096
-2025-06-23 11:47:18.130 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 18 of size 4096
-2025-06-23 11:47:18.130 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 19 of size 4096
-2025-06-23 11:47:18.131 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 20 of size 4096
-2025-06-23 11:47:18.131 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 21 of size 4096
-2025-06-23 11:47:18.131 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 22 of size 4096
-2025-06-23 11:47:18.132 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 23 of size 4096
-2025-06-23 11:47:18.132 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 24 of size 4096
-2025-06-23 11:47:18.136 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 25 of size 4096
-2025-06-23 11:47:18.136 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 26 of size 4096
-2025-06-23 11:47:18.137 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 27 of size 4096
-2025-06-23 11:47:18.137 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 28 of size 4096
-2025-06-23 11:47:18.137 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 29 of size 4096
-2025-06-23 11:47:18.138 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 30 of size 4096
-2025-06-23 11:47:18.138 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 31 of size 4096
-2025-06-23 11:47:18.138 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 32 of size 4096
-2025-06-23 11:47:18.138 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 33 of size 4096
-2025-06-23 11:47:18.139 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 34 of size 3469
-2025-06-23 11:47:18.139 INFO [client.Client sendFileData] File split into 34 encrypted chunks
-2025-06-23 11:47:18.142 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] File prepared: architecture.pdf chunked into 34 encrypted segments
-2025-06-23 11:47:18.142 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 0 of 34
-2025-06-23 11:47:18.160 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 1 of 34
-2025-06-23 11:47:18.172 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 2 of 34
-2025-06-23 11:47:18.185 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 3 of 34
-2025-06-23 11:47:18.200 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 4 of 34
-2025-06-23 11:47:18.213 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 5 of 34
-2025-06-23 11:47:18.226 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 6 of 34
-2025-06-23 11:47:18.239 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 7 of 34
-2025-06-23 11:47:18.249 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 8 of 34
-2025-06-23 11:47:18.262 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 9 of 34
-2025-06-23 11:47:18.275 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 10 of 34
-2025-06-23 11:47:18.288 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 11 of 34
-2025-06-23 11:47:18.301 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 12 of 34
-2025-06-23 11:47:18.313 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 13 of 34
-2025-06-23 11:47:18.325 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 14 of 34
-2025-06-23 11:47:18.337 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 15 of 34
-2025-06-23 11:47:18.350 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 16 of 34
-2025-06-23 11:47:18.363 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 17 of 34
-2025-06-23 11:47:18.375 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 18 of 34
-2025-06-23 11:47:18.388 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 19 of 34
-2025-06-23 11:47:18.400 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 20 of 34
-2025-06-23 11:47:18.412 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 21 of 34
-2025-06-23 11:47:18.425 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 22 of 34
-2025-06-23 11:47:18.438 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 23 of 34
-2025-06-23 11:47:18.451 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 24 of 34
-2025-06-23 11:47:18.464 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 25 of 34
-2025-06-23 11:47:18.477 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 26 of 34
-2025-06-23 11:47:18.490 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 27 of 34
-2025-06-23 11:47:18.502 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 28 of 34
-2025-06-23 11:47:18.515 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 29 of 34
-2025-06-23 11:47:18.526 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 30 of 34
-2025-06-23 11:47:18.537 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 31 of 34
-2025-06-23 11:47:18.548 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 32 of 34
-2025-06-23 11:47:18.561 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Sending chunk: Chunk 33 of 34
-2025-06-23 11:47:18.574 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Transfer finishing: Sending completion notification
-2025-06-23 11:47:18.576 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
-2025-06-23 11:47:18.576 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Saved transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
-2025-06-23 11:47:18.576 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Transfer record updated: Status: Completed, File: architecture.pdf
-2025-06-23 11:47:18.576 INFO [client.Client sendFileData] File transfer completed: 5a11da13-6931-4939-8172-7b1d673de1cd
-2025-06-23 11:47:18.578 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Transfer completed: All 34 chunks of architecture.pdf sent successfully
-2025-06-23 11:47:53.063 INFO [client.Client processStringMessage] Received transfer request: Lab 1 - Pramitha.pdf from Jayasooriya
-2025-06-23 11:47:53.067 INFO [client.Client processMessage] Updating existing transfer request with ID: 698c910c-06c7-4bdf-aea8-1bf790802301
-2025-06-23 11:47:53.067 INFO [client.Client processMessage] Storing transfer request with ID: 698c910c-06c7-4bdf-aea8-1bf790802301
-2025-06-23 11:47:53.095 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 0 of 10
-2025-06-23 11:47:53.111 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 1 of 10
-2025-06-23 11:47:53.118 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 2 of 10
-2025-06-23 11:47:53.131 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 3 of 10
-2025-06-23 11:47:53.144 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 4 of 10
-2025-06-23 11:47:53.158 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 5 of 10
-2025-06-23 11:47:53.171 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 6 of 10
-2025-06-23 11:47:53.184 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 7 of 10
-2025-06-23 11:47:53.197 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 8 of 10
-2025-06-23 11:47:53.210 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Receiving chunk: Chunk 9 of 10
-2025-06-23 11:47:53.213 INFO [client.Client receiveFileChunk] File transfer completed: Lab 1 - Pramitha.pdf
-2025-06-23 11:47:53.213 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Transfer completed: Successfully received file: Lab 1 - Pramitha.pdf from Jayasooriya
-2025-06-23 11:47:53.223 INFO [client.Client processStringMessage] Transfer completed: 698c910c-06c7-4bdf-aea8-1bf790802301
-2025-06-23 11:48:12.071 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
-2025-06-23 11:48:12.074 INFO [client.Client disconnect] Socket closed successfully
-2025-06-23 11:48:12.075 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
+2025-06-23 11:49:15.426 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-23 11:49:15.480 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-23 11:49:16.322 INFO [client.ClientUI lambda$main$20] Client UI initialized and displayed
+2025-06-23 11:49:25.600 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-23 11:49:25.601 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-23 11:49:25.601 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
+2025-06-23 11:49:25.913 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
+2025-06-23 11:49:25.922 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-06-23 11:49:25.930 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 11:49:25.931 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-23 11:49:25.945 INFO [client.Client login] Logged in as: Pramitha
+2025-06-23 11:49:25.945 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
+2025-06-23 11:49:25.947 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-06-23 11:49:25.947 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 11:49:56.755 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
+2025-06-23 11:49:56.757 INFO [client.Client disconnect] Socket closed successfully
+2025-06-23 11:49:56.758 WARNING [client.Client processServerMessages] Error processing server messages
+java.net.SocketException: Socket closed
+	at java.base/java.net.SocketInputStream.socketRead0(Native Method)
+	at java.base/java.net.SocketInputStream.socketRead(SocketInputStream.java:115)
+	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:168)
+	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:140)
+	at java.base/java.net.SocketInputStream.read(SocketInputStream.java:200)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2871)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3198)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3208)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1638)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:489)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:447)
+	at client.Client.processServerMessages(Client.java:457)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+2025-06-23 11:49:56.758 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
