@@ -175,7 +175,11 @@ public class Client {
             
             SecretKey symmetricKey = CryptoUtils.generateSymmetricKey();
             
-            byte[] encryptedSymmetricKey = CryptoUtils.encryptSymmetricKey(symmetricKey, receiverPublicKey);
+            // Encrypt symmetric key with receiver's public key
+            byte[] encryptedSymmetricKey = CryptoUtils.encryptKey(symmetricKey, receiverPublicKey);
+            
+            // Encrypt HMAC key with receiver's public key for integrity verification
+            byte[] encryptedHmacKey = CryptoUtils.encryptKey(user.getHmacKey(), receiverPublicKey);
             
             FileTransferRequest request = new FileTransferRequest(
                 user.getUsername(),
@@ -183,6 +187,7 @@ public class Client {
                 fileName,
                 fileSize,
                 encryptedSymmetricKey,
+                encryptedHmacKey,
                 FileTransferRequest.RequestType.INITIATE_TRANSFER
             );
             
@@ -317,9 +322,10 @@ public class Client {
             
             SecretKey symmetricKey;
             try {
-                symmetricKey = CryptoUtils.decryptSymmetricKey(
+                symmetricKey = CryptoUtils.decryptKey(
                     request.getEncryptedSymmetricKey(), 
-                    user.getPrivateKey()
+                    user.getPrivateKey(),
+                    CryptoUtils.AES_ALGORITHM
                 );
             } catch (javax.crypto.BadPaddingException e) {
                 logger.warning("Cannot decrypt the symmetric key, possibly wrong public key was used: " + e.getMessage());
@@ -329,7 +335,28 @@ public class Client {
                 return;
             }
             
-            if (!CryptoUtils.verifyIntegrity(chunk, user.getHmacKey())) {
+            // Decrypt the HMAC key first
+            SecretKey senderHmacKey = null;
+            if (request.getEncryptedHmacKey() != null) {
+                try {
+                    senderHmacKey = CryptoUtils.decryptKey(
+                        request.getEncryptedHmacKey(),
+                        user.getPrivateKey(),
+                        CryptoUtils.HMAC_ALGORITHM
+                    );
+                } catch (Exception e) {
+                    logger.warning("Cannot decrypt the HMAC key: " + e.getMessage());
+                    if (eventListener != null) {
+                        eventListener.onTransferError(transferId, "Cannot decrypt the HMAC key: " + e.getMessage());
+                    }
+                    return;
+                }
+            }
+            
+            // Use sender's HMAC key for integrity verification if available, otherwise fallback to receiver's key
+            SecretKey hmacKeyToUse = (senderHmacKey != null) ? senderHmacKey : user.getHmacKey();
+            
+            if (!CryptoUtils.verifyIntegrity(chunk, hmacKeyToUse)) {
                 logger.warning("Integrity check failed for chunk: " + chunkIndex);
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Integrity check failed for chunk: " + chunkIndex);
@@ -434,6 +461,7 @@ public class Client {
                     }
                 }
             } else if (message instanceof SecureMessage) {
+                logger.info("Received secure message directly");
             }
         } catch (Exception e) {
             logger.log(Level.WARNING, "Error processing message", e);
@@ -552,6 +580,7 @@ public class Client {
                         fileName,
                         fileSize,
                         null,
+                        null,
                         FileTransferRequest.RequestType.INITIATE_TRANSFER
                     );
                     
@@ -620,6 +649,7 @@ public class Client {
                 request.getFileName(),
                 request.getFileSize(),
                 request.getEncryptedSymmetricKey(),
+                request.getEncryptedHmacKey(),
                 FileTransferRequest.RequestType.PAUSE_TRANSFER
             );
             
@@ -659,6 +689,7 @@ public class Client {
                 request.getFileName(),
                 request.getFileSize(),
                 request.getEncryptedSymmetricKey(),
+                request.getEncryptedHmacKey(),
                 FileTransferRequest.RequestType.RESUME_TRANSFER
             );
             

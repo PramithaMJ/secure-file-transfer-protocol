@@ -27,23 +27,22 @@ public class CryptoUtils {
     
     /**
      * Encrypt a symmetric key with recipient's public key
+     * @deprecated Use encryptKey instead
      */
+    @Deprecated
     public static byte[] encryptSymmetricKey(SecretKey symmetricKey, PublicKey recipientPublicKey) 
             throws Exception {
-        Cipher rsaCipher = Cipher.getInstance(RSA_TRANSFORMATION);
-        rsaCipher.init(Cipher.ENCRYPT_MODE, recipientPublicKey);
-        return rsaCipher.doFinal(symmetricKey.getEncoded());
+        return encryptKey(symmetricKey, recipientPublicKey);
     }
     
     /**
      * Decrypt a symmetric key with user's private key
+     * @deprecated Use decryptKey instead
      */
+    @Deprecated
     public static SecretKey decryptSymmetricKey(byte[] encryptedKey, PrivateKey privateKey) 
             throws Exception {
-        Cipher rsaCipher = Cipher.getInstance(RSA_TRANSFORMATION);
-        rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] keyBytes = rsaCipher.doFinal(encryptedKey);
-        return new SecretKeySpec(keyBytes, AES_ALGORITHM);
+        return decryptKey(encryptedKey, privateKey, AES_ALGORITHM);
     }
     
     /**
@@ -113,5 +112,28 @@ public class CryptoUtils {
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
         return keyFactory.generatePublic(keySpec);
+    }
+    
+    /**
+     * Encrypt any key with recipient's public key
+     * This is a more generic version that can be used for both symmetric and HMAC keys
+     */
+    public static byte[] encryptKey(Key key, PublicKey recipientPublicKey) 
+            throws Exception {
+        Cipher rsaCipher = Cipher.getInstance(RSA_TRANSFORMATION);
+        rsaCipher.init(Cipher.ENCRYPT_MODE, recipientPublicKey);
+        return rsaCipher.doFinal(key.getEncoded());
+    }
+    
+    /**
+     * Decrypt any kind of key with user's private key
+     * This is a more generic version that can be used for both symmetric and HMAC keys
+     */
+    public static SecretKey decryptKey(byte[] encryptedKey, PrivateKey privateKey, String algorithm) 
+            throws Exception {
+        Cipher rsaCipher = Cipher.getInstance(RSA_TRANSFORMATION);
+        rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
+        byte[] keyBytes = rsaCipher.doFinal(encryptedKey);
+        return new SecretKeySpec(keyBytes, algorithm);
     }
 }

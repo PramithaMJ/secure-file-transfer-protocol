@@ -10,6 +10,7 @@ public class FileTransferRequest implements Serializable {
     private String fileName;
     private long fileSize;
     private byte[] encryptedSymmetricKey;
+    private byte[] encryptedHmacKey;
     private RequestType type;
     
     public enum RequestType {
@@ -24,11 +25,17 @@ public class FileTransferRequest implements Serializable {
     
     public FileTransferRequest(String senderUsername, String receiverUsername, String fileName, 
                              long fileSize, byte[] encryptedSymmetricKey, RequestType type) {
+        this(senderUsername, receiverUsername, fileName, fileSize, encryptedSymmetricKey, null, type);
+    }
+    
+    public FileTransferRequest(String senderUsername, String receiverUsername, String fileName, 
+                             long fileSize, byte[] encryptedSymmetricKey, byte[] encryptedHmacKey, RequestType type) {
         this.senderUsername = senderUsername;
         this.receiverUsername = receiverUsername;
         this.fileName = fileName;
         this.fileSize = fileSize;
         this.encryptedSymmetricKey = encryptedSymmetricKey;
+        this.encryptedHmacKey = encryptedHmacKey;
         this.type = type;
     }
     
@@ -52,6 +59,10 @@ public class FileTransferRequest implements Serializable {
         return encryptedSymmetricKey;
     }
     
+    public byte[] getEncryptedHmacKey() {
+        return encryptedHmacKey;
+    }
+    
     public RequestType getType() {
         return type;
     }
@@ -68,6 +79,8 @@ public class FileTransferRequest implements Serializable {
                 ", fileName='" + fileName + '\'' +
                 ", fileSize=" + fileSize +
                 ", type=" + type +
+                ", hasSymmetricKey=" + (encryptedSymmetricKey != null) +
+                ", hasHmacKey=" + (encryptedHmacKey != null) +
                 '}';
     }
 }
