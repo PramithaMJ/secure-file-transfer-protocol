@@ -32,15 +32,14 @@ public class CryptoUtils {
     // Cleanup service for old nonces
     private static final ScheduledExecutorService cleanupExecutor = Executors.newSingleThreadScheduledExecutor(r -> {
         Thread t = new Thread(r, "NonceCleanup");
-        t.setDaemon(true); // Don't prevent JVM shutdown
+        t.setDaemon(true);
         return t;
     });
     
     static {
-        // Start automatic cleanup of old nonces every minute
+        // Start automatic cleanup of old nonces
         cleanupExecutor.scheduleAtFixedRate(() -> cleanupOldNonces(), 1, 1, TimeUnit.MINUTES);
         
-        // Add shutdown hook to cleanup resources
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             cleanupExecutor.shutdown();
             try {
@@ -95,7 +94,7 @@ public class CryptoUtils {
         if (chunk.length == 0) {
             throw new IllegalArgumentException("Chunk cannot be empty");
         }
-        if (chunk.length > CHUNK_SIZE * 2) { // Allow some flexibility but prevent huge chunks
+        if (chunk.length > CHUNK_SIZE * 2) {
             throw new IllegalArgumentException("Chunk size exceeds maximum allowed size: " + chunk.length);
         }
         
@@ -109,15 +108,15 @@ public class CryptoUtils {
         aesCipher.init(Cipher.ENCRYPT_MODE, symmetricKey, ivSpec);
         byte[] encryptedChunk = aesCipher.doFinal(chunk);
 
-        // Generate timestamp and cryptographically strong nonce for replay protection
-        long timestamp = System.currentTimeMillis(); // Use System.currentTimeMillis() for better precision
+        // Generate timestamp and cryptographically nonce for replay protection
+        long timestamp = System.currentTimeMillis();
         String nonce = generateSecureNonce();
 
         // Calculate HMAC for integrity
         Mac hmac = Mac.getInstance(HMAC_ALGORITHM);
         hmac.init(hmacKey);
 
-        // HMAC over encrypted data + IV + timestamp + nonce (use UTF-8 encoding)
+        // HMAC over encrypted data + IV + timestamp + nonce ( UTF-8 encoding)
         hmac.update(encryptedChunk);
         hmac.update(iv);
         hmac.update(String.valueOf(timestamp).getBytes("UTF-8"));
@@ -174,8 +173,7 @@ public class CryptoUtils {
         // Create composite key to avoid nonce collisions across different timestamps
         String nonceKey = message.nonce + ":" + message.timestamp;
         Long existingTimestamp = usedNonces.get(nonceKey);
-        if (existingTimestamp != null) {
-            // Nonce already used - replay attack detected!
+        if (existingTimestamp != null) {    
             LoggingManager.logSecurity(logger, "SECURITY ALERT: Replay attack detected! Duplicate nonce: " + message.nonce);
             return false;
         }
@@ -194,18 +192,13 @@ public class CryptoUtils {
         boolean macValid = MessageDigest.isEqual(computedMac, message.mac);
         
         // 4. ANTI-REPLAY: Only add nonce to used set if MAC is valid
-        // This prevents attackers from filling our nonce cache with invalid messages
         if (macValid) {
             usedNonces.put(nonceKey, currentTime);
-            
-            // Log successful verification for audit trail
             LoggingManager.logSecurity(logger, "Message integrity verified successfully. Nonce: " + message.nonce.substring(0, 8) + "...");
         } else {
-            // Log failed MAC verification
             LoggingManager.logSecurity(logger, "SECURITY ALERT: MAC verification failed for message with nonce: " + 
                                      message.nonce.substring(0, 8) + "...");
         }
-        
         return macValid;
     }
     
@@ -217,7 +210,7 @@ public class CryptoUtils {
     
     /**
      * Encrypt any key with recipient's public key
-     * This is a more generic version that can be used for both symmetric and HMAC keys
+     * Used for both symmetric and HMAC keys
      */
     public static byte[] encryptKey(Key key, PublicKey recipientPublicKey) 
             throws Exception {
@@ -228,7 +221,7 @@ public class CryptoUtils {
     
     /**
      * Decrypt any kind of key with user's private key
-     * This is a more generic version that can be used for both symmetric and HMAC keys
+     * Used for both symmetric and HMAC keys
      */
     public static SecretKey decryptKey(byte[] encryptedKey, PrivateKey privateKey, String algorithm) 
             throws Exception {
@@ -253,7 +246,7 @@ public class CryptoUtils {
             List<Map.Entry<String, Long>> sortedEntries = new ArrayList<>(usedNonces.entrySet());
             sortedEntries.sort(Map.Entry.comparingByValue());
             
-            int toRemove = usedNonces.size() - (MAX_NONCE_CACHE_SIZE * 3 / 4); // Keep 75% of max size
+            int toRemove = usedNonces.size() - (MAX_NONCE_CACHE_SIZE * 3 / 4); // 75% max size
             for (int i = 0; i < toRemove && i < sortedEntries.size(); i++) {
                 usedNonces.remove(sortedEntries.get(i).getKey());
             }
@@ -268,7 +261,6 @@ public class CryptoUtils {
         byte[] nonceBytes = new byte[16];
         SecureRandom.getInstanceStrong().nextBytes(nonceBytes);
         
-        // Convert to hex string for better readability and consistency
         StringBuilder sb = new StringBuilder();
         for (byte b : nonceBytes) {
             sb.append(String.format("%02x", b));
@@ -276,7 +268,7 @@ public class CryptoUtils {
         return sb.toString();
     }
     
-    // ==================== ANTI-REPLAY UTILITY METHODS ====================
+    // ANTI-REPLAY
     
     /**
      * Get the number of tracked nonces (for testing and monitoring)
@@ -286,7 +278,7 @@ public class CryptoUtils {
     }
     
     /**
-     * Clear all tracked nonces (for testing purposes only)
+     * Clear all tracked nonces (for testing)
      * WARNING: Only use this in test environments
      */
     public static void clearNonceCache() {
@@ -295,7 +287,7 @@ public class CryptoUtils {
     }
     
     /**
-     * Force cleanup of old nonces (for testing and manual maintenance)
+     * Force cleanup of old nonces (for testing)
      */
     public static void forceNonceCleanup() {
         int sizeBefore = usedNonces.size();
@@ -305,7 +297,7 @@ public class CryptoUtils {
     }
     
     /**
-     * Check if a nonce has been used (for testing and security monitoring)
+     * Check if a nonce has been used (for testing)
      */
     public static boolean isNonceUsed(String nonce, long timestamp) {
         String nonceKey = nonce + ":" + timestamp;
@@ -313,14 +305,14 @@ public class CryptoUtils {
     }
     
     /**
-     * Get maximum message age in milliseconds (for configuration)
+     * Get maximum message age in milliseconds
      */
     public static long getMaxMessageAge() {
         return MAX_MESSAGE_AGE_MS;
     }
     
     /**
-     * Shutdown the cleanup executor (call during application shutdown)
+     * Shutdown the cleanup executor
      */
     public static void shutdown() {
         LoggingManager.logSecurity(logger, "ADMIN: Shutting down CryptoUtils cleanup service");
