@@ -1,6 +1,5 @@
 package server;
 
-import common.*;
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
