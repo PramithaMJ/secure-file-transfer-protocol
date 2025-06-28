@@ -8,6 +8,8 @@ import java.security.*;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.crypto.*;
 import javax.swing.SwingUtilities;
 
@@ -35,6 +37,10 @@ public class Client {
     private TransferHistory transferHistory;
     
     private ClientEventListener eventListener;
+    
+    // Session management fields
+    private String sessionToken;
+    private Timer sessionRefreshTimer;
     
     public Client(String serverAddress, int serverPort) {
         this.serverAddress = serverAddress;
@@ -70,6 +76,11 @@ public class Client {
                 LoggingManager.logSecurity(logger, "Initiating secure disconnect from server");
                 sendToServer("DISCONNECT");
                 connected = false;
+                
+                // Clean up session on disconnect
+                sessionToken = null;
+                stopSessionRefreshTimer();
+                
                 if (socket != null && !socket.isClosed()) {
                     socket.close();
                     logger.info("Socket closed successfully");
@@ -102,6 +113,17 @@ public class Client {
             if (response instanceof String) {
                 String msg = (String) response;
                 if (msg.startsWith("LOGIN_SUCCESS") || msg.startsWith("REGISTER_SUCCESS")) {
+                    // Parse session token from response
+                    String[] parts = msg.split("\\|");
+                    if (parts.length >= 3) {
+                        sessionToken = parts[2];
+                        LoggingManager.logSecurity(logger, "Session token received: " + 
+                                                 sessionToken.substring(0, 8) + "...");
+                        
+                        // Start session refresh timer
+                        startSessionRefreshTimer();
+                    }
+                    
                     logger.info("Logged in as: " + username);
                     LoggingManager.logSecurity(logger, "Authentication successful for user: " + username);
                     return true;
@@ -121,8 +143,18 @@ public class Client {
     public void logout() {
         try {
             if (connected && user != null) {
-                sendToServer("LOGOUT");
+                if (sessionToken != null) {
+                    sendToServer("LOGOUT|" + sessionToken);
+                } else {
+                    sendToServer("LOGOUT");
+                }
+                
+                // Clean up session
+                sessionToken = null;
+                stopSessionRefreshTimer();
+                
                 user = null;
+                LoggingManager.logSecurity(logger, "User logged out, session terminated");
             }
         } catch (IOException e) {
             logger.log(Level.WARNING, "Error during logout", e);
@@ -687,6 +719,32 @@ public class Client {
                 messageQueue.offer(message);
                 break;
                 
+            case "SESSION_EXPIRED":
+                LoggingManager.logSecurity(logger, "Session expired notification received");
+                sessionToken = null;
+                stopSessionRefreshTimer();
+                
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    if (eventListener != null) {
+                        eventListener.onSessionExpired();
+                    }
+                });
+                break;
+                
+            case "SESSION_WARNING":
+                LoggingManager.logSecurity(logger, "Session expiration warning received");
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    if (eventListener != null) {
+                        eventListener.onSessionWarning(parts.length > 1 ? parts[1] : 
+                                                      "Your session will expire soon due to inactivity.");
+                    }
+                });
+                break;
+                
+            case "SESSION_REFRESHED":
+                LoggingManager.logSecurity(logger, "Session refresh acknowledged by server");
+                break;
+                
             case "PAUSE_TRANSFER":
                 if (parts.length >= 2) {
                     String transferId = parts[1];
@@ -1050,6 +1108,50 @@ public class Client {
         }
     }
     
+    /**
+     * Start session refresh timer to keep session active
+     */
+    private void startSessionRefreshTimer() {
+        if (sessionRefreshTimer != null) {
+            sessionRefreshTimer.cancel();
+        }
+        
+        sessionRefreshTimer = new Timer(true);
+        sessionRefreshTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                refreshSession();
+            }
+        }, 10 * 60 * 1000, 10 * 60 * 1000); // Every 10 minutes
+        
+        LoggingManager.logSecurity(logger, "Session refresh timer started");
+    }
+    
+    /**
+     * Refresh the current session
+     */
+    private void refreshSession() {
+        if (sessionToken != null && isConnected()) {
+            try {
+                sendToServer("REFRESH_SESSION|" + sessionToken);
+                LoggingManager.logSecurity(logger, "Session refreshed");
+            } catch (Exception e) {
+                logger.warning("Failed to refresh session: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Stop session refresh timer
+     */
+    private void stopSessionRefreshTimer() {
+        if (sessionRefreshTimer != null) {
+            sessionRefreshTimer.cancel();
+            sessionRefreshTimer = null;
+            LoggingManager.logSecurity(logger, "Session refresh timer stopped");
+        }
+    }
+    
     public interface ClientEventListener {
         void onUserListUpdated(List<User> users);
         void onUserStatusChange(String username, boolean online);
@@ -1062,5 +1164,9 @@ public class Client {
         void onError(String error);
         void onTransferPaused(String transferId);
         void onTransferResumed(String transferId);
+        
+        // Session management events
+        void onSessionExpired();
+        void onSessionWarning(String message);
     }
 }

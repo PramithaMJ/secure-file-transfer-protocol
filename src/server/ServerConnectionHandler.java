@@ -9,20 +9,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServerConnectionHandler implements Runnable {
-    private static final Logger logger = Logger.getLogger(ServerConnectionHandler.class.getName());
+    private static final Logger logger = LoggingManager.getLogger(ServerConnectionHandler.class.getName());
     
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private UserManager userManager;
+    private SessionManager sessionManager; // Add session manager
     private User currentUser;
+    private String currentSessionToken; // Track current session
     private boolean running;
     
     private static final Map<String, FileTransferRequest> activeTransfers = new HashMap<>();
     
-    public ServerConnectionHandler(Socket clientSocket, UserManager userManager) {
+    public ServerConnectionHandler(Socket clientSocket, UserManager userManager, SessionManager sessionManager) {
         this.clientSocket = clientSocket;
         this.userManager = userManager;
+        this.sessionManager = sessionManager;
         this.running = true;
     }
     
@@ -75,16 +78,20 @@ public class ServerConnectionHandler implements Runnable {
         
         switch (cmd) {
             case "LOGOUT":
-                if (currentUser != null) {
-                    currentUser.setOnline(false);
-                    userManager.broadcastUserStatus(currentUser);
-                    currentUser = null;
-                    send("LOGOUT_ACK");
+                handleLogout();
+                break;
+                
+            case "REFRESH_SESSION":
+                // Session refresh is handled automatically by validateSession()
+                if (requireValidSession()) {
+                    send("SESSION_REFRESHED");
                 }
                 break;
                 
             case "GET_USERS":
-                sendUsersList();
+                if (requireValidSession()) {
+                    sendUsersList();
+                }
                 break;
                 
             case "DISCONNECT":
@@ -92,25 +99,27 @@ public class ServerConnectionHandler implements Runnable {
                 break;
                 
             case "PAUSE_TRANSFER":
-                if (parts.length >= 2) {
+                if (requireValidSession() && parts.length >= 2) {
                     String transferId = parts[1];
                     handlePauseTransfer(transferId);
                 }
                 break;
                 
             case "RESUME_TRANSFER":
-                if (parts.length >= 2) {
+                if (requireValidSession() && parts.length >= 2) {
                     String transferId = parts[1];
                     handleResumeTransfer(transferId);
                 }
                 break;
                 
             case "CHUNK":
-                if (parts.length >= 4) {
+                if (requireValidSession() && parts.length >= 4) {
                     String transferId = parts[1];
                     int chunkIndex = Integer.parseInt(parts[2]);
                     int totalChunks = Integer.parseInt(parts[3]);
                     handleChunkCommand(transferId, chunkIndex, totalChunks);
+                } else if (!requireValidSession()) {
+                    // Session validation failed, error already sent
                 } else {
                     sendError("Invalid CHUNK command format");
                 }
@@ -162,21 +171,34 @@ public class ServerConnectionHandler implements Runnable {
         User existingUser = userManager.getUser(username);
         
         if (existingUser == null) {
+            // New user registration
             userManager.addUser(user);
             currentUser = user;
             currentUser.setOnline(true);
-            logger.info("New user registered: " + username);
-            send("REGISTER_SUCCESS|" + username);
+            
+            // Create session for new user
+            currentSessionToken = sessionManager.createSession(username);
+            
+            LoggingManager.logSecurity(logger, "New user registered: " + username);
+            send("REGISTER_SUCCESS|" + username + "|" + currentSessionToken);
         } else {
+            // Existing user login
             currentUser = existingUser;
             currentUser.setOnline(true);
-            logger.info("User logged in: " + username);
-            send("LOGIN_SUCCESS|" + username);
+            
+            // Create new session (removes any existing sessions for this user)
+            currentSessionToken = sessionManager.createSession(username);
+            
+            LoggingManager.logSecurity(logger, "User logged in: " + username + 
+                                     ", Session: " + currentSessionToken.substring(0, 8) + "...");
+            send("LOGIN_SUCCESS|" + username + "|" + currentSessionToken);
         }
         
         userManager.registerConnection(username, this);
-        
         userManager.broadcastUserStatus(currentUser);
+        
+        // Start session monitoring for this connection
+        startSessionMonitoring();
         
         sendUsersList();
     }
@@ -397,8 +419,13 @@ public class ServerConnectionHandler implements Runnable {
             if (currentUser != null) {
                 userManager.removeConnection(currentUser.getUsername());
                 
-                currentUser.setOnline(false);
+                if (currentSessionToken != null) {
+                    sessionManager.removeSession(currentSessionToken);
+                    LoggingManager.logSecurity(logger, "Session cleaned up for user: " + currentUser.getUsername());
+                    currentSessionToken = null;
+                }
                 
+                currentUser.setOnline(false);
                 userManager.broadcastUserStatus(currentUser);
                 
                 logger.info("User " + currentUser.getUsername() + " is now offline");
@@ -411,6 +438,100 @@ public class ServerConnectionHandler implements Runnable {
             }
         } catch (IOException e) {
             logger.log(Level.WARNING, "Error during cleanup", e);
+        }
+    }
+
+    private void startSessionMonitoring() {
+        Thread sessionMonitor = new Thread(() -> {
+            while (running && currentSessionToken != null) {
+                try {
+                    Thread.sleep(5 * 60 * 1000); // Check every 5 minutes
+                    
+                    if (!validateSession()) {
+                        LoggingManager.logSecurity(logger, "Session expired for user: " + 
+                                                 (currentUser != null ? currentUser.getUsername() : "unknown"));
+                        try {
+                            send("SESSION_EXPIRED|Your session has expired. Please login again.");
+                            Thread.sleep(1000); // Give time for message to be sent
+                        } catch (IOException | InterruptedException e) {
+                        }
+                        running = false;
+                        break;
+                    }
+                    
+                    if (sessionManager.isSessionExpiringsoon(currentSessionToken)) {
+                        try {
+                            send("SESSION_WARNING|Your session will expire soon due to inactivity.");
+                        } catch (IOException e) {
+                            logger.warning("Failed to send session warning: " + e.getMessage());
+                        }
+                    }
+                    
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+        sessionMonitor.setDaemon(true);
+        sessionMonitor.setName("SessionMonitor-" + (currentUser != null ? currentUser.getUsername() : "unknown"));
+        sessionMonitor.start();
+    }
+    
+    private boolean validateSession() {
+        if (currentSessionToken == null) {
+            return false;
+        }
+        
+        boolean valid = sessionManager.validateAndRefreshSession(currentSessionToken);
+        
+        if (!valid) {
+            currentSessionToken = null;
+            if (currentUser != null) {
+                currentUser.setOnline(false);
+                userManager.broadcastUserStatus(currentUser);
+            }
+        }
+        
+        return valid;
+    }
+
+    private boolean requireValidSession() {
+        if (currentUser == null || currentSessionToken == null) {
+            try {
+                send("ERROR|Authentication required");
+            } catch (IOException e) {
+                logger.warning("Failed to send authentication error: " + e.getMessage());
+            }
+            return false;
+        }
+        
+        if (!validateSession()) {
+            try {
+                send("SESSION_EXPIRED|Please login again");
+            } catch (IOException e) {
+                logger.warning("Failed to send session expired message: " + e.getMessage());
+            }
+            return false;
+        }
+        
+        return true;
+    }
+
+    private void handleLogout() throws IOException {
+        if (currentUser != null) {
+            LoggingManager.logSecurity(logger, "User logging out: " + currentUser.getUsername());
+            
+            if (currentSessionToken != null) {
+                sessionManager.removeSession(currentSessionToken);
+                currentSessionToken = null;
+            }
+            
+            currentUser.setOnline(false);
+            userManager.broadcastUserStatus(currentUser);
+            currentUser = null;
+            
+            send("LOGOUT_ACK");
         }
     }
 }

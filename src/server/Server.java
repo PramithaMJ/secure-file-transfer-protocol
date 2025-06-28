@@ -1,5 +1,6 @@
 package server;
 
+import common.*;
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
@@ -9,16 +10,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
-    private static final Logger logger = Logger.getLogger(Server.class.getName());
+    private static final Logger logger = LoggingManager.getLogger(Server.class.getName());
     private int port;
     private ServerSocket serverSocket;
     private boolean running;
     private UserManager userManager;
+    private SessionManager sessionManager;
     private ExecutorService threadPool;
     
     public Server(int port) {
         this.port = port;
         this.userManager = new UserManager();
+        this.sessionManager = new SessionManager();
         this.threadPool = Executors.newCachedThreadPool();
     }
     
@@ -34,7 +37,7 @@ public class Server {
                     Socket clientSocket = serverSocket.accept();
                     logger.info("New client connected: " + clientSocket.getInetAddress());
                     
-                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager);
+                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager, sessionManager);
                     threadPool.execute(handler);
                 } catch (IOException e) {
                     if (running) {
@@ -55,6 +58,9 @@ public class Server {
                 serverSocket.close();
             }
             threadPool.shutdown();
+            if (sessionManager != null) {
+                sessionManager.shutdown();
+            }
             logger.info("Server stopped");
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error stopping server", e);
@@ -73,11 +79,12 @@ public class Server {
         }
         
         Server server = new Server(port);
-        server.start();
         
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Shutting down server...");
             server.stop();
         }));
+        
+        server.start();
     }
 }
