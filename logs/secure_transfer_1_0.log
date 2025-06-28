@@ -1,14 +1,248 @@
-2025-06-23 12:03:54.361 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 12:03:54.394 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 12:03:54.818 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
-2025-06-23 12:06:14.670 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 12:06:14.672 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 12:06:14.673 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Jayasooriya
-2025-06-23 12:06:14.902 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Jayasooriya
-2025-06-23 12:06:14.914 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 12:06:14.919 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
-2025-06-23 12:06:14.920 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 12:06:14.923 INFO [client.Client login] Logged in as: Jayasooriya
-2025-06-23 12:06:14.923 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Jayasooriya
-2025-06-23 12:06:14.927 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 12:06:14.927 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-06-28 23:59:55.477 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-28 23:59:55.525 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-28 23:59:55.735 INFO [client.ClientUI lambda$main$23] Client UI initialized and displayed
+2025-06-29 00:00:06.513 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-29 00:00:06.513 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-29 00:00:06.513 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Alice
+2025-06-29 00:00:06.843 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Alice
+2025-06-29 00:00:06.845 INFO [client.TransferHistory loadHistory] No history file found for user Alice at data\Alice_transfer_history.dat
+2025-06-29 00:00:06.845 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-29 00:00:06.863 INFO [client.Client login] Logged in as: Alice
+2025-06-29 00:00:06.863 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Alice
+2025-06-29 00:00:06.872 INFO [client.TransferHistory loadHistory] No history file found for user Alice at data\Alice_transfer_history.dat
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:06.947 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:15.347 INFO [client.Client processStringMessage] Received transfer request: 125999742.pdf from Bob
+2025-06-29 00:00:15.356 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Received transfer request: File: 125999742.pdf, From: Bob, Size: 458168 bytes
+2025-06-29 00:00:16.473 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
+2025-06-29 00:00:16.479 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
+2025-06-29 00:00:16.480 INFO [client.Client sendAcceptTransfer] Added transfer to recipient's history: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:16.482 INFO [client.Client sendAcceptTransfer] Sent transfer acceptance for: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:16.482 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:16.483 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:16.489 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:16.490 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
+2025-06-29 00:00:16.491 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:16.547 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:16.553 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:16.553 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:16.555 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:16.555 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:16.555 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:16.557 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:16.667 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 0 of 112
+2025-06-29 00:00:16.709 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 1 of 112
+2025-06-29 00:00:16.721 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 2 of 112
+2025-06-29 00:00:16.731 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 3 of 112
+2025-06-29 00:00:16.736 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 4 of 112
+2025-06-29 00:00:16.758 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 5 of 112
+2025-06-29 00:00:16.768 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 6 of 112
+2025-06-29 00:00:16.774 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 7 of 112
+2025-06-29 00:00:16.786 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 8 of 112
+2025-06-29 00:00:16.795 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 9 of 112
+2025-06-29 00:00:16.812 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 10 of 112
+2025-06-29 00:00:16.825 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 11 of 112
+2025-06-29 00:00:16.837 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 12 of 112
+2025-06-29 00:00:16.853 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 13 of 112
+2025-06-29 00:00:16.869 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 14 of 112
+2025-06-29 00:00:16.886 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 15 of 112
+2025-06-29 00:00:16.903 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 16 of 112
+2025-06-29 00:00:16.917 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 17 of 112
+2025-06-29 00:00:16.936 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 18 of 112
+2025-06-29 00:00:16.949 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 19 of 112
+2025-06-29 00:00:16.965 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 20 of 112
+2025-06-29 00:00:16.983 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 21 of 112
+2025-06-29 00:00:16.997 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 22 of 112
+2025-06-29 00:00:17.013 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 23 of 112
+2025-06-29 00:00:17.029 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 24 of 112
+2025-06-29 00:00:17.045 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 25 of 112
+2025-06-29 00:00:17.063 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 26 of 112
+2025-06-29 00:00:17.076 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 27 of 112
+2025-06-29 00:00:17.093 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 28 of 112
+2025-06-29 00:00:17.108 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 29 of 112
+2025-06-29 00:00:17.124 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 30 of 112
+2025-06-29 00:00:17.143 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 31 of 112
+2025-06-29 00:00:17.158 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 32 of 112
+2025-06-29 00:00:17.173 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 33 of 112
+2025-06-29 00:00:17.193 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 34 of 112
+2025-06-29 00:00:17.205 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 35 of 112
+2025-06-29 00:00:17.223 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 36 of 112
+2025-06-29 00:00:17.238 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 37 of 112
+2025-06-29 00:00:17.253 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 38 of 112
+2025-06-29 00:00:17.272 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 39 of 112
+2025-06-29 00:00:17.287 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 40 of 112
+2025-06-29 00:00:17.303 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 41 of 112
+2025-06-29 00:00:17.317 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 42 of 112
+2025-06-29 00:00:17.333 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 43 of 112
+2025-06-29 00:00:17.349 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 44 of 112
+2025-06-29 00:00:17.368 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 45 of 112
+2025-06-29 00:00:17.383 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 46 of 112
+2025-06-29 00:00:17.400 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 47 of 112
+2025-06-29 00:00:17.414 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 48 of 112
+2025-06-29 00:00:17.433 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 49 of 112
+2025-06-29 00:00:17.446 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 50 of 112
+2025-06-29 00:00:17.463 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 51 of 112
+2025-06-29 00:00:17.477 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 52 of 112
+2025-06-29 00:00:17.493 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 53 of 112
+2025-06-29 00:00:17.509 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 54 of 112
+2025-06-29 00:00:17.527 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 55 of 112
+2025-06-29 00:00:17.545 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 56 of 112
+2025-06-29 00:00:17.559 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 57 of 112
+2025-06-29 00:00:17.576 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 58 of 112
+2025-06-29 00:00:17.589 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 59 of 112
+2025-06-29 00:00:17.605 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 60 of 112
+2025-06-29 00:00:17.623 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 61 of 112
+2025-06-29 00:00:17.637 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 62 of 112
+2025-06-29 00:00:17.655 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 63 of 112
+2025-06-29 00:00:17.669 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 64 of 112
+2025-06-29 00:00:17.688 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 65 of 112
+2025-06-29 00:00:17.703 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 66 of 112
+2025-06-29 00:00:17.718 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 67 of 112
+2025-06-29 00:00:17.733 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 68 of 112
+2025-06-29 00:00:17.751 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 69 of 112
+2025-06-29 00:00:17.765 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 70 of 112
+2025-06-29 00:00:17.783 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 71 of 112
+2025-06-29 00:00:17.797 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 72 of 112
+2025-06-29 00:00:17.813 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 73 of 112
+2025-06-29 00:00:17.831 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 74 of 112
+2025-06-29 00:00:17.847 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 75 of 112
+2025-06-29 00:00:17.860 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 76 of 112
+2025-06-29 00:00:17.876 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 77 of 112
+2025-06-29 00:00:17.893 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 78 of 112
+2025-06-29 00:00:17.908 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 79 of 112
+2025-06-29 00:00:17.925 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 80 of 112
+2025-06-29 00:00:17.941 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 81 of 112
+2025-06-29 00:00:17.957 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 82 of 112
+2025-06-29 00:00:17.971 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 83 of 112
+2025-06-29 00:00:17.987 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 84 of 112
+2025-06-29 00:00:18.005 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 85 of 112
+2025-06-29 00:00:18.021 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 86 of 112
+2025-06-29 00:00:18.037 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 87 of 112
+2025-06-29 00:00:18.050 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 88 of 112
+2025-06-29 00:00:18.068 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 89 of 112
+2025-06-29 00:00:18.085 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 90 of 112
+2025-06-29 00:00:18.099 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 91 of 112
+2025-06-29 00:00:18.115 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 92 of 112
+2025-06-29 00:00:18.131 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 93 of 112
+2025-06-29 00:00:18.146 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 94 of 112
+2025-06-29 00:00:18.163 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 95 of 112
+2025-06-29 00:00:18.177 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 96 of 112
+2025-06-29 00:00:18.193 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 97 of 112
+2025-06-29 00:00:18.210 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 98 of 112
+2025-06-29 00:00:18.225 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 99 of 112
+2025-06-29 00:00:18.240 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 100 of 112
+2025-06-29 00:00:18.257 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 101 of 112
+2025-06-29 00:00:18.273 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 102 of 112
+2025-06-29 00:00:18.289 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 103 of 112
+2025-06-29 00:00:18.305 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 104 of 112
+2025-06-29 00:00:18.323 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 105 of 112
+2025-06-29 00:00:18.338 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 106 of 112
+2025-06-29 00:00:18.353 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 107 of 112
+2025-06-29 00:00:18.371 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 108 of 112
+2025-06-29 00:00:18.387 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 109 of 112
+2025-06-29 00:00:18.403 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 110 of 112
+2025-06-29 00:00:18.417 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Receiving chunk: Chunk 111 of 112
+2025-06-29 00:00:18.437 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
+2025-06-29 00:00:18.437 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.443 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
+2025-06-29 00:00:18.443 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.443 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Transfer record updated: Status: Completed, File: 125999742.pdf
+2025-06-29 00:00:18.443 INFO [client.Client receiveFileChunk] File transfer completed: 125999742.pdf
+2025-06-29 00:00:18.443 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Transfer completed: Successfully received file: 125999742.pdf from Bob
+2025-06-29 00:00:18.447 INFO [client.Client processStringMessage] Transfer completed: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.447 INFO [client.ClientUI onTransferComplete] DEBUG: onTransferComplete called for: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.449 INFO [client.ClientUI lambda$onTransferComplete$16] DEBUG: Found transfer record: 125999742.pdf, Status: COMPLETED
+2025-06-29 00:00:18.449 INFO [client.ClientUI lambda$onTransferComplete$16] DEBUG: About to refresh transfer history panel...
+2025-06-29 00:00:18.449 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.449 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.453 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:18.453 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.453 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.512 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:18.625 INFO [client.ClientUI lambda$onTransferComplete$14] DEBUG: First timer fired (100ms), calling refreshTransferHistoryPanel...
+2025-06-29 00:00:18.625 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.625 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.628 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:18.628 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.628 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.689 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:18.693 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.693 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.693 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:18.833 INFO [client.ClientUI lambda$onTransferComplete$15] DEBUG: Second timer fired (300ms), calling refreshTransferHistoryPanel...
+2025-06-29 00:00:18.833 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.833 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.836 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:18.836 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.836 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.897 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.899 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.899 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:20.173 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:20.173 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:20.173 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:20.173 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:20.177 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:20.177 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:26.877 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:28.959 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
+2025-06-29 00:00:28.964 INFO [client.Client disconnect] Socket closed successfully
+2025-06-29 00:00:28.965 WARNING [client.Client processServerMessages] Error processing server messages
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:253)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:332)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:961)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2886)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3213)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3223)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1695)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:514)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:472)
+	at client.Client.processServerMessages(Client.java:492)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+2025-06-29 00:00:28.965 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
+2025-06-29 00:00:29.463 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-29 00:00:29.463 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-29 00:00:29.463 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Alice
+2025-06-29 00:00:29.813 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Alice
+2025-06-29 00:00:29.813 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:29.813 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:29.813 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-29 00:00:29.813 INFO [client.Client login] Logged in as: Alice
+2025-06-29 00:00:29.819 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Alice
+2025-06-29 00:00:29.823 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
+2025-06-29 00:00:29.823 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Alice
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 1
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Record - File: 125999742.pdf, Sender: Bob, Receiver: Alice, Status: COMPLETED
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 1 transfer records for selected tab
+2025-06-29 00:00:29.833 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Adding record: 125999742.pdf - COMPLETED
