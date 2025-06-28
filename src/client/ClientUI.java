@@ -575,4 +575,38 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             logger.info("Client UI initialized and displayed");
         });
     }
+
+    @Override
+    public void onSessionExpired() {
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(this, 
+                "Your session has expired due to inactivity.\nPlease login again.", 
+                "Session Expired", 
+                JOptionPane.WARNING_MESSAGE);
+            
+            // Force logout
+            logout();
+            
+            log("Session expired - logged out automatically");
+        });
+    }
+    
+    @Override
+    public void onSessionWarning(String message) {
+        SwingUtilities.invokeLater(() -> {
+            int choice = JOptionPane.showConfirmDialog(this,
+                message + "\nWould you like to refresh your session?",
+                "Session Warning",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            
+            if (choice == JOptionPane.YES_OPTION) {
+                // User activity will automatically refresh the session
+                log("Session activity detected - session refreshed");
+                refreshUserList(); // This will trigger session refresh
+            } else {
+                log("Session warning: " + message);
+            }
+        });
+    }
 }
