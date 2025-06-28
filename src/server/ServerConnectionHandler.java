@@ -125,6 +125,20 @@ public class ServerConnectionHandler implements Runnable {
                 }
                 break;
                 
+            case "ACCEPT_TRANSFER":
+                if (parts.length >= 2) {
+                    String transferId = parts[1];
+                    handleAcceptTransfer(transferId);
+                }
+                break;
+                
+            case "REJECT_TRANSFER":
+                if (parts.length >= 2) {
+                    String transferId = parts[1];
+                    handleRejectTransfer(transferId);
+                }
+                break;
+                
             default:
                 logger.warning("Unknown command: " + cmd);
                 sendError("Unknown command: " + cmd);
@@ -255,6 +269,43 @@ public class ServerConnectionHandler implements Runnable {
         
         userManager.sendToUser(receiverUsername, "TRANSFER_COMPLETE|" + transferId);
         
+        activeTransfers.remove(transferId);
+    }
+    
+    private void handleAcceptTransfer(String transferId) throws IOException {
+        FileTransferRequest request = activeTransfers.get(transferId);
+        if (request == null) {
+            sendError("Transfer not found: " + transferId);
+            return;
+        }
+        
+        logger.info("Transfer accepted by recipient: " + transferId);
+        
+        // Send acknowledgment to the recipient
+        send("TRANSFER_ACCEPT_ACK|" + transferId);
+        
+        // Forward acceptance to the sender
+        String senderUsername = request.getSenderUsername();
+        userManager.forwardTransferAcceptance(transferId, senderUsername);
+    }
+    
+    private void handleRejectTransfer(String transferId) throws IOException {
+        FileTransferRequest request = activeTransfers.get(transferId);
+        if (request == null) {
+            sendError("Transfer not found: " + transferId);
+            return;
+        }
+        
+        logger.info("Transfer rejected by recipient: " + transferId);
+        
+        // Send acknowledgment to the recipient
+        send("TRANSFER_REJECT_ACK|" + transferId);
+        
+        // Forward rejection to the sender
+        String senderUsername = request.getSenderUsername();
+        userManager.forwardTransferRejection(transferId, senderUsername);
+        
+        // Clean up the transfer
         activeTransfers.remove(transferId);
     }
     

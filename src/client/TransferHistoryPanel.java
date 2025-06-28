@@ -1,6 +1,7 @@
 package client;
 
 import common.TransferRecord;
+import common.LoggingManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -8,8 +9,10 @@ import java.awt.event.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TransferHistoryPanel extends JPanel {
+    private static final Logger logger = LoggingManager.getLogger(TransferHistoryPanel.class.getName());
     private TransferHistory transferHistory;
     private Client client;
     private JTable historyTable;
@@ -190,14 +193,18 @@ public class TransferHistoryPanel extends JPanel {
         int row = historyTable.getSelectedRow();
         if (row < 0) return null;
         
+        TransferHistory currentTransferHistory = (client != null) ? client.getTransferHistory() : transferHistory;
+        if (currentTransferHistory == null) return null;
+        
         int tabIndex = tabPane.getSelectedIndex();
         List<TransferRecord> records;
         
         switch (tabIndex) {
-            case 1: records = transferHistory.getSentTransfers(); break;
-            case 2: records = transferHistory.getReceivedTransfers(); break;
-            case 3: records = transferHistory.getActiveTransfers(); break;
-            default: records = transferHistory.getAllTransfers(); break;
+            case 0: records = currentTransferHistory.getAllTransfers(); break;
+            case 1: records = currentTransferHistory.getSentTransfers(); break;
+            case 2: records = currentTransferHistory.getReceivedTransfers(); break;
+            case 3: records = currentTransferHistory.getActiveTransfers(); break;
+            default: records = currentTransferHistory.getAllTransfers(); break;
         }
         
         if (row < records.size()) {
@@ -208,19 +215,64 @@ public class TransferHistoryPanel extends JPanel {
     }
     
     private void refreshTable() {
+        logger.info("DEBUG: Refreshing transfer history table...");
         tableModel.setRowCount(0);
+        
+        TransferHistory currentTransferHistory = (client != null) ? client.getTransferHistory() : transferHistory;
+        if (currentTransferHistory == null) {
+            logger.info("DEBUG: No transfer history available");
+            return;
+        }
         
         List<TransferRecord> records;
         int tabIndex = tabPane.getSelectedIndex();
+        logger.info("DEBUG: Selected tab index: " + tabIndex);
+        
+        String currentUser = (client != null && client.getCurrentUser() != null) ? 
+                           client.getCurrentUser().getUsername() : "null";
+        logger.info("DEBUG: Current user: " + currentUser);
+        
+        List<TransferRecord> allRecords = currentTransferHistory.getAllTransfers();
+        logger.info("DEBUG: Total available records: " + allRecords.size());
+        for (TransferRecord record : allRecords) {
+            logger.info("DEBUG: Record - File: " + record.getFileName() + 
+                       ", Sender: " + record.getSenderUsername() + 
+                       ", Receiver: " + record.getReceiverUsername() + 
+                       ", Status: " + record.getStatus());
+        }
         
         switch (tabIndex) {
-            case 1: records = transferHistory.getSentTransfers(); break;
-            case 2: records = transferHistory.getReceivedTransfers(); break;
-            case 3: records = transferHistory.getActiveTransfers(); break;
-            default: records = transferHistory.getAllTransfers(); break;
+            case 0: 
+                logger.info("DEBUG: Getting all transfers");
+                records = currentTransferHistory.getAllTransfers(); 
+                break;
+            case 1: 
+                logger.info("DEBUG: Getting sent transfers for user: " + currentUser);
+                records = currentTransferHistory.getSentTransfers(); 
+                break;
+            case 2: 
+                logger.info("DEBUG: Getting received transfers for user: " + currentUser);
+                records = currentTransferHistory.getReceivedTransfers(); 
+                break;
+            case 3: 
+                logger.info("DEBUG: Getting active transfers");
+                records = currentTransferHistory.getActiveTransfers(); 
+                break;
+            default: 
+                logger.info("DEBUG: Unknown tab index " + tabIndex + ", defaulting to all transfers");
+                records = currentTransferHistory.getAllTransfers(); 
+                break;
+        }
+        
+        logger.info("DEBUG: Found " + records.size() + " transfer records for selected tab");
+        
+        if (records.size() == 0 && allRecords.size() > 0) {
+            logger.info("DEBUG: No records found for current filter, falling back to all transfers");
+            records = allRecords;
         }
         
         for (TransferRecord record : records) {
+            logger.info("DEBUG: Adding record: " + record.getFileName() + " - " + record.getStatus());
             Object[] row = new Object[7];
             row[0] = record.getFileName();
             row[1] = record.getSenderUsername();

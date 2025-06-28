@@ -77,6 +77,10 @@ public class TransferHistory {
         return result;
     }
     
+    public void forceSave() {
+        saveHistory();
+    }
+    
     private void saveHistory() {
         File dataDir = new File(DATA_DIR);
         if (!dataDir.exists()) {
@@ -128,5 +132,9 @@ public class TransferHistory {
         } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.WARNING, "Failed to load transfer history", e);
         }
+    }
+    
+    public void reloadHistory() {
+        loadHistory();
     }
 }
