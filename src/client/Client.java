@@ -500,13 +500,9 @@ public class Client {
                     "Successfully received file: " + request.getFileName() + " from " + request.getSenderUsername());
                 
                 if (eventListener != null) {
-                    System.out.println("DEBUG: Firing onTransferComplete event for receiver: " + transferId);
                     SwingUtilities.invokeLater(() -> {
-                        System.out.println("DEBUG: onTransferComplete event firing on EDT for: " + transferId);
                         eventListener.onTransferComplete(transferId);
                     });
-                } else {
-                    System.out.println("DEBUG: No event listener available for transfer: " + transferId);
                 }
             }
             

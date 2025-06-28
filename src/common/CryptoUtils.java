@@ -90,7 +90,6 @@ public class CryptoUtils {
      */
     public static SecureMessage encryptChunk(byte[] chunk, SecretKey symmetricKey, SecretKey hmacKey)
             throws Exception {
-        // Input validation for security
         if (chunk == null || symmetricKey == null || hmacKey == null) {
             throw new IllegalArgumentException("Input parameters cannot be null");
         }
@@ -386,40 +385,6 @@ public class CryptoUtils {
     // ANTI-REPLAY
     
     /**
-     * Get the number of tracked nonces (for testing and monitoring)
-     */
-    public static int getTrackedNonceCount() {
-        return usedNonces.size();
-    }
-    
-    /**
-     * Clear all tracked nonces (for testing)
-     * WARNING: Only use this in test environments
-     */
-    public static void clearNonceCache() {
-        usedNonces.clear();
-        LoggingManager.logSecurity(logger, "ADMIN: Nonce cache cleared manually");
-    }
-    
-    /**
-     * Force cleanup of old nonces (for testing)
-     */
-    public static void forceNonceCleanup() {
-        int sizeBefore = usedNonces.size();
-        cleanupOldNonces();
-        int sizeAfter = usedNonces.size();
-        LoggingManager.logSecurity(logger, "ADMIN: Forced nonce cleanup - removed " + (sizeBefore - sizeAfter) + " old nonces");
-    }
-    
-    /**
-     * Check if a nonce has been used (for testing)
-     */
-    public static boolean isNonceUsed(String nonce, long timestamp) {
-        String nonceKey = nonce + ":" + timestamp;
-        return usedNonces.containsKey(nonceKey);
-    }
-    
-    /**
      * Get maximum message age in milliseconds
      */
     public static long getMaxMessageAge() {
@@ -448,7 +413,7 @@ public class CryptoUtils {
     
     /**
      * Sign data with private key for authentication and non-repudiation
-     * SECURITY: Provides cryptographic proof of sender identity
+     * Provides cryptographic proof of sender identity
      */
     public static byte[] signData(byte[] data, PrivateKey privateKey) throws Exception {
         if (data == null || privateKey == null) {
@@ -467,14 +432,13 @@ public class CryptoUtils {
     
     /**
      * Verify digital signature with public key
-     * SECURITY: Verifies sender identity and detects message tampering
+     * Verifies sender identity and detects message tampering
      */
     public static boolean verifySignature(byte[] data, byte[] signatureBytes, PublicKey publicKey) throws Exception {
         if (data == null || signatureBytes == null || publicKey == null) {
             throw new IllegalArgumentException("Parameters cannot be null for signature verification");
         }
         
-        // Validate inputs
         if (signatureBytes.length == 0) {
             LoggingManager.logSecurity(logger, "SECURITY ALERT: Empty signature provided for verification");
             return false;
@@ -502,7 +466,7 @@ public class CryptoUtils {
     
     /**
      * Sign a SecureMessage for authentication and non-repudiation
-     * SECURITY: Creates a SignedSecureMessage with digital signature
+     * Creates a SignedSecureMessage with digital signature
      */
     public static SignedSecureMessage signMessage(SecureMessage message, PrivateKey senderPrivateKey, String senderUsername) throws Exception {
         if (message == null || senderPrivateKey == null) {
@@ -524,7 +488,7 @@ public class CryptoUtils {
     
     /**
      * Verify a SignedSecureMessage
-     * SECURITY: Verifies both message integrity and sender authenticity
+     * Verifies both message integrity and sender authenticity
      */
     public static boolean verifySignedMessage(SignedSecureMessage signedMessage, PublicKey senderPublicKey) throws Exception {
         if (signedMessage == null || senderPublicKey == null) {
@@ -551,7 +515,7 @@ public class CryptoUtils {
     
     /**
      * Create signable data from SecureMessage components
-     * SECURITY: Ensures all critical message components are included in signature
+     * Ensures all critical message components are included in signature
      */
     private static byte[] createSignableData(SecureMessage message) throws Exception {
         if (message == null) {

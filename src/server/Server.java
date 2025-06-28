@@ -28,7 +28,6 @@ public class Server {
             running = true;
             
             logger.info("Server started on port " + port);
-            System.out.println("Secure File Transfer Server started on port " + port);
             
             while (running) {
                 try {
@@ -57,7 +56,6 @@ public class Server {
             }
             threadPool.shutdown();
             logger.info("Server stopped");
-            System.out.println("Server stopped");
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error stopping server", e);
         }
@@ -78,7 +76,7 @@ public class Server {
         server.start();
         
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Shutting down server...");
+            logger.info("Shutting down server...");
             server.stop();
         }));
     }

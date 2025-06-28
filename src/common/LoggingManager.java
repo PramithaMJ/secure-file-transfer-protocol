@@ -22,13 +22,11 @@ public class LoggingManager {
             File logsDir = new File("logs");
             if (!logsDir.exists()) {
                 logsDir.mkdir();
-                System.out.println("Created logs directory");
             }
             
             File dataDir = new File("data");
             if (!dataDir.exists()) {
                 dataDir.mkdir();
-                System.out.println("Created data directory");
             }
             
             boolean configLoaded = false;
@@ -39,10 +37,9 @@ public class LoggingManager {
                 try (FileInputStream fis = new FileInputStream(configFile)) {
                     logManager.readConfiguration(fis);
                     configLoaded = true;
-                    System.out.println("Loaded logging configuration from " + configFile.getAbsolutePath());
                 }
             } else {
-                System.out.println("Logging configuration file not found: " + configFile.getAbsolutePath() + ", using defaults");
+                // Using default logging configuration
             }
             
             if (!configLoaded) {
@@ -58,8 +55,6 @@ public class LoggingManager {
                 Logger.getLogger("client").setLevel(Level.FINE);
                 Logger.getLogger("server").setLevel(Level.FINE);
                 Logger.getLogger("common").setLevel(Level.FINE);
-                
-                System.out.println("Default logging configuration applied");
             }
             
             initialized = true;

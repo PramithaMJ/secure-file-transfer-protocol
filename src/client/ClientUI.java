@@ -355,7 +355,6 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     
     @Override
     public void onTransferComplete(String transferId) {
-        logger.info("DEBUG: onTransferComplete called for: " + transferId);
         SwingUtilities.invokeLater(() -> {
             String fileName = activeTransfers.remove(transferId);
             
@@ -368,12 +367,11 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
                                   (record.getSenderUsername().equals(client.getCurrentUser().getUsername()) ?
                                    "to " + record.getReceiverUsername() :
                                    "from " + record.getSenderUsername()) + ")";
-                        logger.info("DEBUG: Found transfer record: " + record.getFileName() + ", Status: " + record.getStatus());
                     } else {
-                        logger.info("DEBUG: No transfer record found in history for: " + transferId);
+                        // No transfer record found
                     }
                 } else {
-                    logger.info("DEBUG: Transfer history is null");
+                    // Transfer history is null
                 }
             }
             
@@ -386,18 +384,15 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             transferProgress.setValue(0);
             transferProgress.setString("Transfer complete");
             
-            logger.info("DEBUG: About to refresh transfer history panel...");
             refreshTransferHistoryPanel();
             
             javax.swing.Timer timer1 = new javax.swing.Timer(100, e -> {
-                logger.info("DEBUG: First timer fired (100ms), calling refreshTransferHistoryPanel...");
                 refreshTransferHistoryPanel();
                 ((javax.swing.Timer) e.getSource()).stop();
             });
             timer1.start();
             
             javax.swing.Timer timer2 = new javax.swing.Timer(300, e -> {
-                logger.info("DEBUG: Second timer fired (300ms), calling refreshTransferHistoryPanel...");
                 refreshTransferHistoryPanel();
                 ((javax.swing.Timer) e.getSource()).stop();
             });
@@ -493,13 +488,10 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     }
     
     private void refreshTransferHistoryPanel() {
-        logger.info("DEBUG: refreshTransferHistoryPanel called");
         if (client != null && client.isConnected()) {
             TransferHistory history = client.getTransferHistory();
             if (history != null) {
-                logger.info("DEBUG: Reloading transfer history from disk...");
                 history.reloadHistory();
-                logger.info("DEBUG: Transfer history reloaded, total records: " + history.getAllTransfers().size());
                 
                 try {
                     Thread.sleep(50);
@@ -510,7 +502,6 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             
             TransferHistoryPanel historyPanel = findTransferHistoryPanel(this);
             if (historyPanel != null) {
-                logger.info("DEBUG: Found TransferHistoryPanel, calling refresh...");
                 historyPanel.refresh();
                 
                 historyPanel.repaint();
@@ -519,10 +510,10 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
                 this.repaint();
                 this.revalidate();
             } else {
-                logger.info("DEBUG: TransferHistoryPanel not found in component hierarchy");
+                // TransferHistoryPanel not found
             }
         } else {
-            logger.info("DEBUG: Client is null or not connected");
+            // Client is null or not connected
         }
     }
     
