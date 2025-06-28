@@ -344,6 +344,9 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     public void onTransferProgress(String transferId, int progress) {
         SwingUtilities.invokeLater(() -> {
             String fileName = activeTransfers.get(transferId);
+            if (fileName == null) {
+                fileName = "File Transfer";
+            }
             transferProgress.setValue(progress);
             transferProgress.setString(fileName + ": " + progress + "%");
             
@@ -384,6 +387,17 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             transferProgress.setValue(0);
             transferProgress.setString("Transfer complete");
             
+            // Reset progress bar after a few seconds if no active transfers
+            javax.swing.Timer resetTimer = new javax.swing.Timer(3000, e -> {
+                if (activeTransfers.isEmpty()) {
+                    transferProgress.setString("No active transfers");
+                    pauseTransferButton.setEnabled(false);
+                    resumeTransferButton.setEnabled(false);
+                }
+                ((javax.swing.Timer) e.getSource()).stop();
+            });
+            resetTimer.start();
+            
             refreshTransferHistoryPanel();
             
             javax.swing.Timer timer1 = new javax.swing.Timer(100, e -> {
@@ -403,9 +417,22 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     @Override
     public void onTransferError(String transferId, String error) {
         SwingUtilities.invokeLater(() -> {
-            String fileName = activeTransfers.get(transferId);
+            String fileName = activeTransfers.remove(transferId);
             log("Error in file transfer " + (fileName != null ? fileName : transferId) + ": " + error);
             updateStatus("File transfer error");
+            transferProgress.setValue(0);
+            transferProgress.setString("Transfer error");
+            
+            // Reset progress bar after a few seconds if no active transfers
+            javax.swing.Timer resetTimer = new javax.swing.Timer(3000, e -> {
+                if (activeTransfers.isEmpty()) {
+                    transferProgress.setString("No active transfers");
+                    pauseTransferButton.setEnabled(false);
+                    resumeTransferButton.setEnabled(false);
+                }
+                ((javax.swing.Timer) e.getSource()).stop();
+            });
+            resetTimer.start();
         });
     }
     
