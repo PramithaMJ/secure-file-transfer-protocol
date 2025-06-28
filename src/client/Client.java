@@ -299,8 +299,23 @@ public class Client {
                     LoggingManager.logTransfer(logger, transferId, "Sending chunk", 
                         "Chunk " + i + " of " + encryptedChunks.size());
                     
-                    sendToServer("CHUNK|" + transferId + "|" + i + "|" + encryptedChunks.size());
-                    sendToServer(chunk);
+                    // SECURITY: Sign the chunk for authentication and non-repudiation
+                    try {
+                        SignedSecureMessage signedChunk = CryptoUtils.signMessage(chunk, user.getPrivateKey(), user.getUsername());
+                        LoggingManager.logSecurity(logger, "Chunk " + i + " digitally signed by " + user.getUsername() + 
+                                                 " for transfer " + transferId);
+                        
+                        sendToServer("SIGNED_CHUNK|" + transferId + "|" + i + "|" + encryptedChunks.size());
+                        sendToServer(signedChunk);
+                        
+                    } catch (Exception signingError) {
+                        logger.severe("SECURITY ERROR: Failed to sign chunk " + i + ": " + signingError.getMessage());
+                        LoggingManager.logSecurity(logger, "SECURITY ERROR: Chunk signing failed for transfer " + transferId);
+                        if (eventListener != null) {
+                            eventListener.onTransferError(transferId, "Failed to sign message chunk: " + signingError.getMessage());
+                        }
+                        return;
+                    }
                     
                     if (eventListener != null) {
                         int progress = (i + 1) * 100 / encryptedChunks.size();
@@ -499,6 +514,91 @@ public class Client {
             logger.log(Level.SEVERE, "Error receiving file chunk", e);
             if (eventListener != null) {
                 eventListener.onTransferError(transferId, "Error receiving chunk: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Receive and verify a digitally signed file chunk
+     * SECURITY: Verifies both digital signature and message integrity
+     */
+    private void receiveSignedFileChunk(String transferId, int chunkIndex, int totalChunks, SignedSecureMessage signedChunk) {
+        try {
+            LoggingManager.logTransfer(logger, transferId, "Receiving signed chunk", 
+                "Chunk " + chunkIndex + " of " + totalChunks + " with digital signature");
+                
+            FileTransferRequest request = activeTransfers.get(transferId);
+            if (request == null) {
+                logger.warning("Transfer not found for signed chunk: " + transferId);
+                LoggingManager.logTransfer(logger, transferId, "Signed chunk processing failed", 
+                    "Transfer request not found");
+                return;
+            }
+            
+            // Validate the signed message structure
+            if (!signedChunk.isValid()) {
+                logger.severe("SECURITY ALERT: Invalid signed message structure");
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Malformed SignedSecureMessage received for transfer " + transferId);
+                if (eventListener != null) {
+                    eventListener.onTransferError(transferId, "Invalid signed message structure");
+                }
+                return;
+            }
+            
+            // Find sender's public key for signature verification
+            User sender = null;
+            for (User u : knownUsers) {
+                if (u.getUsername().equals(request.getSenderUsername())) {
+                    sender = u;
+                    break;
+                }
+            }
+            
+            if (sender == null || sender.getPublicKey() == null) {
+                logger.severe("SECURITY ERROR: Cannot verify signature - sender public key not available");
+                LoggingManager.logSecurity(logger, "SECURITY ERROR: No public key available for signature verification from " + 
+                                         request.getSenderUsername());
+                if (eventListener != null) {
+                    eventListener.onTransferError(transferId, "Cannot verify sender's digital signature - public key unavailable");
+                }
+                return;
+            }
+            
+            // SECURITY: Verify digital signature FIRST before any processing
+            boolean signatureValid = false;
+            try {
+                signatureValid = CryptoUtils.verifySignedMessage(signedChunk, sender.getPublicKey());
+            } catch (Exception e) {
+                logger.severe("SECURITY ERROR: Signature verification failed with exception: " + e.getMessage());
+                LoggingManager.logSecurity(logger, "SECURITY ERROR: Exception during signature verification for transfer " + 
+                                         transferId + ": " + e.getMessage());
+            }
+            
+            if (!signatureValid) {
+                logger.severe("SECURITY ALERT: Digital signature verification FAILED for chunk " + chunkIndex);
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: FORGED OR TAMPERED chunk detected from " + 
+                                         request.getSenderUsername() + " in transfer " + transferId + 
+                                         " - rejecting chunk " + chunkIndex);
+                if (eventListener != null) {
+                    eventListener.onTransferError(transferId, "Digital signature verification failed - possible forgery or tampering!");
+                }
+                return;
+            }
+            
+            LoggingManager.logSecurity(logger, "Digital signature VERIFIED successfully for chunk " + chunkIndex + 
+                                     " from " + request.getSenderUsername() + " in transfer " + transferId);
+            
+            // Extract the original SecureMessage and continue with normal processing
+            SecureMessage chunk = signedChunk.getMessage();
+            
+            // Continue with existing HMAC verification and decryption logic
+            receiveFileChunk(transferId, chunkIndex, totalChunks, chunk);
+                        
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error processing signed file chunk", e);
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Exception processing signed chunk: " + e.getMessage());
+            if (eventListener != null) {
+                eventListener.onTransferError(transferId, "Error processing signed chunk: " + e.getMessage());
             }
         }
     }
@@ -731,6 +831,28 @@ public class Client {
                         }
                     } catch (Exception e) {
                         logger.log(Level.WARNING, "Error receiving chunk", e);
+                    }
+                }
+                break;
+                
+            case "SIGNED_CHUNK":
+                if (parts.length >= 4) {
+                    String transferId = parts[1];
+                    int chunkIndex = Integer.parseInt(parts[2]);
+                    int totalChunks = Integer.parseInt(parts[3]);
+                    
+                    try {
+                        Object chunkObj = in.readObject();
+                        if (chunkObj instanceof SignedSecureMessage) {
+                            receiveSignedFileChunk(transferId, chunkIndex, totalChunks, (SignedSecureMessage) chunkObj);
+                        } else {
+                            logger.warning("Expected SignedSecureMessage but received: " + 
+                                         (chunkObj != null ? chunkObj.getClass().getName() : "null"));
+                            LoggingManager.logSecurity(logger, "SECURITY WARNING: Unexpected object type for signed chunk in transfer " + transferId);
+                        }
+                    } catch (Exception e) {
+                        logger.log(Level.WARNING, "Error receiving signed chunk", e);
+                        LoggingManager.logSecurity(logger, "SECURITY ERROR: Exception receiving signed chunk: " + e.getMessage());
                     }
                 }
                 break;

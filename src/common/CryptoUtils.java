@@ -21,6 +21,7 @@ public class CryptoUtils {
     public static final String AES_TRANSFORMATION = "AES/CBC/PKCS5Padding";
     public static final String RSA_TRANSFORMATION = "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING";
     public static final String HMAC_ALGORITHM = "HmacSHA256";
+    public static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
     public static final int AES_KEY_SIZE = 256;
     public static final int CHUNK_SIZE = 4096; // 4KB chunks
     
@@ -440,6 +441,155 @@ public class CryptoUtils {
             cleanupExecutor.shutdownNow();
             Thread.currentThread().interrupt();
             LoggingManager.logSecurity(logger, "ADMIN: Cleanup service shutdown interrupted");
+        }
+    }
+    
+    // DIGITAL SIGNATURE METHODS FOR AUTHENTICATION AND NON-REPUDIATION
+    
+    /**
+     * Sign data with private key for authentication and non-repudiation
+     * SECURITY: Provides cryptographic proof of sender identity
+     */
+    public static byte[] signData(byte[] data, PrivateKey privateKey) throws Exception {
+        if (data == null || privateKey == null) {
+            throw new IllegalArgumentException("Data and private key cannot be null");
+        }
+        
+        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+        signature.initSign(privateKey);
+        signature.update(data);
+        
+        byte[] signatureBytes = signature.sign();
+        LoggingManager.logSecurity(logger, "Data signed successfully with " + SIGNATURE_ALGORITHM + 
+                                 " (signature length: " + signatureBytes.length + " bytes)");
+        return signatureBytes;
+    }
+    
+    /**
+     * Verify digital signature with public key
+     * SECURITY: Verifies sender identity and detects message tampering
+     */
+    public static boolean verifySignature(byte[] data, byte[] signatureBytes, PublicKey publicKey) throws Exception {
+        if (data == null || signatureBytes == null || publicKey == null) {
+            throw new IllegalArgumentException("Parameters cannot be null for signature verification");
+        }
+        
+        // Validate inputs
+        if (signatureBytes.length == 0) {
+            LoggingManager.logSecurity(logger, "SECURITY ALERT: Empty signature provided for verification");
+            return false;
+        }
+        
+        try {
+            Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+            signature.initVerify(publicKey);
+            signature.update(data);
+            
+            boolean valid = signature.verify(signatureBytes);
+            
+            if (valid) {
+                LoggingManager.logSecurity(logger, "Digital signature verification PASSED - sender identity confirmed");
+            } else {
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Digital signature verification FAILED - possible forgery or tampering!");
+            }
+            
+            return valid;
+        } catch (Exception e) {
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Signature verification failed with exception: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Sign a SecureMessage for authentication and non-repudiation
+     * SECURITY: Creates a SignedSecureMessage with digital signature
+     */
+    public static SignedSecureMessage signMessage(SecureMessage message, PrivateKey senderPrivateKey, String senderUsername) throws Exception {
+        if (message == null || senderPrivateKey == null) {
+            throw new IllegalArgumentException("Message and sender private key cannot be null");
+        }
+        
+        // Create signable data from all message components
+        byte[] messageData = createSignableData(message);
+        
+        // Sign the message data
+        byte[] signature = signData(messageData, senderPrivateKey);
+        
+        LoggingManager.logSecurity(logger, "SecureMessage digitally signed by " + 
+                                 (senderUsername != null ? senderUsername : "unknown") + 
+                                 " (nonce: " + message.nonce.substring(0, 8) + "...)");
+        
+        return new SignedSecureMessage(message, signature, senderUsername);
+    }
+    
+    /**
+     * Verify a SignedSecureMessage
+     * SECURITY: Verifies both message integrity and sender authenticity
+     */
+    public static boolean verifySignedMessage(SignedSecureMessage signedMessage, PublicKey senderPublicKey) throws Exception {
+        if (signedMessage == null || senderPublicKey == null) {
+            throw new IllegalArgumentException("Signed message and sender public key cannot be null");
+        }
+        
+        // Recreate the signable data from the message
+        byte[] messageData = createSignableData(signedMessage.getMessage());
+        
+        // Verify the digital signature
+        boolean valid = verifySignature(messageData, signedMessage.getSignature(), senderPublicKey);
+        
+        if (valid) {
+            LoggingManager.logSecurity(logger, "SignedSecureMessage verification PASSED from " + 
+                                     (signedMessage.getSenderUsername() != null ? signedMessage.getSenderUsername() : "unknown"));
+        } else {
+            LoggingManager.logSecurity(logger, "SECURITY ALERT: SignedSecureMessage verification FAILED from " + 
+                                     (signedMessage.getSenderUsername() != null ? signedMessage.getSenderUsername() : "unknown") + 
+                                     " - possible forgery attempt!");
+        }
+        
+        return valid;
+    }
+    
+    /**
+     * Create signable data from SecureMessage components
+     * SECURITY: Ensures all critical message components are included in signature
+     */
+    private static byte[] createSignableData(SecureMessage message) throws Exception {
+        if (message == null) {
+            throw new IllegalArgumentException("Message cannot be null");
+        }
+        
+        try {
+            java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+            java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
+            
+            // Include all message components in signature for complete authentication
+            dos.writeInt(message.encryptedData != null ? message.encryptedData.length : 0);
+            if (message.encryptedData != null) {
+                dos.write(message.encryptedData);
+            }
+            
+            dos.writeInt(message.mac != null ? message.mac.length : 0);
+            if (message.mac != null) {
+                dos.write(message.mac);
+            }
+            
+            dos.writeInt(message.iv != null ? message.iv.length : 0);
+            if (message.iv != null) {
+                dos.write(message.iv);
+            }
+            
+            dos.writeLong(message.timestamp);
+            dos.writeUTF(message.nonce != null ? message.nonce : "");
+            
+            dos.flush();
+            byte[] result = baos.toByteArray();
+            
+            LoggingManager.logSecurity(logger, "Created signable data: " + result.length + " bytes from SecureMessage");
+            return result;
+            
+        } catch (Exception e) {
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Failed to create signable data: " + e.getMessage());
+            throw new SecurityException("Failed to create signable message data", e);
         }
     }
 }
