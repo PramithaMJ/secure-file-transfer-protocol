@@ -15,17 +15,21 @@ public class ServerConnectionHandler implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private UserManager userManager;
-    private SessionManager sessionManager; // Add session manager
+    private SessionManager sessionManager;
+    private RateLimitManager rateLimitManager;
     private User currentUser;
-    private String currentSessionToken; // Track current session
+    private String currentSessionToken;
     private boolean running;
+    private String clientIP;
     
     private static final Map<String, FileTransferRequest> activeTransfers = new HashMap<>();
     
-    public ServerConnectionHandler(Socket clientSocket, UserManager userManager, SessionManager sessionManager) {
+    public ServerConnectionHandler(Socket clientSocket, UserManager userManager, SessionManager sessionManager, RateLimitManager rateLimitManager) {
         this.clientSocket = clientSocket;
         this.userManager = userManager;
         this.sessionManager = sessionManager;
+        this.rateLimitManager = rateLimitManager;
+        this.clientIP = clientSocket.getInetAddress().getHostAddress();
         this.running = true;
     }
     
@@ -50,6 +54,12 @@ public class ServerConnectionHandler implements Runnable {
     
     private void processMessage(Object message) {
         try {
+            if (!rateLimitManager.allowRequest(clientIP)) {
+                logger.warning("Request rate limit exceeded for IP: " + clientIP);
+                sendError("Rate limit exceeded. Please slow down your requests.");
+                return;
+            }
+            
             if (message instanceof String) {
                 String command = (String) message;
                 processCommand(command);
@@ -82,7 +92,6 @@ public class ServerConnectionHandler implements Runnable {
                 break;
                 
             case "REFRESH_SESSION":
-                // Session refresh is handled automatically by validateSession()
                 if (requireValidSession()) {
                     send("SESSION_REFRESHED");
                 }
@@ -119,7 +128,6 @@ public class ServerConnectionHandler implements Runnable {
                     int totalChunks = Integer.parseInt(parts[3]);
                     handleChunkCommand(transferId, chunkIndex, totalChunks);
                 } else if (!requireValidSession()) {
-                    // Session validation failed, error already sent
                 } else {
                     sendError("Invalid CHUNK command format");
                 }
@@ -168,28 +176,30 @@ public class ServerConnectionHandler implements Runnable {
     private void handleUserLogin(User user) throws IOException {
         String username = user.getUsername();
         
+        if (!rateLimitManager.allowLoginAttempt(clientIP)) {
+            logger.warning("Login rate limit exceeded for IP: " + clientIP);
+            send("LOGIN_FAILED|Too many login attempts. Please try again later.");
+            return;
+        }
+        
         User existingUser = userManager.getUser(username);
         
         if (existingUser == null) {
-            // New user registration
             userManager.addUser(user);
             currentUser = user;
             currentUser.setOnline(true);
             
-            // Create session for new user
             currentSessionToken = sessionManager.createSession(username);
             
-            LoggingManager.logSecurity(logger, "New user registered: " + username);
+            LoggingManager.logSecurity(logger, "New user registered: " + username + " from IP: " + clientIP);
             send("REGISTER_SUCCESS|" + username + "|" + currentSessionToken);
         } else {
-            // Existing user login
             currentUser = existingUser;
             currentUser.setOnline(true);
             
-            // Create new session (removes any existing sessions for this user)
             currentSessionToken = sessionManager.createSession(username);
             
-            LoggingManager.logSecurity(logger, "User logged in: " + username + 
+            LoggingManager.logSecurity(logger, "User logged in: " + username + " from IP: " + clientIP +
                                      ", Session: " + currentSessionToken.substring(0, 8) + "...");
             send("LOGIN_SUCCESS|" + username + "|" + currentSessionToken);
         }
@@ -197,7 +207,6 @@ public class ServerConnectionHandler implements Runnable {
         userManager.registerConnection(username, this);
         userManager.broadcastUserStatus(currentUser);
         
-        // Start session monitoring for this connection
         startSessionMonitoring();
         
         sendUsersList();
@@ -224,6 +233,20 @@ public class ServerConnectionHandler implements Runnable {
     }
     
     private void handleFileChunk(SecureMessage chunk) {
+        try {
+            int chunkSize = chunk.encryptedData != null ? chunk.encryptedData.length : 0;
+            if (!rateLimitManager.allowBandwidth(clientIP, chunkSize)) {
+                logger.warning("Bandwidth limit exceeded for IP: " + clientIP);
+                sendError("Bandwidth limit exceeded. Transfer throttled.");
+                return;
+            }
+            
+            logger.info("Processing file chunk of size: " + chunkSize + " bytes from IP: " + clientIP);
+            
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error handling file chunk", e);
+            sendError("Error processing file chunk: " + e.getMessage());
+        }
     }
     
     private void handlePauseTransfer(String transferId) throws IOException {
@@ -369,10 +392,8 @@ public class ServerConnectionHandler implements Runnable {
         
         logger.info("Transfer accepted by recipient: " + transferId);
         
-        // Send acknowledgment to the recipient
         send("TRANSFER_ACCEPT_ACK|" + transferId);
         
-        // Forward acceptance to the sender
         String senderUsername = request.getSenderUsername();
         userManager.forwardTransferAcceptance(transferId, senderUsername);
     }
@@ -429,6 +450,11 @@ public class ServerConnectionHandler implements Runnable {
                 userManager.broadcastUserStatus(currentUser);
                 
                 logger.info("User " + currentUser.getUsername() + " is now offline");
+            }
+            
+            if (clientIP != null) {
+                rateLimitManager.releaseConnection(clientIP);
+                logger.info("Released connection tracking for IP: " + clientIP);
             }
             
             if (in != null) in.close();

@@ -16,12 +16,16 @@ public class Server {
     private boolean running;
     private UserManager userManager;
     private SessionManager sessionManager;
+    private RateLimitManager rateLimitManager; // Add rate limiting
+    private DoSMonitor dosMonitor; // Add DoS monitoring
     private ExecutorService threadPool;
     
     public Server(int port) {
         this.port = port;
         this.userManager = new UserManager();
         this.sessionManager = new SessionManager();
+        this.rateLimitManager = new RateLimitManager();
+        this.dosMonitor = new DoSMonitor(rateLimitManager);
         this.threadPool = Executors.newCachedThreadPool();
     }
     
@@ -30,14 +34,28 @@ public class Server {
             serverSocket = new ServerSocket(port);
             running = true;
             
-            logger.info("Server started on port " + port);
+            logger.info("Server started on port " + port + " with DoS protection enabled");
             
             while (running) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    logger.info("New client connected: " + clientSocket.getInetAddress());
+                    String clientIP = clientSocket.getInetAddress().getHostAddress();
                     
-                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager, sessionManager);
+                    if (rateLimitManager.isBlacklisted(clientIP)) {
+                        logger.warning("Rejected connection from blacklisted IP: " + clientIP);
+                        clientSocket.close();
+                        continue;
+                    }
+                    
+                    if (!rateLimitManager.allowConnection(clientIP)) {
+                        logger.warning("Connection limit exceeded for IP: " + clientIP);
+                        clientSocket.close();
+                        continue;
+                    }
+                    
+                    logger.info("New client connected: " + clientIP);
+                    
+                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager, sessionManager, rateLimitManager);
                     threadPool.execute(handler);
                 } catch (IOException e) {
                     if (running) {
@@ -61,10 +79,27 @@ public class Server {
             if (sessionManager != null) {
                 sessionManager.shutdown();
             }
+            if (dosMonitor != null) {
+                dosMonitor.shutdown();
+            }
             logger.info("Server stopped");
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error stopping server", e);
         }
+    }
+
+    public String getSecurityStatus() {
+        if (dosMonitor != null) {
+            return dosMonitor.getSecurityStatus();
+        }
+        return "DoS Monitor not initialized";
+    }
+
+    public common.RateLimitManager.RateLimitStats getRateLimitStats() {
+        if (rateLimitManager != null) {
+            return rateLimitManager.getStats();
+        }
+        return null;
     }
     
     public static void main(String[] args) {
