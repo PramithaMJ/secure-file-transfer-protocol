@@ -116,6 +116,17 @@ public class ServerConnectionHandler implements Runnable {
                 }
                 break;
                 
+            case "SIGNED_CHUNK":
+                if (parts.length >= 4) {
+                    String transferId = parts[1];
+                    int chunkIndex = Integer.parseInt(parts[2]);
+                    int totalChunks = Integer.parseInt(parts[3]);
+                    handleSignedChunkCommand(transferId, chunkIndex, totalChunks);
+                } else {
+                    sendError("Invalid SIGNED_CHUNK command format");
+                }
+                break;
+                
             case "TRANSFER_COMPLETE":
                 if (parts.length >= 2) {
                     String transferId = parts[1];
@@ -256,6 +267,61 @@ public class ServerConnectionHandler implements Runnable {
         }
     }
     
+    /**
+     * Handle a signed chunk command - receive and forward signed chunks
+     * Forwards signed chunks without verification (verification done by recipient)
+     */
+    private void handleSignedChunkCommand(String transferId, int chunkIndex, int totalChunks) throws IOException {
+        try {
+            
+            logger.info("Handling signed chunk " + chunkIndex + "/" + totalChunks + " for transfer: " + transferId);
+            LoggingManager.logTransfer(logger, transferId, "Relaying signed chunk", 
+                "Chunk " + chunkIndex + " of " + totalChunks + " with digital signature");
+            
+            Object chunkObj = in.readObject();
+            if (!(chunkObj instanceof SignedSecureMessage)) {
+                sendError("Invalid signed chunk data format - expected SignedSecureMessage");
+                LoggingManager.logSecurity(logger, "SECURITY ERROR: Invalid signed chunk format received for transfer " + transferId);
+                return;
+            }
+            
+            SignedSecureMessage signedChunk = (SignedSecureMessage) chunkObj;
+            
+            if (!signedChunk.isValid()) {
+                sendError("Invalid signed chunk structure");
+                LoggingManager.logSecurity(logger, "SECURITY ERROR: Malformed SignedSecureMessage received for transfer " + transferId);
+                return;
+            }
+            
+            FileTransferRequest transferRequest = activeTransfers.get(transferId);
+            if (transferRequest == null) {
+                sendError("Transfer not found: " + transferId);
+                LoggingManager.logTransfer(logger, transferId, "Transfer lookup failed", "No active transfer found");
+                return;
+            }
+            
+            String recipientUsername = transferRequest.getReceiverUsername();
+            try {
+                userManager.sendToUser(recipientUsername, "SIGNED_CHUNK|" + transferId + "|" + chunkIndex + "|" + totalChunks);
+                userManager.sendToUser(recipientUsername, signedChunk);
+                
+                LoggingManager.logTransfer(logger, transferId, "Signed chunk forwarded", 
+                    "Chunk " + chunkIndex + " forwarded to " + recipientUsername);
+            } catch (Exception e) {
+                sendError("Failed to forward signed chunk to recipient");
+                LoggingManager.logTransfer(logger, transferId, "Forward failed", 
+                    "Could not forward signed chunk " + chunkIndex + ": " + e.getMessage());
+            }
+            
+        } catch (ClassNotFoundException e) {
+            sendError("Failed to read signed chunk data");
+            logger.log(Level.WARNING, "Failed to read signed chunk for transfer: " + transferId, e);
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Failed to deserialize signed chunk: " + e.getMessage());
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+    
     private void handleTransferComplete(String transferId) throws IOException {
         FileTransferRequest request = activeTransfers.get(transferId);
         if (request == null) {
@@ -298,14 +364,11 @@ public class ServerConnectionHandler implements Runnable {
         
         logger.info("Transfer rejected by recipient: " + transferId);
         
-        // Send acknowledgment to the recipient
         send("TRANSFER_REJECT_ACK|" + transferId);
         
-        // Forward rejection to the sender
         String senderUsername = request.getSenderUsername();
         userManager.forwardTransferRejection(transferId, senderUsername);
         
-        // Clean up the transfer
         activeTransfers.remove(transferId);
     }
     

@@ -40,29 +40,20 @@ project implements a secure file transfer protocol that ensures confidentiality,
    - Secure file path creation
    - Prevention of directory traversal attacks
 
-6. **Public Key Validation** (NEW):
+6. **Public Key Validation**:
    - Minimum RSA 2048-bit key strength enforcement
    - Algorithm validation (RSA-only)
    - Key fingerprint generation for verification
    - Comprehensive input validation
    - Prevention of key spoofing attacks
 
-## Security Tests
+7. **Digital Signatures**:
+   - SHA256withRSA digital signatures for authentication
+   - Non-repudiation: cryptographic proof of sender identity
+   - Message integrity verification via signature
+   - Protection against forgery and impersonation attacks
+   - End-to-end authentication (sender to recipient)
 
-Run the comprehensive security test suite:
-
-```powershell
-# Test anti-replay protection
-java -cp build common.AntiReplayTest
-
-# Test path traversal protection  
-java -cp build common.PathTraversalSecurityTest
-
-# Test public key validation
-java -cp build common.PublicKeyValidationTest
-```
-
-All tests should pass, indicating that the security mechanisms are working correctly.
 
 ## How to Build and Run
 

@@ -215,43 +215,26 @@ public class TransferHistoryPanel extends JPanel {
     }
     
     private void refreshTable() {
-        logger.info("DEBUG: Refreshing transfer history table...");
         tableModel.setRowCount(0);
         
         TransferHistory currentTransferHistory = (client != null) ? client.getTransferHistory() : transferHistory;
         if (currentTransferHistory == null) {
-            logger.info("DEBUG: No transfer history available");
             return;
         }
         
         List<TransferRecord> records;
         int tabIndex = tabPane.getSelectedIndex();
-        logger.info("DEBUG: Selected tab index: " + tabIndex);
-        
-        String currentUser = (client != null && client.getCurrentUser() != null) ? 
-                           client.getCurrentUser().getUsername() : "null";
-        logger.info("DEBUG: Current user: " + currentUser);
         
         List<TransferRecord> allRecords = currentTransferHistory.getAllTransfers();
-        logger.info("DEBUG: Total available records: " + allRecords.size());
-        for (TransferRecord record : allRecords) {
-            logger.info("DEBUG: Record - File: " + record.getFileName() + 
-                       ", Sender: " + record.getSenderUsername() + 
-                       ", Receiver: " + record.getReceiverUsername() + 
-                       ", Status: " + record.getStatus());
-        }
         
         switch (tabIndex) {
             case 0: 
-                logger.info("DEBUG: Getting all transfers");
                 records = currentTransferHistory.getAllTransfers(); 
                 break;
             case 1: 
-                logger.info("DEBUG: Getting sent transfers for user: " + currentUser);
                 records = currentTransferHistory.getSentTransfers(); 
                 break;
             case 2: 
-                logger.info("DEBUG: Getting received transfers for user: " + currentUser);
                 records = currentTransferHistory.getReceivedTransfers(); 
                 break;
             case 3: 
@@ -264,15 +247,11 @@ public class TransferHistoryPanel extends JPanel {
                 break;
         }
         
-        logger.info("DEBUG: Found " + records.size() + " transfer records for selected tab");
-        
         if (records.size() == 0 && allRecords.size() > 0) {
-            logger.info("DEBUG: No records found for current filter, falling back to all transfers");
             records = allRecords;
         }
         
         for (TransferRecord record : records) {
-            logger.info("DEBUG: Adding record: " + record.getFileName() + " - " + record.getStatus());
             Object[] row = new Object[7];
             row[0] = record.getFileName();
             row[1] = record.getSenderUsername();

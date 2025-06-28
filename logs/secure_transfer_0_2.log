@@ -1,8 +1,0 @@
-2025-06-29 00:49:05.350 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-29 00:49:05.569 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 3685d453...
-2025-06-29 00:49:05.577 INFO [common.LoggingManager logSecurity] [SECURITY] SECURITY ALERT: Replay attack detected! Duplicate nonce: 3685d453fd6e3ebb865b7060c74a1614
-2025-06-29 00:49:05.585 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 54670bfd...
-2025-06-29 00:49:05.591 INFO [common.LoggingManager logSecurity] [SECURITY] SECURITY ALERT: Message rejected - too old (age: 360s). Potential replay attack detected.
-2025-06-29 00:49:05.612 INFO [common.LoggingManager logSecurity] [SECURITY] ADMIN: Forced nonce cleanup - removed 0 old nonces
-2025-06-29 00:49:05.614 INFO [common.LoggingManager logSecurity] [SECURITY] ADMIN: Nonce cache cleared manually
-2025-06-29 00:49:05.614 INFO [common.LoggingManager logSecurity] [SECURITY] ADMIN: Shutting down CryptoUtils cleanup service
