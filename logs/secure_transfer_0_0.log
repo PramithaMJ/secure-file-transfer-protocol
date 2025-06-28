@@ -1,14 +1,352 @@
-2025-06-23 12:03:39.116 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 12:03:39.153 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 12:03:39.941 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
-2025-06-23 12:06:09.127 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 12:06:09.128 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 12:06:09.128 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
-2025-06-23 12:06:09.314 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
-2025-06-23 12:06:09.322 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
-2025-06-23 12:06:09.333 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
-2025-06-23 12:06:09.334 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 12:06:09.347 INFO [client.Client login] Logged in as: Pramitha
-2025-06-23 12:06:09.348 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
-2025-06-23 12:06:09.349 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
-2025-06-23 12:06:09.350 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-28 23:59:54.095 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-28 23:59:54.133 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-28 23:59:54.338 INFO [client.ClientUI lambda$main$23] Client UI initialized and displayed
+2025-06-29 00:00:03.223 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-29 00:00:03.223 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-29 00:00:03.223 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Bob
+2025-06-29 00:00:03.623 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Bob
+2025-06-29 00:00:03.623 INFO [client.TransferHistory loadHistory] No history file found for user Bob at data\Bob_transfer_history.dat
+2025-06-29 00:00:03.633 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-29 00:00:03.660 INFO [client.Client login] Logged in as: Bob
+2025-06-29 00:00:03.662 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Bob
+2025-06-29 00:00:03.667 INFO [client.TransferHistory loadHistory] No history file found for user Bob at data\Bob_transfer_history.dat
+2025-06-29 00:00:03.738 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:03.738 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:03.738 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:03.738 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:03.738 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:03.743 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:15.217 INFO [client.Client initiateFileTransfer] Using public key of receiver: Alice
+2025-06-29 00:00:15.353 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Bob_transfer_history.dat
+2025-06-29 00:00:15.362 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
+2025-06-29 00:00:15.367 INFO [client.Client initiateFileTransfer] Transfer request sent, waiting for recipient acceptance: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:16.483 INFO [client.Client processStringMessage] Transfer accepted by recipient: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:16.486 INFO [client.Client processStringMessage] Starting file transfer after acceptance: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:16.488 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Starting file transfer: File: 125999742.pdf, Size: 458168 bytes
+2025-06-29 00:00:16.489 FINE [common.LoggingManager logCrypto] [CRYPTO] File chunking: Starting file encryption with chunk size 4096
+2025-06-29 00:00:16.489 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 1 of size 4096
+2025-06-29 00:00:16.502 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 2 of size 4096
+2025-06-29 00:00:16.503 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 3 of size 4096
+2025-06-29 00:00:16.503 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 4 of size 4096
+2025-06-29 00:00:16.505 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 5 of size 4096
+2025-06-29 00:00:16.505 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 6 of size 4096
+2025-06-29 00:00:16.507 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 7 of size 4096
+2025-06-29 00:00:16.507 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 8 of size 4096
+2025-06-29 00:00:16.509 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 9 of size 4096
+2025-06-29 00:00:16.511 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 10 of size 4096
+2025-06-29 00:00:16.511 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 11 of size 4096
+2025-06-29 00:00:16.513 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 12 of size 4096
+2025-06-29 00:00:16.513 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 13 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 14 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 15 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 16 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 17 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 18 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 19 of size 4096
+2025-06-29 00:00:16.516 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 20 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 21 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 22 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 23 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 24 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 25 of size 4096
+2025-06-29 00:00:16.523 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 26 of size 4096
+2025-06-29 00:00:16.531 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 27 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 28 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 29 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 30 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 31 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 32 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 33 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 34 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 35 of size 4096
+2025-06-29 00:00:16.534 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 36 of size 4096
+2025-06-29 00:00:16.543 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 37 of size 4096
+2025-06-29 00:00:16.543 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 38 of size 4096
+2025-06-29 00:00:16.550 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 39 of size 4096
+2025-06-29 00:00:16.552 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 40 of size 4096
+2025-06-29 00:00:16.557 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 41 of size 4096
+2025-06-29 00:00:16.558 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 42 of size 4096
+2025-06-29 00:00:16.561 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 43 of size 4096
+2025-06-29 00:00:16.566 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 44 of size 4096
+2025-06-29 00:00:16.571 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 45 of size 4096
+2025-06-29 00:00:16.572 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 46 of size 4096
+2025-06-29 00:00:16.573 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 47 of size 4096
+2025-06-29 00:00:16.574 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 48 of size 4096
+2025-06-29 00:00:16.574 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 49 of size 4096
+2025-06-29 00:00:16.577 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 50 of size 4096
+2025-06-29 00:00:16.582 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 51 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 52 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 53 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 54 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 55 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 56 of size 4096
+2025-06-29 00:00:16.585 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 57 of size 4096
+2025-06-29 00:00:16.593 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 58 of size 4096
+2025-06-29 00:00:16.599 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 59 of size 4096
+2025-06-29 00:00:16.601 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 60 of size 4096
+2025-06-29 00:00:16.603 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 61 of size 4096
+2025-06-29 00:00:16.603 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 62 of size 4096
+2025-06-29 00:00:16.605 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 63 of size 4096
+2025-06-29 00:00:16.605 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 64 of size 4096
+2025-06-29 00:00:16.605 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 65 of size 4096
+2025-06-29 00:00:16.609 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 66 of size 4096
+2025-06-29 00:00:16.609 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 67 of size 4096
+2025-06-29 00:00:16.609 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 68 of size 4096
+2025-06-29 00:00:16.611 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 69 of size 4096
+2025-06-29 00:00:16.613 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 70 of size 4096
+2025-06-29 00:00:16.613 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 71 of size 4096
+2025-06-29 00:00:16.617 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 72 of size 4096
+2025-06-29 00:00:16.617 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 73 of size 4096
+2025-06-29 00:00:16.617 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 74 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 75 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 76 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 77 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 78 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 79 of size 4096
+2025-06-29 00:00:16.619 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 80 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 81 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 82 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 83 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 84 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 85 of size 4096
+2025-06-29 00:00:16.621 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 86 of size 4096
+2025-06-29 00:00:16.623 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 87 of size 4096
+2025-06-29 00:00:16.623 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 88 of size 4096
+2025-06-29 00:00:16.623 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 89 of size 4096
+2025-06-29 00:00:16.623 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 90 of size 4096
+2025-06-29 00:00:16.623 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 91 of size 4096
+2025-06-29 00:00:16.625 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 92 of size 4096
+2025-06-29 00:00:16.625 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 93 of size 4096
+2025-06-29 00:00:16.625 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 94 of size 4096
+2025-06-29 00:00:16.627 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 95 of size 4096
+2025-06-29 00:00:16.627 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 96 of size 4096
+2025-06-29 00:00:16.627 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 97 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 98 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 99 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 100 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 101 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 102 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 103 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 104 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 105 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 106 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 107 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 108 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 109 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 110 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 111 of size 4096
+2025-06-29 00:00:16.633 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 112 of size 3512
+2025-06-29 00:00:16.633 INFO [client.Client sendFileData] File split into 112 encrypted chunks
+2025-06-29 00:00:16.633 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] File prepared: 125999742.pdf chunked into 112 encrypted segments
+2025-06-29 00:00:16.633 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 0 of 112
+2025-06-29 00:00:16.663 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 1 of 112
+2025-06-29 00:00:16.679 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 2 of 112
+2025-06-29 00:00:16.695 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 3 of 112
+2025-06-29 00:00:16.710 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 4 of 112
+2025-06-29 00:00:16.726 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 5 of 112
+2025-06-29 00:00:16.742 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 6 of 112
+2025-06-29 00:00:16.758 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 7 of 112
+2025-06-29 00:00:16.774 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 8 of 112
+2025-06-29 00:00:16.790 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 9 of 112
+2025-06-29 00:00:16.806 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 10 of 112
+2025-06-29 00:00:16.821 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 11 of 112
+2025-06-29 00:00:16.837 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 12 of 112
+2025-06-29 00:00:16.853 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 13 of 112
+2025-06-29 00:00:16.869 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 14 of 112
+2025-06-29 00:00:16.885 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 15 of 112
+2025-06-29 00:00:16.901 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 16 of 112
+2025-06-29 00:00:16.917 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 17 of 112
+2025-06-29 00:00:16.933 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 18 of 112
+2025-06-29 00:00:16.949 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 19 of 112
+2025-06-29 00:00:16.965 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 20 of 112
+2025-06-29 00:00:16.981 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 21 of 112
+2025-06-29 00:00:16.997 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 22 of 112
+2025-06-29 00:00:17.013 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 23 of 112
+2025-06-29 00:00:17.029 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 24 of 112
+2025-06-29 00:00:17.045 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 25 of 112
+2025-06-29 00:00:17.061 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 26 of 112
+2025-06-29 00:00:17.076 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 27 of 112
+2025-06-29 00:00:17.092 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 28 of 112
+2025-06-29 00:00:17.108 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 29 of 112
+2025-06-29 00:00:17.124 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 30 of 112
+2025-06-29 00:00:17.140 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 31 of 112
+2025-06-29 00:00:17.156 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 32 of 112
+2025-06-29 00:00:17.172 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 33 of 112
+2025-06-29 00:00:17.189 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 34 of 112
+2025-06-29 00:00:17.205 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 35 of 112
+2025-06-29 00:00:17.221 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 36 of 112
+2025-06-29 00:00:17.237 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 37 of 112
+2025-06-29 00:00:17.253 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 38 of 112
+2025-06-29 00:00:17.269 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 39 of 112
+2025-06-29 00:00:17.285 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 40 of 112
+2025-06-29 00:00:17.301 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 41 of 112
+2025-06-29 00:00:17.317 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 42 of 112
+2025-06-29 00:00:17.333 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 43 of 112
+2025-06-29 00:00:17.349 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 44 of 112
+2025-06-29 00:00:17.366 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 45 of 112
+2025-06-29 00:00:17.382 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 46 of 112
+2025-06-29 00:00:17.398 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 47 of 112
+2025-06-29 00:00:17.414 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 48 of 112
+2025-06-29 00:00:17.430 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 49 of 112
+2025-06-29 00:00:17.446 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 50 of 112
+2025-06-29 00:00:17.462 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 51 of 112
+2025-06-29 00:00:17.477 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 52 of 112
+2025-06-29 00:00:17.493 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 53 of 112
+2025-06-29 00:00:17.509 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 54 of 112
+2025-06-29 00:00:17.525 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 55 of 112
+2025-06-29 00:00:17.541 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 56 of 112
+2025-06-29 00:00:17.557 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 57 of 112
+2025-06-29 00:00:17.573 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 58 of 112
+2025-06-29 00:00:17.589 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 59 of 112
+2025-06-29 00:00:17.605 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 60 of 112
+2025-06-29 00:00:17.621 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 61 of 112
+2025-06-29 00:00:17.637 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 62 of 112
+2025-06-29 00:00:17.653 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 63 of 112
+2025-06-29 00:00:17.669 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 64 of 112
+2025-06-29 00:00:17.685 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 65 of 112
+2025-06-29 00:00:17.702 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 66 of 112
+2025-06-29 00:00:17.718 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 67 of 112
+2025-06-29 00:00:17.733 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 68 of 112
+2025-06-29 00:00:17.749 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 69 of 112
+2025-06-29 00:00:17.765 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 70 of 112
+2025-06-29 00:00:17.781 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 71 of 112
+2025-06-29 00:00:17.797 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 72 of 112
+2025-06-29 00:00:17.813 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 73 of 112
+2025-06-29 00:00:17.829 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 74 of 112
+2025-06-29 00:00:17.845 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 75 of 112
+2025-06-29 00:00:17.860 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 76 of 112
+2025-06-29 00:00:17.876 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 77 of 112
+2025-06-29 00:00:17.892 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 78 of 112
+2025-06-29 00:00:17.908 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 79 of 112
+2025-06-29 00:00:17.923 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 80 of 112
+2025-06-29 00:00:17.939 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 81 of 112
+2025-06-29 00:00:17.955 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 82 of 112
+2025-06-29 00:00:17.971 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 83 of 112
+2025-06-29 00:00:17.987 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 84 of 112
+2025-06-29 00:00:18.003 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 85 of 112
+2025-06-29 00:00:18.019 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 86 of 112
+2025-06-29 00:00:18.035 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 87 of 112
+2025-06-29 00:00:18.050 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 88 of 112
+2025-06-29 00:00:18.066 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 89 of 112
+2025-06-29 00:00:18.082 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 90 of 112
+2025-06-29 00:00:18.097 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 91 of 112
+2025-06-29 00:00:18.113 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 92 of 112
+2025-06-29 00:00:18.129 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 93 of 112
+2025-06-29 00:00:18.144 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 94 of 112
+2025-06-29 00:00:18.161 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 95 of 112
+2025-06-29 00:00:18.177 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 96 of 112
+2025-06-29 00:00:18.193 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 97 of 112
+2025-06-29 00:00:18.209 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 98 of 112
+2025-06-29 00:00:18.225 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 99 of 112
+2025-06-29 00:00:18.240 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 100 of 112
+2025-06-29 00:00:18.257 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 101 of 112
+2025-06-29 00:00:18.273 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 102 of 112
+2025-06-29 00:00:18.289 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 103 of 112
+2025-06-29 00:00:18.305 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 104 of 112
+2025-06-29 00:00:18.321 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 105 of 112
+2025-06-29 00:00:18.337 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 106 of 112
+2025-06-29 00:00:18.353 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 107 of 112
+2025-06-29 00:00:18.369 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 108 of 112
+2025-06-29 00:00:18.385 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 109 of 112
+2025-06-29 00:00:18.401 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 110 of 112
+2025-06-29 00:00:18.417 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Sending chunk: Chunk 111 of 112
+2025-06-29 00:00:18.433 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Transfer finishing: Sending completion notification
+2025-06-29 00:00:18.437 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Bob_transfer_history.dat
+2025-06-29 00:00:18.437 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.443 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Bob_transfer_history.dat
+2025-06-29 00:00:18.443 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Saved transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.443 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Transfer record updated and saved: Status: Completed, File: 125999742.pdf
+2025-06-29 00:00:18.443 INFO [client.Client sendFileData] DEBUG: Transfer record updated for sender: 88ad23f5-67f3-4adf-9632-0d1532a91558, Status: COMPLETED
+2025-06-29 00:00:18.443 INFO [client.Client sendFileData] File transfer completed: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.447 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Transfer completed: All 112 chunks of 125999742.pdf sent successfully
+2025-06-29 00:00:18.448 INFO [client.Client sendFileData] DEBUG: Firing onTransferComplete event for sender: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.449 INFO [client.Client lambda$sendFileData$0] DEBUG: onTransferComplete event firing on EDT for: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.449 INFO [client.ClientUI onTransferComplete] DEBUG: onTransferComplete called for: 88ad23f5-67f3-4adf-9632-0d1532a91558
+2025-06-29 00:00:18.449 INFO [client.ClientUI lambda$onTransferComplete$16] DEBUG: Found transfer record: 125999742.pdf, Status: COMPLETED
+2025-06-29 00:00:18.449 INFO [client.ClientUI lambda$onTransferComplete$16] DEBUG: About to refresh transfer history panel...
+2025-06-29 00:00:18.449 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.449 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.453 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Bob_transfer_history.dat
+2025-06-29 00:00:18.453 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.453 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.512 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.513 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:18.625 INFO [client.ClientUI lambda$onTransferComplete$14] DEBUG: First timer fired (100ms), calling refreshTransferHistoryPanel...
+2025-06-29 00:00:18.625 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.625 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.628 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Bob_transfer_history.dat
+2025-06-29 00:00:18.628 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.628 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.689 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.690 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.693 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:18.833 INFO [client.ClientUI lambda$onTransferComplete$15] DEBUG: Second timer fired (300ms), calling refreshTransferHistoryPanel...
+2025-06-29 00:00:18.833 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: refreshTransferHistoryPanel called
+2025-06-29 00:00:18.833 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Reloading transfer history from disk...
+2025-06-29 00:00:18.836 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Bob_transfer_history.dat
+2025-06-29 00:00:18.836 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:18.836 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Transfer history reloaded, total records: 1
+2025-06-29 00:00:18.897 INFO [client.ClientUI refreshTransferHistoryPanel] DEBUG: Found TransferHistoryPanel, calling refresh...
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:18.897 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:18.899 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 0
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:22.473 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 0 transfer records for selected tab
+2025-06-29 00:00:23.215 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
+2025-06-29 00:00:23.221 INFO [client.Client disconnect] Socket closed successfully
+2025-06-29 00:00:23.222 WARNING [client.Client processServerMessages] Error processing server messages
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:165)
+	at java.base/sun.nio.ch.NioSocketImpl.beginRead(NioSocketImpl.java:236)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:304)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.read(ObjectInputStream.java:2908)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2924)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.readInt(ObjectInputStream.java:3445)
+	at java.base/java.io.ObjectInputStream.readHandle(ObjectInputStream.java:1850)
+	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1911)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2235)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1744)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:514)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:472)
+	at client.Client.processServerMessages(Client.java:492)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+2025-06-29 00:00:23.222 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
+2025-06-29 00:00:24.081 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-29 00:00:24.081 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-29 00:00:24.081 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Bob
+2025-06-29 00:00:24.363 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Bob
+2025-06-29 00:00:24.363 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Bob_transfer_history.dat
+2025-06-29 00:00:24.363 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:24.363 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-29 00:00:24.363 INFO [client.Client login] Logged in as: Bob
+2025-06-29 00:00:24.373 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Bob
+2025-06-29 00:00:24.376 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Bob_transfer_history.dat
+2025-06-29 00:00:24.376 INFO [common.LoggingManager logTransfer] [TRANSFER:88ad23f5-67f3-4adf-9632-0d1532a91558] Loaded transfer record: File: 125999742.pdf, Status: COMPLETED, From: Bob, To: Alice
+2025-06-29 00:00:24.383 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Refreshing transfer history table...
+2025-06-29 00:00:24.392 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Selected tab index: 0
+2025-06-29 00:00:24.392 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Current user: Bob
+2025-06-29 00:00:24.393 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Total available records: 1
+2025-06-29 00:00:24.393 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Record - File: 125999742.pdf, Sender: Bob, Receiver: Alice, Status: COMPLETED
+2025-06-29 00:00:24.393 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Getting all transfers
+2025-06-29 00:00:24.393 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Found 1 transfer records for selected tab
+2025-06-29 00:00:24.393 INFO [client.TransferHistoryPanel refreshTable] DEBUG: Adding record: 125999742.pdf - COMPLETED
