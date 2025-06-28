@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
 import javax.crypto.*;
+import javax.swing.SwingUtilities;
 
 public class Client {
     private static final Logger logger = LoggingManager.getLogger(Client.class.getName());
@@ -50,7 +51,6 @@ public class Client {
     }
     
     public void connect() throws IOException {
-        // Initialize logging at first connection
         LoggingManager.initialize();
         
         socket = new Socket(serverAddress, serverPort);
@@ -306,16 +306,27 @@ public class Client {
                     if (record != null) {
                         record.complete(filePath);
                         transferHistory.updateTransfer(record);
-                        LoggingManager.logTransfer(logger, transferId, "Transfer record updated", 
+                        transferHistory.forceSave();
+                        LoggingManager.logTransfer(logger, transferId, "Transfer record updated and saved", 
                             "Status: Completed, File: " + fileName);
+                        logger.info("DEBUG: Transfer record updated for sender: " + transferId + ", Status: " + record.getStatus());
+                    } else {
+                        logger.warning("No transfer record found for completed sending: " + transferId);
+                        logger.info("DEBUG: No transfer record found for: " + transferId);
                     }
                     
                     logger.info("File transfer completed: " + transferId);
                     LoggingManager.logTransfer(logger, transferId, "Transfer completed", 
                         "All " + encryptedChunks.size() + " chunks of " + fileName + " sent successfully");
-                        
+                    
                     if (eventListener != null) {
-                        eventListener.onTransferComplete(transferId);
+                        logger.info("DEBUG: Firing onTransferComplete event for sender: " + transferId);
+                        SwingUtilities.invokeLater(() -> {
+                            logger.info("DEBUG: onTransferComplete event firing on EDT for: " + transferId);
+                            eventListener.onTransferComplete(transferId);
+                        });
+                    } else {
+                        logger.info("DEBUG: No event listener available for transfer: " + transferId);
                     }
                 }
                 
@@ -421,15 +432,28 @@ public class Client {
                 eventListener.onTransferProgress(transferId, progress);
             }
             
-            // If last chunk, mark as complete
             if (chunkIndex == totalChunks - 1) {
-                // Update transfer record to mark as complete
                 TransferRecord record = transferHistory.getTransfer(transferId);
                 if (record != null) {
                     record.complete(downloadFile.getAbsolutePath());
                     transferHistory.updateTransfer(record);
+                    transferHistory.forceSave();
                     LoggingManager.logTransfer(logger, transferId, "Transfer record updated", 
                         "Status: Completed, File: " + request.getFileName());
+                } else {
+                    logger.info("No transfer record found, creating new record for completed transfer: " + transferId);
+                    transferHistory.addTransfer(transferId, request.getFileName(), 
+                                              request.getSenderUsername(), user.getUsername(), 
+                                              request.getFileSize());
+                    
+                    record = transferHistory.getTransfer(transferId);
+                    if (record != null) {
+                        record.complete(downloadFile.getAbsolutePath());
+                        transferHistory.updateTransfer(record);
+                        transferHistory.forceSave();
+                        LoggingManager.logTransfer(logger, transferId, "New transfer record created and completed", 
+                            "Status: Completed, File: " + request.getFileName());
+                    }
                 }
                 
                 logger.info("File transfer completed: " + request.getFileName());
@@ -437,7 +461,13 @@ public class Client {
                     "Successfully received file: " + request.getFileName() + " from " + request.getSenderUsername());
                 
                 if (eventListener != null) {
-                    eventListener.onTransferComplete(transferId);
+                    System.out.println("DEBUG: Firing onTransferComplete event for receiver: " + transferId);
+                    SwingUtilities.invokeLater(() -> {
+                        System.out.println("DEBUG: onTransferComplete event firing on EDT for: " + transferId);
+                        eventListener.onTransferComplete(transferId);
+                    });
+                } else {
+                    System.out.println("DEBUG: No event listener available for transfer: " + transferId);
                 }
             }
             
@@ -854,6 +884,14 @@ public class Client {
     
     public void sendAcceptTransfer(String transferId) {
         try {
+            FileTransferRequest request = activeTransfers.get(transferId);
+            if (request != null && transferHistory != null) {
+                transferHistory.addTransfer(transferId, request.getFileName(), 
+                                          request.getSenderUsername(), user.getUsername(), 
+                                          request.getFileSize());
+                logger.info("Added transfer to recipient's history: " + transferId);
+            }
+            
             sendToServer("ACCEPT_TRANSFER|" + transferId);
             logger.info("Sent transfer acceptance for: " + transferId);
         } catch (Exception e) {
