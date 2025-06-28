@@ -3,6 +3,7 @@ package common;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 import java.security.*;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import java.security.MessageDigest;
 
 public class CryptoUtils {
     private static final Logger logger = LoggingManager.getLogger(CryptoUtils.class.getName());
@@ -141,7 +143,7 @@ public class CryptoUtils {
     
     /**
      * Verify message integrity using HMAC with anti-replay protection
-     * CRITICAL SECURITY: This method now implements proper anti-replay protection
+     * 
      */
     public static boolean verifyIntegrity(SecureMessage message, SecretKey hmacKey) throws Exception {
         // Input validation for security
@@ -202,10 +204,122 @@ public class CryptoUtils {
         return macValid;
     }
     
+    /**
+     * Safely convert bytes to PublicKey with comprehensive security validation
+     * prevent key spoofing
+     */
     public static PublicKey bytesToPublicKey(byte[] keyBytes) throws Exception {
+        if (keyBytes == null || keyBytes.length == 0) {
+            throw new IllegalArgumentException("Key bytes cannot be null or empty");
+        }
+        
+        // Basic length validation - RSA 2048 public key should be around 294 bytes in X.509 format
+        if (keyBytes.length < 200 || keyBytes.length > 1000) {
+            LoggingManager.logSecurity(logger, "SECURITY ALERT: Suspicious public key length: " + keyBytes.length + " bytes");
+            throw new SecurityException("Invalid public key length: " + keyBytes.length + " bytes");
+        }
+        
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
-        return keyFactory.generatePublic(keySpec);
+        PublicKey publicKey = keyFactory.generatePublic(keySpec);
+        
+        // Validate the generated public key
+        validatePublicKey(publicKey);
+        
+        return publicKey;
+    }
+    
+    /**
+     * Comprehensive public key validation to prevent weak keys and attacks
+     * 
+     */
+    public static void validatePublicKey(PublicKey publicKey) throws SecurityException {
+        if (publicKey == null) {
+            throw new SecurityException("Public key cannot be null");
+        }
+        
+        // 1. Verify it's an RSA key
+        if (!RSA_ALGORITHM.equals(publicKey.getAlgorithm())) {
+            LoggingManager.logSecurity(logger, "SECURITY ALERT: Non-RSA public key rejected: " + publicKey.getAlgorithm());
+            throw new SecurityException("Only RSA public keys are supported, got: " + publicKey.getAlgorithm());
+        }
+        
+        // 2. Validate RSA key strength
+        if (publicKey instanceof RSAPublicKey) {
+            RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
+            int keySize = rsaPublicKey.getModulus().bitLength();
+            
+            // Enforce minimum key size of 2048 bits (industry standard)
+            if (keySize < 2048) {
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Weak RSA key rejected - size: " + keySize + " bits");
+                throw new SecurityException("RSA key too weak: " + keySize + " bits. Minimum required: 2048 bits");
+            }
+            
+            // Warn about very large keys (potential DoS)
+            if (keySize > 4096) {
+                LoggingManager.logSecurity(logger, "SECURITY WARNING: Very large RSA key - size: " + keySize + " bits");
+            }
+            
+            // 3. Validate public exponent (should be standard values like 65537)
+            long publicExponent = rsaPublicKey.getPublicExponent().longValue();
+            if (publicExponent != 65537 && publicExponent != 3 && publicExponent != 17) {
+                LoggingManager.logSecurity(logger, "SECURITY WARNING: Non-standard RSA public exponent: " + publicExponent);
+            }
+            
+            // 4. Check for small public exponent vulnerability (though 3 is technically valid)
+            if (publicExponent < 65537) {
+                LoggingManager.logSecurity(logger, "SECURITY WARNING: Small RSA public exponent may be vulnerable: " + publicExponent);
+            }
+            
+            LoggingManager.logSecurity(logger, "Public key validation passed - RSA " + keySize + " bits, exponent: " + publicExponent);
+        } else {
+            LoggingManager.logSecurity(logger, "SECURITY WARNING: Cannot validate RSA-specific properties for key type: " + publicKey.getClass().getName());
+        }
+    }
+    
+    /**
+     * Generate a cryptographic fingerprint of a public key for verification
+     * 
+     */
+    public static String generateKeyFingerprint(PublicKey publicKey) throws Exception {
+        if (publicKey == null) {
+            throw new IllegalArgumentException("Public key cannot be null");
+        }
+        
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] keyBytes = publicKey.getEncoded();
+        byte[] fingerprintBytes = digest.digest(keyBytes);
+        
+        // Convert to hexadecimal string
+        StringBuilder fingerprint = new StringBuilder();
+        for (byte b : fingerprintBytes) {
+            fingerprint.append(String.format("%02x", b));
+        }
+        
+        return fingerprint.toString();
+    }
+    
+    /**
+     * Verify if a public key matches a known fingerprint
+     * Use this to implement trust-on-first-use (TOFU)
+     */
+    public static boolean verifyKeyFingerprint(PublicKey publicKey, String expectedFingerprint) {
+        try {
+            String actualFingerprint = generateKeyFingerprint(publicKey);
+            boolean matches = actualFingerprint.equalsIgnoreCase(expectedFingerprint);
+            
+            if (matches) {
+                LoggingManager.logSecurity(logger, "Key fingerprint verification PASSED");
+            } else {
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Key fingerprint verification FAILED! Expected: " + 
+                                         expectedFingerprint + ", Got: " + actualFingerprint);
+            }
+            
+            return matches;
+        } catch (Exception e) {
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Failed to verify key fingerprint: " + e.getMessage());
+            return false;
+        }
     }
     
     /**
