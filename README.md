@@ -10,28 +10,59 @@ New-Item -ItemType Directory -Path "build"
 **Step 2: Compile all Java files:**
 ```powershell
 javac -d build -cp src src\common\*.java src\client\*.java src\server\*.java
-``` project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
+```
+project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
+
 
 ## Security Features
 
 1. **Confidentiality**:
-
    - RSA encryption for key exchange
    - AES-256 encryption for file contents
    - CBC mode with random IV for each chunk
-2. **Integrity**:
 
+2. **Integrity**:
    - HMAC-SHA256 verification for each chunk
    - HMAC covers encrypted data, IV, timestamp, and nonce
-3. **Authentication**:
 
+3. **Authentication**:
    - Server authenticates clients via user accounts
    - Clients verify server responses
-4. **Replay Protection**:
 
+4. **Anti-Replay Protection**:
    - Unique nonce for each chunk
-   - Timestamp validation
+   - Timestamp validation (5-minute window)
    - Server-side tracking of used nonces
+   - Automatic cleanup of old nonces
+
+5. **Path Traversal Protection**:
+   - Filename validation and sanitization
+   - Secure file path creation
+   - Prevention of directory traversal attacks
+
+6. **Public Key Validation** (NEW):
+   - Minimum RSA 2048-bit key strength enforcement
+   - Algorithm validation (RSA-only)
+   - Key fingerprint generation for verification
+   - Comprehensive input validation
+   - Prevention of key spoofing attacks
+
+## Security Tests
+
+Run the comprehensive security test suite:
+
+```powershell
+# Test anti-replay protection
+java -cp build common.AntiReplayTest
+
+# Test path traversal protection  
+java -cp build common.PathTraversalSecurityTest
+
+# Test public key validation
+java -cp build common.PublicKeyValidationTest
+```
+
+All tests should pass, indicating that the security mechanisms are working correctly.
 
 ## How to Build and Run
 

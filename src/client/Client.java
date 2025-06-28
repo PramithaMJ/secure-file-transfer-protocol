@@ -187,6 +187,18 @@ public class Client {
                 }
             }
             
+            // SECURITY: Validate the receiver's public key before using it
+            try {
+                CryptoUtils.validatePublicKey(receiverPublicKey);
+                String keyFingerprint = CryptoUtils.generateKeyFingerprint(receiverPublicKey);
+                LoggingManager.logSecurity(logger, "Using validated public key for " + receiverUsername + 
+                                         ", fingerprint: " + keyFingerprint.substring(0, 16) + "...");
+            } catch (Exception e) {
+                logger.severe("SECURITY: Invalid public key for receiver " + receiverUsername + ": " + e.getMessage());
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Rejecting file transfer due to invalid public key for " + receiverUsername);
+                return false;
+            }
+            
             logger.info("Using public key of receiver: " + receiverUsername);
             
             SecretKey symmetricKey = CryptoUtils.generateSymmetricKey();
@@ -369,6 +381,18 @@ public class Client {
                 logger.warning("No public key available for current user: " + user.getUsername());
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Public key not available for decryption");
+                }
+                return;
+            }
+            
+            // SECURITY: Validate our own public key before using it for decryption
+            try {
+                CryptoUtils.validatePublicKey(user.getPublicKey());
+            } catch (Exception e) {
+                logger.severe("SECURITY: Our own public key is invalid: " + e.getMessage());
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Own public key validation failed for user " + user.getUsername());
+                if (eventListener != null) {
+                    eventListener.onTransferError(transferId, "Invalid public key for decryption");
                 }
                 return;
             }

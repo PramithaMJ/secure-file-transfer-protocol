@@ -35,6 +35,14 @@ public class Participant implements Serializable {
     public Participant(byte[] serializedPublicKey) throws NoSuchAlgorithmException {
         this();
         this.serializedPublicKey = serializedPublicKey;
+        
+        // SECURITY: Validate the provided public key
+        try {
+            PublicKey key = CryptoUtils.bytesToPublicKey(serializedPublicKey);
+            CryptoUtils.validatePublicKey(key);
+        } catch (Exception e) {
+            throw new SecurityException("Invalid public key provided: " + e.getMessage(), e);
+        }
     }
 
     public PublicKey getPublicKey() {
@@ -64,6 +72,13 @@ public class Participant implements Serializable {
     }
     
     public void setSerializedPublicKey(byte[] publicKeyBytes) {
-        this.serializedPublicKey = publicKeyBytes;
+        // SECURITY: Validate the public key before accepting it
+        try {
+            PublicKey key = CryptoUtils.bytesToPublicKey(publicKeyBytes);
+            CryptoUtils.validatePublicKey(key);
+            this.serializedPublicKey = publicKeyBytes;
+        } catch (Exception e) {
+            throw new SecurityException("Invalid public key provided: " + e.getMessage(), e);
+        }
     }
 }
