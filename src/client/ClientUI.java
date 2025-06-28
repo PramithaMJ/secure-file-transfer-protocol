@@ -4,7 +4,6 @@ import common.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -313,7 +312,7 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     }
     
     @Override
-    public void onFileTransferRequest(FileTransferRequest request) {
+    public void onFileTransferRequest(String transferId, FileTransferRequest request) {
         SwingUtilities.invokeLater(() -> {
             String sender = request.getSenderUsername();
             String fileName = request.getFileName();
@@ -328,8 +327,14 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             
             if (choice == JOptionPane.YES_OPTION) {
                 log("Accepted file transfer from " + sender + ": " + fileName);
+                if (client != null) {
+                    client.sendAcceptTransfer(transferId);
+                }
             } else {
                 log("Rejected file transfer from " + sender);
+                if (client != null) {
+                    client.sendRejectTransfer(transferId);
+                }
             }
         });
     }

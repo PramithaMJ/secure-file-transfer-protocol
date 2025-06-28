@@ -26,6 +26,8 @@ public class Client {
     private final Map<String, FileTransferRequest> activeTransfers = new ConcurrentHashMap<>();
     private final Map<String, Boolean> pausedTransfers = new ConcurrentHashMap<>();
     private final Map<String, Integer> transferProgress = new ConcurrentHashMap<>();
+    private final Map<String, SecretKey> pendingTransferKeys = new ConcurrentHashMap<>();
+    private final Map<String, String> pendingTransferPaths = new ConcurrentHashMap<>();
     private final ExecutorService transferThreadPool = Executors.newFixedThreadPool(5);
     private final BlockingQueue<Object> messageQueue = new LinkedBlockingQueue<>();
     
@@ -218,7 +220,10 @@ public class Client {
                     transferHistory.addTransfer(transferId, fileName, user.getUsername(), 
                                             receiverUsername, fileSize);
                     
-                    transferThreadPool.execute(() -> sendFileData(transferId, filePath, symmetricKey));
+                    pendingTransferKeys.put(transferId, symmetricKey);
+                    pendingTransferPaths.put(transferId, filePath);
+                    
+                    logger.info("Transfer request sent, waiting for recipient acceptance: " + transferId);
                     return true;
                 }
             }
@@ -509,7 +514,7 @@ public class Client {
                     logger.info("Storing transfer request with ID: " + transferId);
                     
                     if (eventListener != null) {
-                        eventListener.onFileTransferRequest(request);
+                        eventListener.onFileTransferRequest(transferId, request);
                     }
                 }
             } else if (message instanceof SecureMessage) {
@@ -628,20 +633,33 @@ public class Client {
                     LoggingManager.logTransfer(logger, transferId, "Received transfer request", 
                         "File: " + fileName + ", From: " + sender + ", Size: " + fileSize + " bytes");
 
-                    FileTransferRequest prelimRequest = new FileTransferRequest(
-                        sender,
-                        user.getUsername(),
-                        fileName,
-                        fileSize,
-                        null,
-                        null,
-                        FileTransferRequest.RequestType.INITIATE_TRANSFER
-                    );
-                    
-                    activeTransfers.put(transferId, prelimRequest);
-                    
-                    if (eventListener != null) {
-                        eventListener.onTransferStarting(transferId, fileName);
+                    try {
+                        Object requestObj = in.readObject();
+                        if (requestObj instanceof FileTransferRequest) {
+                            FileTransferRequest fullRequest = (FileTransferRequest) requestObj;
+                            activeTransfers.put(transferId, fullRequest);
+                            
+                            if (eventListener != null) {
+                                eventListener.onFileTransferRequest(transferId, fullRequest);
+                            }
+                        }
+                    } catch (Exception e) {
+                        logger.log(Level.WARNING, "Error reading transfer request object", e);
+                        FileTransferRequest prelimRequest = new FileTransferRequest(
+                            sender,
+                            user.getUsername(),
+                            fileName,
+                            fileSize,
+                            null,
+                            null,
+                            FileTransferRequest.RequestType.INITIATE_TRANSFER
+                        );
+                        
+                        activeTransfers.put(transferId, prelimRequest);
+                        
+                        if (eventListener != null) {
+                            eventListener.onFileTransferRequest(transferId, prelimRequest);
+                        }
                     }
                 }
                 break;
@@ -698,6 +716,38 @@ public class Client {
                     logger.warning("Server error: " + errorMsg);
                     if (eventListener != null) {
                         eventListener.onError(errorMsg);
+                    }
+                }
+                break;
+                
+            case "TRANSFER_ACCEPTED":
+                if (parts.length >= 2) {
+                    String transferId = parts[1];
+                    logger.info("Transfer accepted by recipient: " + transferId);
+                    
+                    SecretKey storedKey = pendingTransferKeys.remove(transferId);
+                    String storedPath = pendingTransferPaths.remove(transferId);
+                    
+                    if (storedKey != null && storedPath != null) {
+                        transferThreadPool.execute(() -> sendFileData(transferId, storedPath, storedKey));
+                        logger.info("Starting file transfer after acceptance: " + transferId);
+                    } else {
+                        logger.warning("Could not find stored key/path for accepted transfer: " + transferId);
+                    }
+                }
+                break;
+                
+            case "TRANSFER_REJECTED":
+                if (parts.length >= 2) {
+                    String transferId = parts[1];
+                    logger.info("Transfer rejected by recipient: " + transferId);
+                    
+                    pendingTransferKeys.remove(transferId);
+                    pendingTransferPaths.remove(transferId);
+                    activeTransfers.remove(transferId);
+                    
+                    if (eventListener != null) {
+                        eventListener.onTransferError(transferId, "Transfer rejected by recipient");
                     }
                 }
                 break;
@@ -802,10 +852,28 @@ public class Client {
         return transferHistory;
     }
     
+    public void sendAcceptTransfer(String transferId) {
+        try {
+            sendToServer("ACCEPT_TRANSFER|" + transferId);
+            logger.info("Sent transfer acceptance for: " + transferId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error sending transfer acceptance", e);
+        }
+    }
+    
+    public void sendRejectTransfer(String transferId) {
+        try {
+            sendToServer("REJECT_TRANSFER|" + transferId);
+            logger.info("Sent transfer rejection for: " + transferId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error sending transfer rejection", e);
+        }
+    }
+    
     public interface ClientEventListener {
         void onUserListUpdated(List<User> users);
         void onUserStatusChange(String username, boolean online);
-        void onFileTransferRequest(FileTransferRequest request);
+        void onFileTransferRequest(String transferId, FileTransferRequest request);
         void onTransferStarting(String transferId, String fileName);
         void onTransferProgress(String transferId, int progress);
         void onTransferComplete(String transferId);

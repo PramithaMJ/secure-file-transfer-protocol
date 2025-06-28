@@ -115,4 +115,34 @@ public class UserManager {
             logger.warning("User not connected: " + username);
         }
     }
+    
+    public void forwardTransferAcceptance(String transferId, String senderUsername) {
+        ServerConnectionHandler handler = connections.get(senderUsername);
+        
+        if (handler != null) {
+            try {
+                handler.send("TRANSFER_ACCEPTED|" + transferId);
+                logger.info("Transfer acceptance forwarded to sender: " + senderUsername + " for transfer: " + transferId);
+            } catch (IOException e) {
+                logger.log(Level.WARNING, "Error forwarding transfer acceptance to " + senderUsername, e);
+            }
+        } else {
+            logger.warning("Sender not connected: " + senderUsername);
+        }
+    }
+    
+    public void forwardTransferRejection(String transferId, String senderUsername) {
+        ServerConnectionHandler handler = connections.get(senderUsername);
+        
+        if (handler != null) {
+            try {
+                handler.send("TRANSFER_REJECTED|" + transferId);
+                logger.info("Transfer rejection forwarded to sender: " + senderUsername + " for transfer: " + transferId);
+            } catch (IOException e) {
+                logger.log(Level.WARNING, "Error forwarding transfer rejection to " + senderUsername, e);
+            }
+        } else {
+            logger.warning("Sender not connected: " + senderUsername);
+        }
+    }
 }
