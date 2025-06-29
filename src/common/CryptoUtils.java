@@ -65,25 +65,7 @@ public class CryptoUtils {
         return keyGen.generateKey();
     }
     
-    /**
-     * Encrypt a symmetric key with recipient's public key
-     * @deprecated Use encryptKey instead
-     */
-    @Deprecated
-    public static byte[] encryptSymmetricKey(SecretKey symmetricKey, PublicKey recipientPublicKey) 
-            throws Exception {
-        return encryptKey(symmetricKey, recipientPublicKey);
-    }
-    
-    /**
-     * Decrypt a symmetric key with user's private key
-     * @deprecated Use decryptKey instead
-     */
-    @Deprecated
-    public static SecretKey decryptSymmetricKey(byte[] encryptedKey, PrivateKey privateKey) 
-            throws Exception {
-        return decryptKey(encryptedKey, privateKey, AES_ALGORITHM);
-    }
+
     
     /**
      * Encrypt a chunk of data and create a secure message
@@ -380,15 +362,6 @@ public class CryptoUtils {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
-    }
-    
-    // ANTI-REPLAY
-    
-    /**
-     * Get maximum message age in milliseconds
-     */
-    public static long getMaxMessageAge() {
-        return MAX_MESSAGE_AGE_MS;
     }
     
     /**
