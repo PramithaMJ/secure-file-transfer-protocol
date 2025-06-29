@@ -60,11 +60,4 @@ public class ClientConnectionHandler {
     public boolean isConnected() {
         return connected;
     }
-    
-    public String getRemoteAddress() {
-        if (socket != null && socket.isConnected()) {
-            return socket.getInetAddress().getHostAddress();
-        }
-        return null;
-    }
 }
