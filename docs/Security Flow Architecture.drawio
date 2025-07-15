@@ -1,0 +1,314 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.4">
+  <diagram id="security-flow-diagram" name="Security Flow">
+    <mxGraphModel dx="1621" dy="1084" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Secure File Transfer Protocol - Security Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="274.5" y="50" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" value="1. System Initialization" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="30" y="110" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step1_1" value="1.1 Generate RSA key pair (2048-bit)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step1" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step1_2" value="1.2 Generate HMAC key" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step1" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step1_3" value="1.3 Create data and log directories" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step1" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step1_4" value="1.4 Configure logging security handlers" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step1" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="2. User Authentication" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="310" y="110" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step2_1" value="2.1 Connect to server via TCP socket" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step2" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step2_2" value="2.2 Send username to server" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step2" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step2_3" value="2.3 Transmit public key to server" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step2" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step2_4" value="2.4 Receive online user list with public keys" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step2" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="3. Initiating File Transfer" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="590" y="110" width="240" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_1" value="3.1 Select recipient and file" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step3" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_2" value="3.2 Generate AES symmetric key" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step3" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_3" value="3.3 Encrypt symmetric key with recipient&#39;s&#xa;      public key (RSA)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step3" vertex="1">
+          <mxGeometry y="90" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_4" value="3.4 Encrypt HMAC key with recipient&#39;s&#xa;      public key (RSA)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step3" vertex="1">
+          <mxGeometry y="130" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_5" value="3.5 Create FileTransferRequest" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step3" vertex="1">
+          <mxGeometry y="170" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_6" value="3.6 Send request to server (UUID assigned)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step3" vertex="1">
+          <mxGeometry y="200" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step4" value="4. Server Processing" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="870" y="110" width="240" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="step4_1" value="4.1 Validate sender and recipient" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step4" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step4_2" value="4.2 Generate unique transfer ID" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step4" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step4_3" value="4.3 Forward request to recipient" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step4" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step5" value="5. File Preparation" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="590" y="430" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step5_1" value="5.1 Divide file into 4KB chunks" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step5" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step5_2" value="5.2 Generate random IV for each chunk" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step5" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step5_3" value="5.3 Encrypt chunks with AES-CBC" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step5" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step5_4" value="5.4 Update transfer history" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step5" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step6" value="6. Chunk Security Processing" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="130" y="420" width="260" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="step6_1" value="6.1 Generate timestamp for each chunk" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step6" vertex="1">
+          <mxGeometry y="30" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step6_2" value="6.2 Generate unique nonce (UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step6" vertex="1">
+          <mxGeometry y="60" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step6_3" value="6.3 Calculate HMAC over:&#xa;      (encrypted data + IV + timestamp + nonce)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step6" vertex="1">
+          <mxGeometry y="90" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="step6_4" value="6.4 Create SecureMessage with:&#xa;      (encrypted data, MAC, IV, timestamp, nonce)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step6" vertex="1">
+          <mxGeometry y="140" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="step6_5" value="6.5 Optional: Create SignedSecureMessage" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step6" vertex="1">
+          <mxGeometry y="180" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step7" value="7. Chunk Transmission" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="135" y="710" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step7_1" value="7.1 Send each chunk with metadata" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step7" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step7_2" value="7.2 Server forwards chunks to recipient" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step7" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step7_3" value="7.3 Update transfer progress" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step7" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step7_4" value="7.4 Support pause/resume functionality" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step7" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8" value="8. Chunk Reception" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="500" y="710" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_1" value="8.1 Decrypt symmetric key with private key" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step8" vertex="1">
+          <mxGeometry y="30" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_2" value="8.2 Decrypt HMAC key with private key" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step8" vertex="1">
+          <mxGeometry y="60" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_3" value="8.3 Verify HMAC of each chunk" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step8" vertex="1">
+          <mxGeometry y="90" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_4" value="8.4 Verify timestamp is recent" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step8" vertex="1">
+          <mxGeometry y="120" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_5" value="8.5 Track nonces to prevent replay attacks" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step8" vertex="1">
+          <mxGeometry y="150" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step8_6" value="8.6 Reject chunks with failed verification" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step8" vertex="1">
+          <mxGeometry y="180" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step9" value="9. File Decryption and Assembly" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="890" y="710" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step9_1" value="9.1 Decrypt each chunk with AES-CBC&#xa;      using IV + symmetric key" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="step9" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step9_2" value="9.2 Assemble chunks in correct order" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step9" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step9_3" value="9.3 Write to file in downloads directory" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step9" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step9_4" value="9.4 Update transfer history" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step9" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step10" value="10. Completion and Notification" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="890" y="1030" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step10_1" value="10.1 Sender notifies completion" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step10" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step10_2" value="10.2 Server relays completion status" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step10" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step10_3" value="10.3 Update sender&#39;s transfer history" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step10" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step10_4" value="10.4 Update recipient&#39;s transfer history" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step10" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step11" value="11. Logging and Auditing" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="530" y="1030" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="step11_1" value="11.1 Log security operations" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step11" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step11_2" value="11.2 Log transfer events" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step11" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step11_3" value="11.3 Log cryptographic operations" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step11" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step11_4" value="11.4 Store logs in dedicated directory" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="step11" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="Security Protocol Elements" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="135" y="1030" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_1" value="Confidentiality: AES-256-CBC encryption" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1" parent="legend" vertex="1">
+          <mxGeometry y="30" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_2" value="Integrity: HMAC-SHA256 verification" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1" parent="legend" vertex="1">
+          <mxGeometry y="60" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_3" value="Authentication: RSA digital signatures" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1" parent="legend" vertex="1">
+          <mxGeometry y="90" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_4" value="Anti-replay: Timestamps and nonces" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=1" parent="legend" vertex="1">
+          <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="step1_2" target="step2_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="185" as="sourcePoint" />
+            <mxPoint x="310" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="step2_2" target="step3_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="185" as="sourcePoint" />
+            <mxPoint x="590" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="step3_2" target="step4_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="840" y="185" as="sourcePoint" />
+            <mxPoint x="870" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="step3" target="step5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="360" as="sourcePoint" />
+            <mxPoint x="220" y="300" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="370" />
+              <mxPoint x="710" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.883;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="step6_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="505" as="sourcePoint" />
+            <mxPoint x="310" y="485" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.484;exitY=1.105;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="step6_5" target="step7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="675" as="sourcePoint" />
+            <mxPoint x="580" y="675" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="step7_2" target="step8_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="830" y="675" as="sourcePoint" />
+            <mxPoint x="860" y="675" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.501;exitY=0.911;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="step9_4" target="step10" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="1055" as="sourcePoint" />
+            <mxPoint x="570" y="1055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow10" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="step10_2" target="step11_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1150" y="1095" as="sourcePoint" />
+            <mxPoint x="850" y="1055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow11" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="step11_2" target="legend_2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1350" y="1295" as="sourcePoint" />
+            <mxPoint x="370" y="1105" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="anno1" value="Key Security Protocol Highlights" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="70" y="1310" width="1080" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security1" value="Confidentiality" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="170" y="1380" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security1desc" value="End-to-end encryption with AES-CBC using unique symmetric key per transfer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="1385" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security2" value="Integrity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="170" y="1430" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security2desc" value="HMAC-SHA256 verification of all data chunks to detect tampering" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="1435" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security3" value="Authentication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="630" y="1380" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security3desc" value="RSA key pairs for asymmetric encryption and signatures" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="760" y="1385" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security4" value="Anti-replay" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="630" y="1430" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security4desc" value="Timestamps and unique nonces to prevent message replay attacks" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="760" y="1435" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security5" value="Secure Logging" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="170" y="1480" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security5desc" value="Comprehensive security event logging in dedicated logs directory" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="1485" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="security6" value="Key Management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="630" y="1480" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="security6desc" value="Public/private key pairs for secure key exchange" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="760" y="1485" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Eqs2RQTk1EvBa_qMlLRd-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="step8_3" target="step9_3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="780" as="sourcePoint" />
+            <mxPoint x="635" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

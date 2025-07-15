@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.4">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Security Architecture">
+    <mxGraphModel dx="2027" dy="1355" grid="0" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="none" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="1" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Secure File Transfer Protocol - Security Architecture&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="515" y="30" width="610" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2" value="Client A (Sender)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="104" y="130" width="280" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="+ RSA Key Pair (Public/Private)&#xa;+ HMAC Key&#xa;+ Transfer History&#xa;+ User Interface" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="2" vertex="1">
+          <mxGeometry y="26" width="280" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;" parent="2" vertex="1">
+          <mxGeometry y="100" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="+ Generate File Transfer Request()&#xa;+ Generate Symmetric/HMAC Keys()&#xa;+ Encrypt Keys with Recipient&#39;s Public Key()&#xa;+ Split File into Chunks()&#xa;+ Encrypt Chunks with AES-CBC()&#xa;+ Generate HMAC for Chunks()&#xa;+ Send Encrypted Chunks()&#xa;+ Sign Messages()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="2" vertex="1">
+          <mxGeometry y="108" width="280" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Server" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="658" y="142" width="275.5" height="178" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="+ User Directory (with Public Keys)&#xa;+ Active Connections&#xa;+ Transfer Request Registry" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="6" vertex="1">
+          <mxGeometry y="26" width="275.5" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;" parent="6" vertex="1">
+          <mxGeometry y="90" width="275.5" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="+ Authenticate Users()&#xa;+ Distribute Public Keys()&#xa;+ Relay Transfer Requests()&#xa;+ Forward Encrypted Chunks()&#xa;+ Notify Transfer Status()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="6" vertex="1">
+          <mxGeometry y="98" width="275.5" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Client B (Receiver)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1258" y="136" width="280" height="239" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="+ RSA Key Pair (Public/Private)&#xa;+ HMAC Key&#xa;+ Transfer History&#xa;+ User Interface" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="10" vertex="1">
+          <mxGeometry y="26" width="280" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;" parent="10" vertex="1">
+          <mxGeometry y="100" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="+ Decrypt Symmetric Key with Private Key()&#xa;+ Decrypt HMAC Key with Private Key()&#xa;+ Verify HMAC of Each Chunk()&#xa;+ Decrypt File Chunks with AES-CBC()&#xa;+ Reassemble File from Chunks()&#xa;+ Store Completed Files()&#xa;+ Verify Message Signatures()&#xa;+ Update Transfer History()" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="10" vertex="1">
+          <mxGeometry y="108" width="280" height="131" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="3" target="7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="624" y="480" as="sourcePoint" />
+            <mxPoint x="674" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="7" target="11" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="624" y="480" as="sourcePoint" />
+            <mxPoint x="674" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" value="1. Authentication &amp; Public Key Exchange" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="467" y="149" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="1. Authentication &amp; Public Key Exchange" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1004" y="146" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="File Transfer Protocol" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="658" y="430" width="280" height="325" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="+ FileTransferRequest&#xa;+ SecureMessage&#xa;+ TransferHistory&#xa;+ CryptoUtils&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="18" vertex="1">
+          <mxGeometry y="26" width="280" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;sketch=1;curveFitting=1;jiggle=2;" parent="18" vertex="1">
+          <mxGeometry y="100" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="Key Security Features:&#xa;- End-to-end encryption&#xa;- RSA for key exchange&#xa;- AES-CBC for data encryption&#xa;- HMAC-SHA256 for integrity&#xa;- Chunk-based file transfer&#xa;- Unique keys per transfer&#xa;- Pause/Resume capability&#xa;- Transfer history tracking&#xa;- Separate log/data storage&#xa;- Anti-replay protection&#xa;- Message signatures" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="18" vertex="1">
+          <mxGeometry y="108" width="280" height="187" as="geometry" />
+        </mxCell>
+        <mxCell id="30" value="4. Storage &amp; Logging" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=1;curveFitting=1;jiggle=2;" parent="18" vertex="1">
+          <mxGeometry y="295" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="6" target="18" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="624" y="450" as="sourcePoint" />
+            <mxPoint x="674" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23" value="2. File Transfer Request" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;direction=south;notch=0;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="134" y="395" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="3. Encrypted File Chunks" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;direction=south;notch=0;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="284" y="395" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="2. Transfer Request" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;direction=south;notch=0;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1299" y="419" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="3. Encrypted File Chunks" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;direction=south;notch=0;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1448" y="419" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="File System" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="666" y="861" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="+ /logs: Security and transfer logs&#xa;+ /data: Transfer history and metadata&#xa;+ /downloads: Received files&#xa;+ /keys: Local key storage" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;sketch=1;curveFitting=1;jiggle=2;" parent="27" vertex="1">
+          <mxGeometry y="26" width="280" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="29" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="27" target="18" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="624" y="630" as="sourcePoint" />
+            <mxPoint x="674" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="31" value="&lt;b&gt;Transfer Sequence:&lt;/b&gt;&lt;br&gt;1. User Authentication &amp;amp; Key Exchange&lt;br&gt;2. Sender initiates transfer request&lt;br&gt;3. Server relays request to recipient&lt;br&gt;4. Recipient accepts transfer&lt;br&gt;5. Sender encrypts file chunks&lt;br&gt;6. Server relays encrypted chunks&lt;br&gt;7. Recipient verifies &amp;amp; decrypts chunks&lt;br&gt;8. Recipient reassembles file&lt;br&gt;9. Transfer completion notification&lt;br&gt;10. History updated on both sides" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;spacingLeft=5;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="123" y="838" width="261" height="215" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="&lt;b&gt;Security Considerations:&lt;/b&gt;&lt;br&gt;1. No perfect forward secrecy&lt;br&gt;2. Limited user authentication&lt;br&gt;3. No certificate authority&lt;br&gt;4. Local key storage risks&lt;br&gt;5. Limited DoS protection&lt;br&gt;6. No built-in key backup&lt;br&gt;7. Relies on system file permissions&lt;br&gt;8. Network-level security not addressed" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;spacingLeft=5;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1270" y="853" width="268" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="33" value="&lt;b&gt;Cryptographic Operations&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#f5f5f5;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#666666;fontColor=#333333;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="104" y="515" width="280" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="34" value="+ RSA-2048: Key Exchange" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="26" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="35" value="+ AES-256-CBC: File Encryption" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="52" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="36" value="+ HMAC-SHA256: Integrity Verification" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="78" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="+ Secure Random: IV &amp;amp; Nonce Generation" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="104" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="+ Digital Signatures: Message Authentication" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="130" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="39" value="+ SHA-256: Hash Functions" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="33" vertex="1">
+          <mxGeometry y="156" width="280" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="&lt;b&gt;Message Types&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#f5f5f5;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#666666;fontColor=#333333;sketch=1;curveFitting=1;jiggle=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1268" y="547" width="281.5" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="41" value="+ FileTransferRequest: Initiates transfer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="40" vertex="1">
+          <mxGeometry y="26" width="281.5" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="42" value="+ SecureMessage: Encrypted data chunks" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="40" vertex="1">
+          <mxGeometry y="52" width="281.5" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="43" value="+ SignedSecureMessage: Authenticated messages" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="40" vertex="1">
+          <mxGeometry y="78" width="281.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="45" value="+ UserAuthMessage: Login &amp;amp; authentication" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="40" vertex="1">
+          <mxGeometry y="108" width="281.5" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="44" value="+ TransferStatusMessage: Progress updates" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="40" vertex="1">
+          <mxGeometry y="134" width="281.5" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
