@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build and analyze
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +29,8 @@ jobs:
           mkdir -p target/classes
           find src -name "*.java" > sources.txt
           if [ -s sources.txt ]; then
+            # Create target directory structure to match package structure
+            mkdir -p target/classes/client target/classes/common target/classes/server
             javac -d target/classes @sources.txt
             echo "Java compilation successful"
           else
@@ -36,6 +38,8 @@ jobs:
             # Create an empty directory to satisfy SonarQube
             mkdir -p target/classes
           fi
+          # List compiled classes for verification
+          find target/classes -type f -name "*.class" | wc -l
       
       # Cache SonarQube scanner binaries to speed up builds
       - name: Cache SonarQube scanner
@@ -45,14 +49,28 @@ jobs:
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
           
-      # Run SonarQube scan with workaround for unbound variable issue
+      # Debug info before SonarQube scan
+      - name: Debug Environment
+        run: |
+          echo "Java version:"
+          java -version
+          echo "Directory structure:"
+          ls -la
+          echo "Source files:"
+          find src -name "*.java" | wc -l
+          echo "Compiled class files:"
+          find target/classes -name "*.class" | wc -l
+          echo "Environment variables:"
+          env | grep -i java
+          
+      # Run SonarQube scan with container action (works on Linux only)
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v2.0.0  # Using a specific version that's more stable
+        uses: SonarSource/sonarqube-scan-action@v2.0.0
         with:
+          projectBaseDir: .
           args: >
             -Dsonar.verbose=true
             -Dsonar.log.level=DEBUG
-            -Dsonar.projectBaseDir=${{ github.workspace }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
