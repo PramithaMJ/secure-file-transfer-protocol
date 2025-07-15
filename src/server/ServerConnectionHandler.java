@@ -334,6 +334,14 @@ public class ServerConnectionHandler implements Runnable {
             LoggingManager.logTransfer(logger, transferId, "Relaying signed chunk", 
                 "Chunk " + chunkIndex + " of " + totalChunks + " with digital signature");
             
+            // Basic validation of chunk sequence parameters
+            if (chunkIndex < 0 || chunkIndex >= totalChunks || totalChunks <= 0) {
+                sendError("Invalid chunk sequence parameters");
+                LoggingManager.logSecurity(logger, "SECURITY ERROR: Invalid chunk sequence parameters for transfer " + transferId + 
+                                         " - index: " + chunkIndex + ", total: " + totalChunks);
+                return;
+            }
+            
             Object chunkObj = in.readObject();
             if (!(chunkObj instanceof SignedSecureMessage)) {
                 sendError("Invalid signed chunk data format - expected SignedSecureMessage");
@@ -347,6 +355,26 @@ public class ServerConnectionHandler implements Runnable {
                 sendError("Invalid signed chunk structure");
                 LoggingManager.logSecurity(logger, "SECURITY ERROR: Malformed SignedSecureMessage received for transfer " + transferId);
                 return;
+            }
+            
+            // Verify that the embedded sequence number in the nonce matches what was declared
+            String nonce = signedChunk.getMessage().nonce;
+            if (nonce != null && nonce.contains(":")) {
+                try {
+                    String[] nonceParts = nonce.split(":");
+                    if (nonceParts.length >= 2) {
+                        int embeddedChunkIndex = Integer.parseInt(nonceParts[1]);
+                        if (embeddedChunkIndex != chunkIndex) {
+                            LoggingManager.logSecurity(logger, "SECURITY ALERT: Chunk sequence mismatch in transfer " + transferId + 
+                                                     ". Command claims: " + chunkIndex + ", Embedded in nonce: " + embeddedChunkIndex);
+                            sendError("Security error: chunk sequence mismatch");
+                            return;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    // If we can't parse the sequence number, log it but proceed
+                    LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number in nonce: " + nonce);
+                }
             }
             
             FileTransferRequest transferRequest = activeTransfers.get(transferId);

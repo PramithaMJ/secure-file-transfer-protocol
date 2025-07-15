@@ -55,7 +55,8 @@ public class Server {
                     
                     logger.info("New client connected: " + clientIP);
                     
-                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager, sessionManager, rateLimitManager);
+                    ServerConnectionHandler handler = new ServerConnectionHandler(clientSocket, userManager, 
+                                                                             sessionManager, rateLimitManager);
                     threadPool.execute(handler);
                 } catch (IOException e) {
                     if (running) {
