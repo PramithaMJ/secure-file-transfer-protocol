@@ -1,5 +1,7 @@
 # Secure File Transfer Protocol
 
+[![Build](https://github.com/PramithaMJ/secure-file-transfer-protocol/actions/workflows/build.yml/badge.svg)](https://github.com/PramithaMJ/secure-file-transfer-protocol/actions/workflows/build.yml)
+
 This project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
 ## Java Version Requirement
@@ -9,6 +11,7 @@ This project implements a secure file transfer protocol that ensures confidentia
 ## Quick Start (macOS/Linux)
 
 **Build the project:**
+
 ```bash
 cd "Secure file transfer protocol"
 rm -rf build
@@ -17,57 +20,66 @@ javac -d build src/common/*.java src/client/*.java src/server/*.java
 ```
 
 **Run the server:**
+
 ```bash
 java -cp build server.Server
 ```
 
 **Run the client:**
+
 ```bash
 java -cp build client.ClientUI
 ```
-project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
+project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
 ## Security Features
 
 1. **Confidentiality**:
-   - RSA encryption for key exchange
-   - AES-256 encryption for file contents
-   - CBC mode with random IV for each chunk
+   - RSA encryption for key exchange (`CryptoUtils.RSA_TRANSFORMATION = "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING"`)
+   - AES-256 encryption for file contents (`CryptoUtils.AES_KEY_SIZE = 256`)
+   - CBC mode with random IV for each chunk (`CryptoUtils.AES_TRANSFORMATION = "AES/CBC/PKCS5Padding"`)
 
 2. **Integrity**:
-   - HMAC-SHA256 verification for each chunk
+   - HMAC-SHA256 verification for each chunk (`CryptoUtils.HMAC_ALGORITHM = "HmacSHA256"`)
    - HMAC covers encrypted data, IV, timestamp, and nonce
 
 3. **Authentication**:
-   - Server authenticates clients via user accounts
-   - Clients verify server responses
+   - Server authenticates clients via user accounts (`UserManager.authenticateUser()`)
+   - Clients verify server responses with digital signatures
+   - Session-based authentication using secure tokens (`SessionManager.generateSessionToken()`)
 
-4. **Anti-Replay Protection**:
-   - Unique nonce for each chunk
-   - Timestamp validation (5-minute window)
-   - Server-side tracking of used nonces
-   - Automatic cleanup of old nonces
+4. **Perfect Forward Secrecy**:
+   - New symmetric keys generated for each file transfer (`Client.sendFile()`)
+   - Ephemeral AES keys protect against compromise of long-term keys
 
-5. **Path Traversal Protection**:
+5. **Anti-Replay Protection**:
+   - Unique nonce for each chunk (`SecureRandom.getInstanceStrong().nextBytes(nonceBytes)`)
+   - Timestamp validation with 5-minute window (`MAX_MESSAGE_AGE_MS = 5 * 60 * 1000`)
+   - Server-side tracking of used nonces (`usedNonces` ConcurrentHashMap)
+   - Automatic cleanup of old nonces with scheduled executor
+
+6. **DoS Attack Protection**:
+   - Rate limiting by IP address and user (`RateLimitManager.checkRateLimit()`)
+   - Connection throttling with increasing penalties (`RateLimitManager.BandwidthTracker`)
+   - Blacklisting of abusive IPs (`RateLimitManager.blacklistIP()`)
+   - Continuous security monitoring (`DoSMonitor.performSecurityCheck()`)
+
+7. **Path Traversal Protection**:
    - Filename validation and sanitization
-   - Secure file path creation
-   - Prevention of directory traversal attacks
+   - Secure file path creation with Path.normalize()
+   - Prevention of directory traversal attacks (`..` and other unsafe sequences)
 
-6. **Public Key Validation**:
+8. **Public Key Validation**:
    - Minimum RSA 2048-bit key strength enforcement
    - Algorithm validation (RSA-only)
-   - Key fingerprint generation for verification
-   - Comprehensive input validation
+   - Key fingerprint generation for verification (`CryptoUtils.generateKeyFingerprint()`)
    - Prevention of key spoofing attacks
 
-7. **Digital Signatures**:
-   - SHA256withRSA digital signatures for authentication
+9. **Digital Signatures**:
+   - SHA256withRSA digital signatures (`CryptoUtils.SIGNATURE_ALGORITHM = "SHA256withRSA"`)
    - Non-repudiation: cryptographic proof of sender identity
-   - Message integrity verification via signature
-   - Protection against forgery and impersonation attacks
-   - End-to-end authentication (sender to recipient)
-
+   - End-to-end authentication from sender to recipient
 
 ## How to Build and Run
 
@@ -137,3 +149,42 @@ java -version
 # If using multiple Java versions, specify path to Java 17:
 /path/to/java17/bin/java -cp build server.Server
 ```
+
+## SonarQube Analysis
+
+This project uses SonarQube for continuous code quality and security vulnerability assessment. The status badges at the top of this README show:
+
+- **Quality Gate Status**: Overall health of the project based on defined quality thresholds
+- **Security Rating**: Rating of security issues found (A = best, E = worst)
+- **Vulnerabilities**: Number of security vulnerabilities detected
+
+### Running Security Analysis
+
+To run a security scan locally:
+
+```bash
+# Run the full security scan
+./run-security-scan.sh
+
+# Check for common security issues
+./fix-security-issues.sh
+```
+
+### Viewing Results
+
+Access the SonarQube dashboard for detailed analysis:
+
+- [Project Dashboard](http://157.230.40.190:9000/dashboard?id=Pramitha)
+- [Security Hotspots](http://157.230.40.190:9000/security_hotspots?id=Pramitha)
+- [Vulnerabilities](http://157.230.40.190:9000/project/issues?id=Pramitha&resolved=false&types=VULNERABILITY)
+
+### SonarQube Dashboard Screenshots
+
+#### Overview Dashboard
+
+![SonarQube Dashboard](images/sonar-cube-dashboard.png)
+
+#### Security Analysis
+
+![SonarQube Security Analysis](images/sonar-cube-dashboard-2.png)
+
