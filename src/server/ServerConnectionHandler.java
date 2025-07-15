@@ -54,7 +54,18 @@ public class ServerConnectionHandler implements Runnable {
     
     private void processMessage(Object message) {
         try {
-            if (!rateLimitManager.allowRequest(clientIP)) {
+            // Skip rate limiting for file chunk transfers and their associated objects
+            boolean isChunkTransfer = false;
+            if (message instanceof String) {
+                String command = (String) message;
+                isChunkTransfer = command.startsWith("CHUNK") || command.startsWith("SIGNED_CHUNK");
+            } else if (message instanceof SecureMessage || message instanceof SignedSecureMessage) {
+                // These objects are part of chunk transfers and should be exempt from rate limiting
+                isChunkTransfer = true;
+            }
+            
+            // Only apply rate limiting for non-chunk transfers
+            if (!isChunkTransfer && !rateLimitManager.allowRequest(clientIP)) {
                 logger.warning("Request rate limit exceeded for IP: " + clientIP);
                 sendError("Rate limit exceeded. Please slow down your requests.");
                 return;

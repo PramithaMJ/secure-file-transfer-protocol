@@ -12,7 +12,7 @@ public class RateLimitManager {
     private static final Logger logger = LoggingManager.getLogger(RateLimitManager.class.getName());
     
     private static final int MAX_CONNECTIONS_PER_IP = 5;
-    private static final int MAX_REQUESTS_PER_MINUTE = 30;
+    private static final int MAX_REQUESTS_PER_MINUTE = 60;
     private static final int MAX_LOGIN_ATTEMPTS_PER_HOUR = 10;
     private static final long BANDWIDTH_LIMIT_BYTES_PER_SEC = 1024 * 1024; // 1MB/s per connection
     private static final int BLACKLIST_DURATION_MINUTES = 30;
