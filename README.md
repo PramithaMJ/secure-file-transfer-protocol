@@ -211,7 +211,7 @@ Transfer history panel displaying past and current file transfers with their sta
 
 ### UI-4.png
 
-![UI-4](images/UI-4.png)
+![UI-4](images/Ui-4.png)
 
 Active transfer monitoring interface showing real-time progress of ongoing file transfers with encryption status.
 
