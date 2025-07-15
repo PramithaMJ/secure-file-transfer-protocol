@@ -6,6 +6,56 @@ This project implements a secure file transfer protocol that ensures confidentia
 
 ## Video Demo : [YouTube](https://youtu.be/0arjgfnfygI)
 
+## Directory Structure
+Directory structure:
+```
+└──secure-file-transfer-protocol/
+    ├── README.md
+    ├── build.bat
+    ├── build.sh
+    ├── sonar-project.properties
+    ├── data/
+    │   ├── Alice_transfer_history.dat
+    │   └── Bob_transfer_history.dat
+    ├── docs/
+    │   ├── [Update]Security Flow Architecture.drawio
+    │   ├── architecture.xml
+    │   └── Security Flow Architecture.drawio
+    ├── resources/
+    │   ├── config.properties
+    │   └── logging.properties
+    ├── src/
+    │   ├── client/
+    │   │   ├── Client.java
+    │   │   ├── ClientConnectionHandler.java
+    │   │   ├── ClientUI.java
+    │   │   ├── TransferHistory.java
+    │   │   └── TransferHistoryPanel.java
+    │   ├── common/
+    │   │   ├── CryptoUtils.java
+    │   │   ├── FileTransferRequest.java
+    │   │   ├── LoggingManager.java
+    │   │   ├── Participant.java
+    │   │   ├── RateLimitManager.java
+    │   │   ├── ReplayTestUtils.java
+    │   │   ├── SecureMessage.java
+    │   │   ├── Session.java
+    │   │   ├── SessionManager.java
+    │   │   ├── SignedSecureMessage.java
+    │   │   ├── TransferRecord.java
+    │   │   └── User.java
+    │   └── server/
+    │       ├── DoSMonitor.java
+    │       ├── Server.java
+    │       ├── ServerConnectionHandler.java
+    │       └── UserManager.java
+    ├── .github/
+    │   └── workflows/
+    │       └── build.yml
+    └── .scannerwork/
+        └── .sonar_lock
+```
+
 ## Java Version Requirement
 
 **Important:** This application requires Java 17 or higher to run.
