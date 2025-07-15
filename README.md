@@ -1,15 +1,29 @@
 # Secure File Transfer Protocol
-Buld with Java 11
 
-**Step 1: Clean and create build directory (Windows PowerShell):**
-```powershell
-if (Test-Path "build") { Remove-Item -Recurse -Force "build" }
-New-Item -ItemType Directory -Path "build"
+This project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
+
+## Java Version Requirement
+
+**Important:** This application requires Java 17 or higher to run.
+
+## Quick Start (macOS/Linux)
+
+**Build the project:**
+```bash
+cd "Secure file transfer protocol"
+rm -rf build
+mkdir -p build
+javac -d build src/common/*.java src/client/*.java src/server/*.java
 ```
 
-**Step 2: Compile all Java files:**
-```powershell
-javac -d build -cp src src\common\*.java src\client\*.java src\server\*.java
+**Run the server:**
+```bash
+java -cp build server.Server
+```
+
+**Run the client:**
+```bash
+java -cp build client.ClientUI
 ```
 project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
@@ -59,24 +73,38 @@ project implements a secure file transfer protocol that ensures confidentiality,
 
 ### Prerequisites
 
-- Java Development Kit (JDK) 11 or higher
+- Java Development Kit (JDK) 17 or higher
 - Java Swing (included in JDK)
 
-### Building the Project
+### Detailed Build Instructions
 
-Buld with Java 11
-
-```bash
-cd "/Secure file transfer protocol" && rm -rf build && mkdir -p build && javac -source 11 -target 11 -d build src/common/*.java src/client/*.java src/server/*.java
-```
+#### macOS/Linux
 
 ```bash
-# Compile all Java files
+# Clean and create build directory
 cd "Secure file transfer protocol"
-javac src/common/*.java src/server/*.java src/client/*.java -d build/
+rm -rf build
+mkdir -p build
+
+# Compile all Java files to build directory
+javac -d build src/common/*.java src/client/*.java src/server/*.java
 ```
 
-### Running the Server
+#### Windows
+
+```powershell
+# Clean and create build directory
+cd "Secure file transfer protocol"
+if (Test-Path "build") { Remove-Item -Recurse -Force "build" }
+New-Item -ItemType Directory -Path "build"
+
+# Compile all Java files to build directory
+javac -d build src\common\*.java src\client\*.java src\server\*.java
+```
+
+### Running the Application
+
+#### Running the Server
 
 ```bash
 # Start the server
@@ -84,10 +112,28 @@ cd "Secure file transfer protocol"
 java -cp build server.Server
 ```
 
-### Running the Client
+#### Running the Client
 
 ```bash
 # Start the client GUI
 cd "Secure file transfer protocol"
 java -cp build client.ClientUI
+```
+
+### Troubleshooting
+
+If you encounter an error about unsupported class version:
+
+```
+java.lang.UnsupportedClassVersionError: server/Server has been compiled by a more recent version of the Java Runtime
+```
+
+This means you're trying to run the application with an older Java version. Make sure to use Java 17 or higher:
+
+```bash
+# Check your Java version
+java -version
+
+# If using multiple Java versions, specify path to Java 17:
+/path/to/java17/bin/java -cp build server.Server
 ```

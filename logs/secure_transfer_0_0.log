@@ -1,275 +1,286 @@
-2025-06-29 04:42:54.612 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-29 04:42:54.654 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-29 04:42:54.843 INFO [client.ClientUI lambda$main$25] Client UI initialized and displayed
-2025-06-29 04:43:03.628 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-29 04:43:03.644 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-29 04:43:03.647 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Alice
-2025-06-29 04:43:04.046 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Alice
-2025-06-29 04:43:04.046 INFO [client.TransferHistory loadHistory] No history file found for user Alice at data\Alice_transfer_history.dat
-2025-06-29 04:43:04.046 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-29 04:43:04.206 INFO [common.LoggingManager logSecurity] [SECURITY] Session token received: 12a9b700...
-2025-06-29 04:43:04.212 INFO [common.LoggingManager logSecurity] [SECURITY] Session refresh timer started
-2025-06-29 04:43:04.215 INFO [client.Client login] Logged in as: Alice
-2025-06-29 04:43:04.218 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Alice
-2025-06-29 04:43:04.229 INFO [client.TransferHistory loadHistory] No history file found for user Alice at data\Alice_transfer_history.dat
-2025-06-29 04:43:33.281 INFO [client.Client processStringMessage] Received transfer request: Lecture 6 - Hash Functions.pdf from Bob
-2025-06-29 04:43:33.293 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Received transfer request: File: Lecture 6 - Hash Functions.pdf, From: Bob, Size: 1529111 bytes
-2025-06-29 04:43:34.796 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:43:34.800 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:43:34.801 INFO [client.Client sendAcceptTransfer] Added transfer to recipient's history: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:34.802 INFO [client.Client sendAcceptTransfer] Sent transfer acceptance for: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:34.809 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data\Alice_transfer_history.dat
-2025-06-29 04:43:34.810 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:43:35.254 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 0 of 374 with digital signature
-2025-06-29 04:43:35.270 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.271 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.273 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.280 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.281 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.287 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 0 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.288 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 0 of 374
-2025-06-29 04:43:35.289 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.320 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 56c04883...
-2025-06-29 04:43:35.347 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 1 of 374 with digital signature
-2025-06-29 04:43:35.349 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.350 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.351 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.352 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.353 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.355 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 1 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.357 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 1 of 374
-2025-06-29 04:43:35.365 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.372 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: dd3bf8f7...
-2025-06-29 04:43:35.375 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 2 of 374 with digital signature
-2025-06-29 04:43:35.376 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.379 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.380 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.381 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.381 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.382 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 2 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.382 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 2 of 374
-2025-06-29 04:43:35.383 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.392 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 5c0d05f9...
-2025-06-29 04:43:35.397 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 3 of 374 with digital signature
-2025-06-29 04:43:35.399 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.400 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.401 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.403 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.404 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.405 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 3 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.406 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 3 of 374
-2025-06-29 04:43:35.407 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.416 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: a6a3e962...
-2025-06-29 04:43:35.419 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 4 of 374 with digital signature
-2025-06-29 04:43:35.420 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.421 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.421 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.422 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.424 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.425 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 4 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.426 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 4 of 374
-2025-06-29 04:43:35.428 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.436 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: d8319fe1...
-2025-06-29 04:43:35.439 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 5 of 374 with digital signature
-2025-06-29 04:43:35.440 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.442 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.444 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.445 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.446 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.446 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 5 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.447 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 5 of 374
-2025-06-29 04:43:35.448 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.456 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: b49b0d5e...
-2025-06-29 04:43:35.461 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 6 of 374 with digital signature
-2025-06-29 04:43:35.462 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.465 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.466 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.467 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.468 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.469 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 6 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.470 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 6 of 374
-2025-06-29 04:43:35.471 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.481 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: ed02ea6b...
-2025-06-29 04:43:35.483 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 7 of 374 with digital signature
-2025-06-29 04:43:35.484 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.485 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.486 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.488 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.488 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.489 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 7 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.489 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 7 of 374
-2025-06-29 04:43:35.490 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.501 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 74f754ff...
-2025-06-29 04:43:35.504 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 8 of 374 with digital signature
-2025-06-29 04:43:35.506 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.507 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.511 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.512 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.513 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.514 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 8 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.515 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 8 of 374
-2025-06-29 04:43:35.515 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.522 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: b3c2e41d...
-2025-06-29 04:43:35.526 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 9 of 374 with digital signature
-2025-06-29 04:43:35.528 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.529 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.530 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.532 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.532 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.533 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 9 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.534 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 9 of 374
-2025-06-29 04:43:35.534 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.542 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: bc78cc97...
-2025-06-29 04:43:35.557 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 10 of 374 with digital signature
-2025-06-29 04:43:35.560 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.562 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.564 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.565 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.566 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.567 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 10 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.568 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 10 of 374
-2025-06-29 04:43:35.568 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.577 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 3149b782...
-2025-06-29 04:43:35.588 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 11 of 374 with digital signature
-2025-06-29 04:43:35.588 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.589 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.589 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.590 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.591 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.592 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 11 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.593 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 11 of 374
-2025-06-29 04:43:35.594 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.600 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 8762a1e2...
-2025-06-29 04:43:35.616 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 12 of 374 with digital signature
-2025-06-29 04:43:35.617 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.617 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.618 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.618 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.619 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.619 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 12 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.619 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 12 of 374
-2025-06-29 04:43:35.620 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.628 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: bd6dd698...
-2025-06-29 04:43:35.636 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 13 of 374 with digital signature
-2025-06-29 04:43:35.637 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.637 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.638 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.638 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.640 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.641 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 13 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.642 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 13 of 374
-2025-06-29 04:43:35.643 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.648 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 538a1052...
-2025-06-29 04:43:35.662 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 14 of 374 with digital signature
-2025-06-29 04:43:35.662 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.663 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.663 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.663 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.664 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.664 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 14 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.664 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 14 of 374
-2025-06-29 04:43:35.665 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.670 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 77285f0c...
-2025-06-29 04:43:35.681 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 15 of 374 with digital signature
-2025-06-29 04:43:35.681 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.682 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.682 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.683 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.683 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.683 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 15 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.683 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 15 of 374
-2025-06-29 04:43:35.684 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.689 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: ef6a2d89...
-2025-06-29 04:43:35.706 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 16 of 374 with digital signature
-2025-06-29 04:43:35.707 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.707 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.708 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.709 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.709 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.710 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 16 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.710 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 16 of 374
-2025-06-29 04:43:35.710 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.716 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 8f247e3d...
-2025-06-29 04:43:35.722 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 17 of 374 with digital signature
-2025-06-29 04:43:35.722 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.722 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.723 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.723 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.723 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.725 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 17 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.725 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 17 of 374
-2025-06-29 04:43:35.726 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.730 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: ec68d82d...
-2025-06-29 04:43:35.738 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 18 of 374 with digital signature
-2025-06-29 04:43:35.738 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.739 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.739 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.739 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.740 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.740 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 18 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.740 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 18 of 374
-2025-06-29 04:43:35.740 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.746 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: b4f29c26...
-2025-06-29 04:43:35.753 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 19 of 374 with digital signature
-2025-06-29 04:43:35.754 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.754 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.755 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.755 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.755 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.755 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 19 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.756 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 19 of 374
-2025-06-29 04:43:35.756 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.761 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: f1878882...
-2025-06-29 04:43:35.772 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving signed chunk: Chunk 20 of 374 with digital signature
-2025-06-29 04:43:35.773 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.774 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.774 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
-2025-06-29 04:43:35.776 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
-2025-06-29 04:43:35.777 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Bob
-2025-06-29 04:43:35.777 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 20 from Bob in transfer 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:43:35.780 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Receiving chunk: Chunk 20 of 374
-2025-06-29 04:43:35.780 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
-2025-06-29 04:43:35.784 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 672d00f9...
-2025-06-29 04:44:04.485 INFO [client.Client processStringMessage] Server acknowledged pause for transfer: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:44:04.486 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:04.486 INFO [client.Client processStringMessage] Received pause request for transfer: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:44:04.487 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: PAUSED, From: Bob, To: Alice
-2025-06-29 04:44:04.490 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:04.491 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: PAUSED, From: Bob, To: Alice
-2025-06-29 04:44:04.491 INFO [client.Client processStringMessage] Received transfer request: Lecture 6 - Hash Functions.pdf from Bob
-2025-06-29 04:44:04.491 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Received transfer request: File: Lecture 6 - Hash Functions.pdf, From: Bob, Size: 1529111 bytes
-2025-06-29 04:44:06.515 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:06.515 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: PAUSED, From: Bob, To: Alice
-2025-06-29 04:44:06.515 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:06.516 INFO [client.Client sendAcceptTransfer] Added transfer to recipient's history: 42c04010-42bb-49c5-a081-1970d5997bf1
-2025-06-29 04:44:06.516 INFO [client.Client sendAcceptTransfer] Sent transfer acceptance for: 42c04010-42bb-49c5-a081-1970d5997bf1
-2025-06-29 04:44:06.520 INFO [client.TransferHistory loadHistory] Loaded 2 transfer records from data\Alice_transfer_history.dat
-2025-06-29 04:44:06.520 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: PAUSED, From: Bob, To: Alice
-2025-06-29 04:44:06.521 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:16.687 INFO [client.Client processStringMessage] Server acknowledged resume for transfer: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:44:16.689 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:16.689 INFO [client.Client processStringMessage] Received resume request for transfer: 62715abe-8d0d-4558-b3bf-37e3799c03a6
-2025-06-29 04:44:16.690 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:16.690 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:16.691 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:16.692 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:16.692 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:16.693 INFO [client.Client processStringMessage] Received transfer request: Lecture 6 - Hash Functions.pdf from Bob
-2025-06-29 04:44:16.693 INFO [common.LoggingManager logTransfer] [TRANSFER:fcc52594-978d-49ab-ab51-94164c509b8f] Received transfer request: File: Lecture 6 - Hash Functions.pdf, From: Bob, Size: 1529111 bytes
-2025-06-29 04:44:17.688 INFO [client.TransferHistory saveHistory] Transfer history saved to data\Alice_transfer_history.dat
-2025-06-29 04:44:17.688 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:17.688 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:17.689 INFO [common.LoggingManager logTransfer] [TRANSFER:fcc52594-978d-49ab-ab51-94164c509b8f] Saved transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:17.689 INFO [client.Client sendAcceptTransfer] Added transfer to recipient's history: fcc52594-978d-49ab-ab51-94164c509b8f
-2025-06-29 04:44:17.689 INFO [client.Client sendAcceptTransfer] Sent transfer acceptance for: fcc52594-978d-49ab-ab51-94164c509b8f
-2025-06-29 04:44:17.691 INFO [client.TransferHistory loadHistory] Loaded 3 transfer records from data\Alice_transfer_history.dat
-2025-06-29 04:44:17.692 INFO [common.LoggingManager logTransfer] [TRANSFER:62715abe-8d0d-4558-b3bf-37e3799c03a6] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:17.692 INFO [common.LoggingManager logTransfer] [TRANSFER:42c04010-42bb-49c5-a081-1970d5997bf1] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:17.692 INFO [common.LoggingManager logTransfer] [TRANSFER:fcc52594-978d-49ab-ab51-94164c509b8f] Loaded transfer record: File: Lecture 6 - Hash Functions.pdf, Status: IN_PROGRESS, From: Bob, To: Alice
-2025-06-29 04:44:31.785 WARNING [client.Client processStringMessage] Server error: Rate limit exceeded. Please slow down your requests.
-2025-06-29 04:44:32.917 INFO [common.LoggingManager logSecurity] [SECURITY] Session refresh timer stopped
-2025-06-29 04:44:32.917 INFO [common.LoggingManager logSecurity] [SECURITY] User logged out, session terminated
-2025-06-29 04:44:32.917 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
-2025-06-29 04:44:32.917 WARNING [client.Client processStringMessage] Server error: Rate limit exceeded. Please slow down your requests.
-2025-06-29 04:44:32.917 INFO [client.Client disconnect] Socket closed successfully
-2025-06-29 04:44:32.917 INFO [common.LoggingManager logSecurity] [SECURITY] Disconnect complete, transfer thread pool shutdown
+2025-07-15 14:39:30.629 INFO [common.LoggingManager initialize] Logging system initialized
+2025-07-15 14:39:30.661 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-07-15 14:39:31.577 INFO [client.ClientUI lambda$main$25] Client UI initialized and displayed
+2025-07-15 14:40:04.967 INFO [client.Client connect] Connected to server: localhost:9999
+2025-07-15 14:40:04.968 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-07-15 14:40:04.968 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
+2025-07-15 14:40:05.161 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
+2025-07-15 14:40:05.164 INFO [client.TransferHistory loadHistory] No history file found for user Pramitha at data/Pramitha_transfer_history.dat
+2025-07-15 14:40:05.164 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-07-15 14:40:05.170 INFO [common.LoggingManager logSecurity] [SECURITY] Session token received: ac764df6...
+2025-07-15 14:40:05.171 INFO [common.LoggingManager logSecurity] [SECURITY] Session refresh timer started
+2025-07-15 14:40:05.172 INFO [client.Client login] Logged in as: Pramitha
+2025-07-15 14:40:05.172 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
+2025-07-15 14:40:05.173 INFO [client.TransferHistory loadHistory] No history file found for user Pramitha at data/Pramitha_transfer_history.dat
+2025-07-15 14:40:20.633 INFO [client.Client processStringMessage] Received transfer request: Security Flow Architecture.pdf from Jayasooriya
+2025-07-15 14:40:20.643 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Received transfer request: File: Security Flow Architecture.pdf, From: Jayasooriya, Size: 100263 bytes
+2025-07-15 14:40:21.939 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
+2025-07-15 14:40:21.943 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Saved transfer record: File: Security Flow Architecture.pdf, Status: IN_PROGRESS, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:21.944 INFO [client.Client sendAcceptTransfer] Added transfer to recipient's history: 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:21.945 INFO [client.Client sendAcceptTransfer] Sent transfer acceptance for: 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:21.950 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-07-15 14:40:21.951 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Loaded transfer record: File: Security Flow Architecture.pdf, Status: IN_PROGRESS, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:22.004 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 0 of 25 with digital signature
+2025-07-15 14:40:22.009 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.010 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.010 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.012 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.013 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.017 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 0 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.018 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 0 of 25
+2025-07-15 14:40:22.018 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.033 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: f5fe7a21...
+2025-07-15 14:40:22.049 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 1 of 25 with digital signature
+2025-07-15 14:40:22.050 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.051 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.051 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.052 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.052 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.052 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 1 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.052 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 1 of 25
+2025-07-15 14:40:22.052 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.056 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: f2c5956e...
+2025-07-15 14:40:22.062 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 2 of 25 with digital signature
+2025-07-15 14:40:22.063 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.064 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.064 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.065 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.065 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.065 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 2 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.065 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 2 of 25
+2025-07-15 14:40:22.065 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.068 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 7567be13...
+2025-07-15 14:40:22.069 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 3 of 25 with digital signature
+2025-07-15 14:40:22.069 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.069 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.069 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.070 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.070 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.070 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 3 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.071 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 3 of 25
+2025-07-15 14:40:22.071 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.075 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 079363e6...
+2025-07-15 14:40:22.075 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 4 of 25 with digital signature
+2025-07-15 14:40:22.076 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.076 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.076 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.076 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.077 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.077 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 4 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.077 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 4 of 25
+2025-07-15 14:40:22.077 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.080 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 930b8518...
+2025-07-15 14:40:22.081 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 5 of 25 with digital signature
+2025-07-15 14:40:22.081 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.081 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.081 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.082 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.082 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.082 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 5 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.082 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 5 of 25
+2025-07-15 14:40:22.082 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.084 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: a7cae141...
+2025-07-15 14:40:22.090 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 6 of 25 with digital signature
+2025-07-15 14:40:22.090 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.090 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.090 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.091 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.091 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.091 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 6 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.091 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 6 of 25
+2025-07-15 14:40:22.091 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.094 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 0d35c405...
+2025-07-15 14:40:22.105 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 7 of 25 with digital signature
+2025-07-15 14:40:22.105 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.106 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.106 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.106 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.107 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.107 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 7 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.107 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 7 of 25
+2025-07-15 14:40:22.107 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.109 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: afb9823e...
+2025-07-15 14:40:22.120 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 8 of 25 with digital signature
+2025-07-15 14:40:22.121 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.121 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.121 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.122 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.122 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.122 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 8 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.122 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 8 of 25
+2025-07-15 14:40:22.122 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.125 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 206fb10b...
+2025-07-15 14:40:22.135 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 9 of 25 with digital signature
+2025-07-15 14:40:22.136 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.137 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.137 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.137 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.137 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.138 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 9 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.138 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 9 of 25
+2025-07-15 14:40:22.138 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.140 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 5c04cb5a...
+2025-07-15 14:40:22.149 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 10 of 25 with digital signature
+2025-07-15 14:40:22.150 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.150 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.150 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.151 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.151 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.151 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 10 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.151 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 10 of 25
+2025-07-15 14:40:22.151 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.154 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 2f57282f...
+2025-07-15 14:40:22.164 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 11 of 25 with digital signature
+2025-07-15 14:40:22.164 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.164 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.164 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.165 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.165 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.165 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 11 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.165 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 11 of 25
+2025-07-15 14:40:22.165 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.167 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 2fe521f2...
+2025-07-15 14:40:22.178 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 12 of 25 with digital signature
+2025-07-15 14:40:22.178 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.179 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.179 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.179 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.179 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.179 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 12 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.180 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 12 of 25
+2025-07-15 14:40:22.180 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.183 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 6b81fb61...
+2025-07-15 14:40:22.193 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 13 of 25 with digital signature
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 13 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 13 of 25
+2025-07-15 14:40:22.194 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.197 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 56368a57...
+2025-07-15 14:40:22.207 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 14 of 25 with digital signature
+2025-07-15 14:40:22.207 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.207 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 14 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 14 of 25
+2025-07-15 14:40:22.208 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.211 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: c6309427...
+2025-07-15 14:40:22.222 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 15 of 25 with digital signature
+2025-07-15 14:40:22.223 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.223 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.223 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.224 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.224 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.224 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 15 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.224 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 15 of 25
+2025-07-15 14:40:22.224 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.227 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: a139c14e...
+2025-07-15 14:40:22.238 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 16 of 25 with digital signature
+2025-07-15 14:40:22.238 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.238 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.239 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.239 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.239 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.239 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 16 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.239 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 16 of 25
+2025-07-15 14:40:22.240 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.243 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 74cdfc56...
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 17 of 25 with digital signature
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.253 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.254 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 17 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.254 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 17 of 25
+2025-07-15 14:40:22.254 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.256 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 946d8a2a...
+2025-07-15 14:40:22.267 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 18 of 25 with digital signature
+2025-07-15 14:40:22.267 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.267 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.268 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.268 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.269 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.269 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 18 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.269 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 18 of 25
+2025-07-15 14:40:22.269 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.271 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 1f1764e4...
+2025-07-15 14:40:22.281 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 19 of 25 with digital signature
+2025-07-15 14:40:22.281 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.281 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.281 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.281 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.282 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.282 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 19 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.282 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 19 of 25
+2025-07-15 14:40:22.282 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.288 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 3ae0a730...
+2025-07-15 14:40:22.296 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 20 of 25 with digital signature
+2025-07-15 14:40:22.296 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.296 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.296 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.297 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.297 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.297 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 20 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.297 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 20 of 25
+2025-07-15 14:40:22.297 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.299 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: fcb01444...
+2025-07-15 14:40:22.308 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 21 of 25 with digital signature
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 21 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 21 of 25
+2025-07-15 14:40:22.309 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.311 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: b1bda3ec...
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 22 of 25 with digital signature
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.324 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 22 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.325 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 22 of 25
+2025-07-15 14:40:22.325 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.327 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: d6dcdb80...
+2025-07-15 14:40:22.338 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 23 of 25 with digital signature
+2025-07-15 14:40:22.338 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.339 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.339 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 4214 bytes from SecureMessage
+2025-07-15 14:40:22.339 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.339 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.339 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 23 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.340 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 23 of 25
+2025-07-15 14:40:22.340 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.342 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: 76b34090...
+2025-07-15 14:40:22.350 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving signed chunk: Chunk 24 of 25 with digital signature
+2025-07-15 14:40:22.350 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logSecurity] [SECURITY] Created signable data: 2070 bytes from SecureMessage
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature verification PASSED - sender identity confirmed
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logSecurity] [SECURITY] SignedSecureMessage verification PASSED from Jayasooriya
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logSecurity] [SECURITY] Digital signature VERIFIED successfully for chunk 24 from Jayasooriya in transfer 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.351 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Receiving chunk: Chunk 24 of 25
+2025-07-15 14:40:22.352 INFO [common.LoggingManager logSecurity] [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-15 14:40:22.355 INFO [common.LoggingManager logSecurity] [SECURITY] Message integrity verified successfully. Nonce: fd1c1b81...
+2025-07-15 14:40:22.355 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
+2025-07-15 14:40:22.356 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Saved transfer record: File: Security Flow Architecture.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:22.356 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
+2025-07-15 14:40:22.356 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Saved transfer record: File: Security Flow Architecture.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:22.357 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Transfer record updated: Status: Completed, File: Security Flow Architecture.pdf
+2025-07-15 14:40:22.357 INFO [client.Client receiveFileChunk] File transfer completed: Security Flow Architecture.pdf
+2025-07-15 14:40:22.357 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Transfer completed: Successfully received file: Security Flow Architecture.pdf from Jayasooriya
+2025-07-15 14:40:22.360 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-07-15 14:40:22.360 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Loaded transfer record: File: Security Flow Architecture.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:22.362 INFO [client.Client processStringMessage] Transfer completed: 1f7c1da2-dd2f-42fa-82d9-2d17e0937783
+2025-07-15 14:40:22.519 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-07-15 14:40:22.519 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Loaded transfer record: File: Security Flow Architecture.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-07-15 14:40:22.723 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
+2025-07-15 14:40:22.723 INFO [common.LoggingManager logTransfer] [TRANSFER:1f7c1da2-dd2f-42fa-82d9-2d17e0937783] Loaded transfer record: File: Security Flow Architecture.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
