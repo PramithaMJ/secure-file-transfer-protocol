@@ -381,6 +381,9 @@ public class Client {
                     LoggingManager.logTransfer(logger, transferId, "Transfer completed", 
                         "All " + encryptedChunks.size() + " chunks of " + fileName + " sent successfully");
                     
+                    // Mark this transfer as complete to reset sequence tracking
+                    CryptoUtils.markTransferComplete(transferId);
+                    
                     if (eventListener != null) {
                         logger.info("DEBUG: Firing onTransferComplete event for sender: " + transferId);
                         SwingUtilities.invokeLater(() -> {
@@ -576,6 +579,9 @@ public class Client {
                 logger.info("File transfer completed: " + request.getFileName());
                 LoggingManager.logTransfer(logger, transferId, "Transfer completed", 
                     "Successfully received file: " + request.getFileName() + " from " + request.getSenderUsername());
+                
+                // Mark this transfer as complete to reset sequence tracking
+                CryptoUtils.markTransferComplete(transferId);
                 
                 if (eventListener != null) {
                     SwingUtilities.invokeLater(() -> {

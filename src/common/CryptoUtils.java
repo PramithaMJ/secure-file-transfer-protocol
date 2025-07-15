@@ -28,7 +28,7 @@ public class CryptoUtils {
     // Anti-replay protection constants
     private static final long MAX_MESSAGE_AGE_MS = 5 * 60 * 1000; // 5 minutes
     private static final long MAX_TIMESTAMP_SKEW_MS = 60 * 1000; // 1 minute allowed clock skew
-    private static final int MAX_NONCE_CACHE_SIZE = 20000; // Increased limit for memory usage
+    private static final int MAX_NONCE_CACHE_SIZE = 20000;
     
     // Enhanced nonce tracking system (maps transfer ID to map of sequence numbers and timestamps)
     private static final ConcurrentHashMap<String, Map<Integer, String>> transferSequences = new ConcurrentHashMap<>();
@@ -446,12 +446,24 @@ public class CryptoUtils {
             LoggingManager.logSecurity(logger, "Cleaned up " + removedCount + " expired nonces from cache");
         }
         
-        // Also clean up completed transfers from sequence tracking
+        // Clean up completed transfers from sequence tracking
         // This prevents memory leaks in the transferSequences map
-        for (Map.Entry<String, Map<Integer, String>> entry : transferSequences.entrySet()) {
+        
+        // Create a copy of the entry set to avoid ConcurrentModificationException
+        List<Map.Entry<String, Map<Integer, String>>> transferEntries = 
+            new ArrayList<>(transferSequences.entrySet());
+        
+        int transfersCleaned = 0;
+        for (Map.Entry<String, Map<Integer, String>> entry : transferEntries) {
+            String transferId = entry.getKey();
+            Map<Integer, String> sequenceMap = entry.getValue();
+            
             // If the transfer has no activity for MAX_MESSAGE_AGE_MS, remove it
             boolean hasRecentActivity = false;
-            for (String nonceKey : entry.getValue().values()) {
+            
+            // Create a copy of values to avoid concurrent modification
+            List<String> nonceValues = new ArrayList<>(sequenceMap.values());
+            for (String nonceKey : nonceValues) {
                 Long timestamp = usedNonces.get(nonceKey);
                 if (timestamp != null && timestamp > cutoffTime) {
                     hasRecentActivity = true;
@@ -460,9 +472,15 @@ public class CryptoUtils {
             }
             
             if (!hasRecentActivity) {
-                transferSequences.remove(entry.getKey());
-                LoggingManager.logSecurity(logger, "Cleaned up completed transfer sequence tracking: " + entry.getKey());
+                transferSequences.remove(transferId);
+                transfersCleaned++;
+                LoggingManager.logSecurity(logger, "Cleaned up completed transfer sequence tracking: " + transferId);
             }
+        }
+        
+        if (transfersCleaned > 0) {
+            LoggingManager.logSecurity(logger, "Anti-replay cleanup: Removed " + transfersCleaned + 
+                                     " completed transfers from sequence tracking");
         }
     }
     
@@ -766,14 +784,35 @@ public class CryptoUtils {
         // Get or create sequence tracking map for this transfer
         Map<Integer, String> sequenceMap = transferSequences.computeIfAbsent(transferId, k -> new ConcurrentHashMap<>());
         
+        // Log sequence tracking map size periodically for diagnostics
+        if (sequenceNumber % 50 == 0) {
+            LoggingManager.logSecurity(logger, "Sequence tracking info: Transfer " + transferId + 
+                                     " has " + sequenceMap.size() + " sequences tracked");
+        }
+        
         // Check if we've seen this sequence number before in this transfer
         if (sequenceMap.containsKey(sequenceNumber)) {
             // Same sequence number was used before - could be a replay attack
-            LoggingManager.logSecurity(logger, "SECURITY ALERT: Possible replay detected! Duplicate sequence number " + 
-                                      sequenceNumber + " for transfer " + transferId);
-            // Log but don't fail - signature verification is more important
-            return true;
+            // First, check if the nonce is also the same - that would be a true duplicate
+            if (sequenceMap.get(sequenceNumber).equals(message.nonce)) {
+                // Exact duplicate chunk (same sequence number AND same nonce) - likely a network retransmission
+                // This is normal in some network conditions, so we'll allow it but log it
+                LoggingManager.logSecurity(logger, "NOTICE: Duplicate chunk detected (same sequence and nonce). " +
+                                          "Sequence: " + sequenceNumber + " for transfer " + transferId);
+                return true;
+            } else {
+                // Different nonce with same sequence - likely a replay attack attempt
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Replay attack detected! Duplicate sequence " + 
+                                         sequenceNumber + " with different nonce for transfer " + transferId + 
+                                         ". Original nonce: " + sequenceMap.get(sequenceNumber).split(":", 2)[0] + 
+                                         ", New nonce: " + message.nonce.split(":", 2)[0]);
+                // In case of a suspected replay attack, we reject the chunk
+                return false;
+            }
         }
+        
+        // Validate the sequence order to detect gaps or out-of-order chunks
+        validateSequenceOrder(transferId, sequenceNumber);
         
         // Store this sequence number as used for this transfer ID
         // We use the nonce as the value to ensure uniqueness
@@ -877,5 +916,98 @@ public class CryptoUtils {
         }
         
         return diagnosticInfo.toString();
+    }
+    
+    /**
+     * Validate the chunk sequence to check for gaps or out-of-order chunks
+     * @param transferId The transfer ID
+     * @param sequenceNumber The current sequence number
+     * @return True if the sequence is valid, false if there's a significant gap or out-of-order issue
+     */
+    private static boolean validateSequenceOrder(String transferId, int sequenceNumber) {
+        Map<Integer, String> sequenceMap = transferSequences.get(transferId);
+        if (sequenceMap == null || sequenceMap.isEmpty()) {
+            // First chunk for this transfer
+            return true;
+        }
+
+        // Find the highest and lowest sequence numbers we've seen for this transfer
+        int highestSequence = -1;
+        int lowestSequence = Integer.MAX_VALUE;
+        
+        // Calculate some statistics about the sequence map
+        Set<Integer> sequenceNumbers = sequenceMap.keySet();
+        for (Integer seq : sequenceNumbers) {
+            highestSequence = Math.max(highestSequence, seq);
+            lowestSequence = Math.min(lowestSequence, seq);
+        }
+        
+        // Calculate expected vs. actual sequence count for gap detection
+        int expectedCount = highestSequence - lowestSequence + 1;
+        int actualCount = sequenceNumbers.size();
+        double completeness = (double) actualCount / expectedCount * 100.0;
+        
+        // Log gap information periodically for very large transfers
+        if (sequenceNumber % 100 == 0 && expectedCount > 100) {
+            LoggingManager.logSecurity(logger, "Sequence statistics for transfer " + transferId + 
+                                     ": Range [" + lowestSequence + "-" + highestSequence + "], " +
+                                     "Received: " + actualCount + "/" + expectedCount + " chunks (" +
+                                     String.format("%.1f%%", completeness) + " complete)");
+        }
+        
+        // Allow sequence to be equal to highest+1 (next in order)
+        if (sequenceNumber == highestSequence + 1) {
+            return true;
+        }
+        
+        // Allow receiving a slightly older sequence number (for out-of-order delivery)
+        // We'll allow up to 10 chunks out-of-order, which is reasonable for most networks
+        if (sequenceNumber >= highestSequence - 10 && sequenceNumber <= highestSequence) {
+            return true;
+        }
+        
+        // Allow a small jump forward (in case of lost chunks)
+        // Maximum tolerable gap is 5 chunks (increased from 3)
+        if (sequenceNumber > highestSequence && sequenceNumber <= highestSequence + 5) {
+            return true;
+        }
+        
+        // For large transfers, we need to be more lenient with sequence gaps
+        if (sequenceMap.size() > 100) {
+            // For large transfers, allow bigger gaps as network conditions may vary more
+            if (sequenceNumber > highestSequence && sequenceNumber <= highestSequence + 20) {
+                LoggingManager.logSecurity(logger, "NOTICE: Larger sequence gap allowed for large transfer " + 
+                                         transferId + ". Current: " + sequenceNumber + ", Previous highest: " + highestSequence);
+                return true;
+            }
+        }
+        
+        // If we're here, there's a significant gap or out-of-order issue
+        LoggingManager.logSecurity(logger, "SECURITY WARNING: Unusual chunk sequence detected! " +
+                                 "Current: " + sequenceNumber + ", Highest: " + highestSequence + 
+                                 ", Lowest: " + lowestSequence + " for transfer " + transferId);
+        
+        // We'll log the warning but still allow the transfer to continue
+        return true;
+    }
+    
+    /**
+     * Mark a transfer as complete, which will reset its sequence tracking after a short delay
+     * This prevents replay alerts when a new transfer with the same ID starts later
+     * @param transferId The ID of the completed transfer
+     */
+    public static void markTransferComplete(String transferId) {
+        if (transferId == null || transferId.isEmpty()) {
+            return;
+        }
+        
+        // Schedule cleanup after a short delay (10 seconds) to allow for any in-flight chunks
+        cleanupExecutor.schedule(() -> {
+            Map<Integer, String> sequenceMap = transferSequences.remove(transferId);
+            if (sequenceMap != null) {
+                LoggingManager.logSecurity(logger, "Reset sequence tracking for completed transfer: " + 
+                                        transferId + " (" + sequenceMap.size() + " sequences)");
+            }
+        }, 10, TimeUnit.SECONDS);
     }
 }

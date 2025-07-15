@@ -415,6 +415,9 @@ public class ServerConnectionHandler implements Runnable {
         
         logger.info("Transfer complete: " + transferId);
         
+        // Mark the transfer as complete for anti-replay protection
+        CryptoUtils.markTransferComplete(transferId);
+        
         String receiverUsername = request.getReceiverUsername();
         
         userManager.sendToUser(receiverUsername, "TRANSFER_COMPLETE|" + transferId);

@@ -16,8 +16,8 @@ public class Server {
     private boolean running;
     private UserManager userManager;
     private SessionManager sessionManager;
-    private RateLimitManager rateLimitManager; // Add rate limiting
-    private DoSMonitor dosMonitor; // Add DoS monitoring
+    private RateLimitManager rateLimitManager;
+    private DoSMonitor dosMonitor;
     private ExecutorService threadPool;
     
     public Server(int port) {
@@ -104,6 +104,13 @@ public class Server {
     }
     
     public static void main(String[] args) {
+        // Check if we should run the anti-replay tests
+        if (args.length > 0 && args[0].equals("--test-replay-protection")) {
+            logger.info("Running anti-replay protection tests...");
+            ReplayTestUtils.runAntiReplayTests();
+            return;
+        }
+        
         Properties props = new Properties();
         int port = 9999;
 
