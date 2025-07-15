@@ -1,14 +1,547 @@
-2025-06-23 12:03:39.116 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 12:03:39.153 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 12:03:39.941 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
-2025-06-23 12:06:09.127 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 12:06:09.128 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 12:06:09.128 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
-2025-06-23 12:06:09.314 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
-2025-06-23 12:06:09.322 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
-2025-06-23 12:06:09.333 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
-2025-06-23 12:06:09.334 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 12:06:09.347 INFO [client.Client login] Logged in as: Pramitha
-2025-06-23 12:06:09.348 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
-2025-06-23 12:06:09.349 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Pramitha_transfer_history.dat
-2025-06-23 12:06:09.350 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 16:59:09.369 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-23 16:59:09.407 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-23 16:59:10.521 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
+2025-06-23 17:00:06.468 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-23 17:00:06.469 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-23 17:00:06.470 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Pramitha
+2025-06-23 17:00:06.670 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Pramitha
+2025-06-23 17:00:06.679 INFO [client.TransferHistory loadHistory] Loaded 3 transfer records from data/Pramitha_transfer_history.dat
+2025-06-23 17:00:06.681 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:06.681 INFO [common.LoggingManager logTransfer] [TRANSFER:37cab9bb-0adf-4697-816c-328e13f7637d] Loaded transfer record: File: IMG_3095.jpg, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:06.681 INFO [common.LoggingManager logTransfer] [TRANSFER:a19afc1c-3084-4cda-9faa-3f762b19c509] Loaded transfer record: File: 36_Enhancing NS-3 for Distributed Network Simulation.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:06.682 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-23 17:00:06.689 INFO [client.Client login] Logged in as: Pramitha
+2025-06-23 17:00:06.690 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Pramitha
+2025-06-23 17:00:06.691 INFO [client.TransferHistory loadHistory] Loaded 3 transfer records from data/Pramitha_transfer_history.dat
+2025-06-23 17:00:06.691 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Loaded transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:06.692 INFO [common.LoggingManager logTransfer] [TRANSFER:37cab9bb-0adf-4697-816c-328e13f7637d] Loaded transfer record: File: IMG_3095.jpg, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:06.692 INFO [common.LoggingManager logTransfer] [TRANSFER:a19afc1c-3084-4cda-9faa-3f762b19c509] Loaded transfer record: File: 36_Enhancing NS-3 for Distributed Network Simulation.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:33.302 INFO [client.Client initiateFileTransfer] Using public key of receiver: Jayasooriya
+2025-06-23 17:00:33.331 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
+2025-06-23 17:00:33.331 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Saved transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:33.332 INFO [common.LoggingManager logTransfer] [TRANSFER:37cab9bb-0adf-4697-816c-328e13f7637d] Saved transfer record: File: IMG_3095.jpg, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:33.333 INFO [common.LoggingManager logTransfer] [TRANSFER:a19afc1c-3084-4cda-9faa-3f762b19c509] Saved transfer record: File: 36_Enhancing NS-3 for Distributed Network Simulation.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:33.333 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Saved transfer record: File: NS3_report_revised.pdf, Status: IN_PROGRESS, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:33.337 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Starting file transfer: File: NS3_report_revised.pdf, Size: 1044455 bytes
+2025-06-23 17:00:33.338 FINE [common.LoggingManager logCrypto] [CRYPTO] File chunking: Starting file encryption with chunk size 4096
+2025-06-23 17:00:33.338 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 1 of size 4096
+2025-06-23 17:00:33.349 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 2 of size 4096
+2025-06-23 17:00:33.350 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 3 of size 4096
+2025-06-23 17:00:33.351 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 4 of size 4096
+2025-06-23 17:00:33.352 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 5 of size 4096
+2025-06-23 17:00:33.352 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 6 of size 4096
+2025-06-23 17:00:33.353 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 7 of size 4096
+2025-06-23 17:00:33.353 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 8 of size 4096
+2025-06-23 17:00:33.354 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 9 of size 4096
+2025-06-23 17:00:33.354 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 10 of size 4096
+2025-06-23 17:00:33.354 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 11 of size 4096
+2025-06-23 17:00:33.355 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 12 of size 4096
+2025-06-23 17:00:33.355 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 13 of size 4096
+2025-06-23 17:00:33.356 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 14 of size 4096
+2025-06-23 17:00:33.356 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 15 of size 4096
+2025-06-23 17:00:33.357 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 16 of size 4096
+2025-06-23 17:00:33.357 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 17 of size 4096
+2025-06-23 17:00:33.358 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 18 of size 4096
+2025-06-23 17:00:33.358 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 19 of size 4096
+2025-06-23 17:00:33.358 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 20 of size 4096
+2025-06-23 17:00:33.359 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 21 of size 4096
+2025-06-23 17:00:33.359 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 22 of size 4096
+2025-06-23 17:00:33.360 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 23 of size 4096
+2025-06-23 17:00:33.360 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 24 of size 4096
+2025-06-23 17:00:33.360 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 25 of size 4096
+2025-06-23 17:00:33.361 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 26 of size 4096
+2025-06-23 17:00:33.361 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 27 of size 4096
+2025-06-23 17:00:33.361 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 28 of size 4096
+2025-06-23 17:00:33.362 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 29 of size 4096
+2025-06-23 17:00:33.362 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 30 of size 4096
+2025-06-23 17:00:33.362 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 31 of size 4096
+2025-06-23 17:00:33.363 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 32 of size 4096
+2025-06-23 17:00:33.363 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 33 of size 4096
+2025-06-23 17:00:33.363 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 34 of size 4096
+2025-06-23 17:00:33.364 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 35 of size 4096
+2025-06-23 17:00:33.364 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 36 of size 4096
+2025-06-23 17:00:33.364 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 37 of size 4096
+2025-06-23 17:00:33.365 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 38 of size 4096
+2025-06-23 17:00:33.365 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 39 of size 4096
+2025-06-23 17:00:33.365 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 40 of size 4096
+2025-06-23 17:00:33.365 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 41 of size 4096
+2025-06-23 17:00:33.366 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 42 of size 4096
+2025-06-23 17:00:33.366 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 43 of size 4096
+2025-06-23 17:00:33.366 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 44 of size 4096
+2025-06-23 17:00:33.367 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 45 of size 4096
+2025-06-23 17:00:33.367 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 46 of size 4096
+2025-06-23 17:00:33.367 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 47 of size 4096
+2025-06-23 17:00:33.368 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 48 of size 4096
+2025-06-23 17:00:33.368 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 49 of size 4096
+2025-06-23 17:00:33.369 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 50 of size 4096
+2025-06-23 17:00:33.369 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 51 of size 4096
+2025-06-23 17:00:33.370 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 52 of size 4096
+2025-06-23 17:00:33.370 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 53 of size 4096
+2025-06-23 17:00:33.371 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 54 of size 4096
+2025-06-23 17:00:33.371 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 55 of size 4096
+2025-06-23 17:00:33.371 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 56 of size 4096
+2025-06-23 17:00:33.372 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 57 of size 4096
+2025-06-23 17:00:33.372 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 58 of size 4096
+2025-06-23 17:00:33.372 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 59 of size 4096
+2025-06-23 17:00:33.373 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 60 of size 4096
+2025-06-23 17:00:33.373 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 61 of size 4096
+2025-06-23 17:00:33.373 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 62 of size 4096
+2025-06-23 17:00:33.373 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 63 of size 4096
+2025-06-23 17:00:33.374 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 64 of size 4096
+2025-06-23 17:00:33.375 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 65 of size 4096
+2025-06-23 17:00:33.375 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 66 of size 4096
+2025-06-23 17:00:33.375 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 67 of size 4096
+2025-06-23 17:00:33.375 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 68 of size 4096
+2025-06-23 17:00:33.376 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 69 of size 4096
+2025-06-23 17:00:33.376 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 70 of size 4096
+2025-06-23 17:00:33.376 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 71 of size 4096
+2025-06-23 17:00:33.377 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 72 of size 4096
+2025-06-23 17:00:33.377 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 73 of size 4096
+2025-06-23 17:00:33.377 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 74 of size 4096
+2025-06-23 17:00:33.377 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 75 of size 4096
+2025-06-23 17:00:33.378 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 76 of size 4096
+2025-06-23 17:00:33.378 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 77 of size 4096
+2025-06-23 17:00:33.378 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 78 of size 4096
+2025-06-23 17:00:33.379 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 79 of size 4096
+2025-06-23 17:00:33.379 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 80 of size 4096
+2025-06-23 17:00:33.379 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 81 of size 4096
+2025-06-23 17:00:33.379 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 82 of size 4096
+2025-06-23 17:00:33.380 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 83 of size 4096
+2025-06-23 17:00:33.380 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 84 of size 4096
+2025-06-23 17:00:33.380 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 85 of size 4096
+2025-06-23 17:00:33.381 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 86 of size 4096
+2025-06-23 17:00:33.381 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 87 of size 4096
+2025-06-23 17:00:33.381 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 88 of size 4096
+2025-06-23 17:00:33.381 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 89 of size 4096
+2025-06-23 17:00:33.382 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 90 of size 4096
+2025-06-23 17:00:33.382 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 91 of size 4096
+2025-06-23 17:00:33.382 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 92 of size 4096
+2025-06-23 17:00:33.383 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 93 of size 4096
+2025-06-23 17:00:33.383 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 94 of size 4096
+2025-06-23 17:00:33.383 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 95 of size 4096
+2025-06-23 17:00:33.383 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 96 of size 4096
+2025-06-23 17:00:33.384 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 97 of size 4096
+2025-06-23 17:00:33.384 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 98 of size 4096
+2025-06-23 17:00:33.384 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 99 of size 4096
+2025-06-23 17:00:33.385 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 100 of size 4096
+2025-06-23 17:00:33.385 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 101 of size 4096
+2025-06-23 17:00:33.385 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 102 of size 4096
+2025-06-23 17:00:33.385 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 103 of size 4096
+2025-06-23 17:00:33.386 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 104 of size 4096
+2025-06-23 17:00:33.386 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 105 of size 4096
+2025-06-23 17:00:33.386 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 106 of size 4096
+2025-06-23 17:00:33.386 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 107 of size 4096
+2025-06-23 17:00:33.387 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 108 of size 4096
+2025-06-23 17:00:33.387 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 109 of size 4096
+2025-06-23 17:00:33.387 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 110 of size 4096
+2025-06-23 17:00:33.388 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 111 of size 4096
+2025-06-23 17:00:33.388 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 112 of size 4096
+2025-06-23 17:00:33.388 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 113 of size 4096
+2025-06-23 17:00:33.388 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 114 of size 4096
+2025-06-23 17:00:33.389 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 115 of size 4096
+2025-06-23 17:00:33.389 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 116 of size 4096
+2025-06-23 17:00:33.389 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 117 of size 4096
+2025-06-23 17:00:33.389 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 118 of size 4096
+2025-06-23 17:00:33.390 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 119 of size 4096
+2025-06-23 17:00:33.390 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 120 of size 4096
+2025-06-23 17:00:33.390 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 121 of size 4096
+2025-06-23 17:00:33.390 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 122 of size 4096
+2025-06-23 17:00:33.391 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 123 of size 4096
+2025-06-23 17:00:33.391 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 124 of size 4096
+2025-06-23 17:00:33.391 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 125 of size 4096
+2025-06-23 17:00:33.392 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 126 of size 4096
+2025-06-23 17:00:33.392 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 127 of size 4096
+2025-06-23 17:00:33.392 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 128 of size 4096
+2025-06-23 17:00:33.393 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 129 of size 4096
+2025-06-23 17:00:33.393 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 130 of size 4096
+2025-06-23 17:00:33.393 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 131 of size 4096
+2025-06-23 17:00:33.393 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 132 of size 4096
+2025-06-23 17:00:33.393 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 133 of size 4096
+2025-06-23 17:00:33.394 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 134 of size 4096
+2025-06-23 17:00:33.394 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 135 of size 4096
+2025-06-23 17:00:33.394 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 136 of size 4096
+2025-06-23 17:00:33.394 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 137 of size 4096
+2025-06-23 17:00:33.395 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 138 of size 4096
+2025-06-23 17:00:33.395 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 139 of size 4096
+2025-06-23 17:00:33.395 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 140 of size 4096
+2025-06-23 17:00:33.395 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 141 of size 4096
+2025-06-23 17:00:33.395 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 142 of size 4096
+2025-06-23 17:00:33.396 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 143 of size 4096
+2025-06-23 17:00:33.396 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 144 of size 4096
+2025-06-23 17:00:33.396 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 145 of size 4096
+2025-06-23 17:00:33.396 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 146 of size 4096
+2025-06-23 17:00:33.396 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 147 of size 4096
+2025-06-23 17:00:33.397 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 148 of size 4096
+2025-06-23 17:00:33.397 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 149 of size 4096
+2025-06-23 17:00:33.397 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 150 of size 4096
+2025-06-23 17:00:33.397 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 151 of size 4096
+2025-06-23 17:00:33.398 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 152 of size 4096
+2025-06-23 17:00:33.398 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 153 of size 4096
+2025-06-23 17:00:33.398 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 154 of size 4096
+2025-06-23 17:00:33.398 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 155 of size 4096
+2025-06-23 17:00:33.398 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 156 of size 4096
+2025-06-23 17:00:33.399 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 157 of size 4096
+2025-06-23 17:00:33.399 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 158 of size 4096
+2025-06-23 17:00:33.399 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 159 of size 4096
+2025-06-23 17:00:33.399 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 160 of size 4096
+2025-06-23 17:00:33.399 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 161 of size 4096
+2025-06-23 17:00:33.400 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 162 of size 4096
+2025-06-23 17:00:33.400 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 163 of size 4096
+2025-06-23 17:00:33.400 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 164 of size 4096
+2025-06-23 17:00:33.401 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 165 of size 4096
+2025-06-23 17:00:33.401 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 166 of size 4096
+2025-06-23 17:00:33.401 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 167 of size 4096
+2025-06-23 17:00:33.401 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 168 of size 4096
+2025-06-23 17:00:33.401 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 169 of size 4096
+2025-06-23 17:00:33.402 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 170 of size 4096
+2025-06-23 17:00:33.402 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 171 of size 4096
+2025-06-23 17:00:33.402 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 172 of size 4096
+2025-06-23 17:00:33.402 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 173 of size 4096
+2025-06-23 17:00:33.403 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 174 of size 4096
+2025-06-23 17:00:33.403 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 175 of size 4096
+2025-06-23 17:00:33.403 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 176 of size 4096
+2025-06-23 17:00:33.403 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 177 of size 4096
+2025-06-23 17:00:33.403 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 178 of size 4096
+2025-06-23 17:00:33.404 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 179 of size 4096
+2025-06-23 17:00:33.404 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 180 of size 4096
+2025-06-23 17:00:33.405 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 181 of size 4096
+2025-06-23 17:00:33.405 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 182 of size 4096
+2025-06-23 17:00:33.406 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 183 of size 4096
+2025-06-23 17:00:33.406 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 184 of size 4096
+2025-06-23 17:00:33.406 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 185 of size 4096
+2025-06-23 17:00:33.406 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 186 of size 4096
+2025-06-23 17:00:33.407 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 187 of size 4096
+2025-06-23 17:00:33.407 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 188 of size 4096
+2025-06-23 17:00:33.407 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 189 of size 4096
+2025-06-23 17:00:33.407 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 190 of size 4096
+2025-06-23 17:00:33.408 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 191 of size 4096
+2025-06-23 17:00:33.408 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 192 of size 4096
+2025-06-23 17:00:33.408 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 193 of size 4096
+2025-06-23 17:00:33.408 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 194 of size 4096
+2025-06-23 17:00:33.408 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 195 of size 4096
+2025-06-23 17:00:33.409 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 196 of size 4096
+2025-06-23 17:00:33.409 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 197 of size 4096
+2025-06-23 17:00:33.409 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 198 of size 4096
+2025-06-23 17:00:33.409 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 199 of size 4096
+2025-06-23 17:00:33.410 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 200 of size 4096
+2025-06-23 17:00:33.410 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 201 of size 4096
+2025-06-23 17:00:33.410 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 202 of size 4096
+2025-06-23 17:00:33.410 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 203 of size 4096
+2025-06-23 17:00:33.411 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 204 of size 4096
+2025-06-23 17:00:33.411 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 205 of size 4096
+2025-06-23 17:00:33.411 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 206 of size 4096
+2025-06-23 17:00:33.411 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 207 of size 4096
+2025-06-23 17:00:33.411 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 208 of size 4096
+2025-06-23 17:00:33.412 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 209 of size 4096
+2025-06-23 17:00:33.412 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 210 of size 4096
+2025-06-23 17:00:33.412 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 211 of size 4096
+2025-06-23 17:00:33.412 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 212 of size 4096
+2025-06-23 17:00:33.412 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 213 of size 4096
+2025-06-23 17:00:33.413 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 214 of size 4096
+2025-06-23 17:00:33.413 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 215 of size 4096
+2025-06-23 17:00:33.413 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 216 of size 4096
+2025-06-23 17:00:33.413 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 217 of size 4096
+2025-06-23 17:00:33.413 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 218 of size 4096
+2025-06-23 17:00:33.414 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 219 of size 4096
+2025-06-23 17:00:33.414 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 220 of size 4096
+2025-06-23 17:00:33.414 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 221 of size 4096
+2025-06-23 17:00:33.415 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 222 of size 4096
+2025-06-23 17:00:33.415 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 223 of size 4096
+2025-06-23 17:00:33.415 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 224 of size 4096
+2025-06-23 17:00:33.415 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 225 of size 4096
+2025-06-23 17:00:33.416 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 226 of size 4096
+2025-06-23 17:00:33.416 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 227 of size 4096
+2025-06-23 17:00:33.416 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 228 of size 4096
+2025-06-23 17:00:33.416 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 229 of size 4096
+2025-06-23 17:00:33.417 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 230 of size 4096
+2025-06-23 17:00:33.417 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 231 of size 4096
+2025-06-23 17:00:33.417 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 232 of size 4096
+2025-06-23 17:00:33.417 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 233 of size 4096
+2025-06-23 17:00:33.418 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 234 of size 4096
+2025-06-23 17:00:33.418 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 235 of size 4096
+2025-06-23 17:00:33.418 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 236 of size 4096
+2025-06-23 17:00:33.418 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 237 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 238 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 239 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 240 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 241 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 242 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 243 of size 4096
+2025-06-23 17:00:33.419 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 244 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 245 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 246 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 247 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 248 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 249 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 250 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 251 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 252 of size 4096
+2025-06-23 17:00:33.420 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 253 of size 4096
+2025-06-23 17:00:33.421 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 254 of size 4096
+2025-06-23 17:00:33.421 FINE [common.LoggingManager logCrypto] [CRYPTO] Chunk encryption: Encrypting chunk 255 of size 4071
+2025-06-23 17:00:33.421 INFO [client.Client sendFileData] File split into 255 encrypted chunks
+2025-06-23 17:00:33.421 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] File prepared: NS3_report_revised.pdf chunked into 255 encrypted segments
+2025-06-23 17:00:33.421 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 0 of 255
+2025-06-23 17:00:33.438 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 1 of 255
+2025-06-23 17:00:33.449 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 2 of 255
+2025-06-23 17:00:33.462 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 3 of 255
+2025-06-23 17:00:33.475 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 4 of 255
+2025-06-23 17:00:33.488 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 5 of 255
+2025-06-23 17:00:33.501 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 6 of 255
+2025-06-23 17:00:33.514 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 7 of 255
+2025-06-23 17:00:33.525 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 8 of 255
+2025-06-23 17:00:33.539 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 9 of 255
+2025-06-23 17:00:33.552 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 10 of 255
+2025-06-23 17:00:33.565 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 11 of 255
+2025-06-23 17:00:33.578 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 12 of 255
+2025-06-23 17:00:33.591 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 13 of 255
+2025-06-23 17:00:33.604 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 14 of 255
+2025-06-23 17:00:33.617 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 15 of 255
+2025-06-23 17:00:33.630 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 16 of 255
+2025-06-23 17:00:33.642 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 17 of 255
+2025-06-23 17:00:33.655 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 18 of 255
+2025-06-23 17:00:33.668 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 19 of 255
+2025-06-23 17:00:33.681 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 20 of 255
+2025-06-23 17:00:33.692 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 21 of 255
+2025-06-23 17:00:33.705 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 22 of 255
+2025-06-23 17:00:33.717 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 23 of 255
+2025-06-23 17:00:33.730 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 24 of 255
+2025-06-23 17:00:33.743 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 25 of 255
+2025-06-23 17:00:33.755 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 26 of 255
+2025-06-23 17:00:33.767 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 27 of 255
+2025-06-23 17:00:33.780 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 28 of 255
+2025-06-23 17:00:33.791 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 29 of 255
+2025-06-23 17:00:33.802 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 30 of 255
+2025-06-23 17:00:33.814 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 31 of 255
+2025-06-23 17:00:33.827 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 32 of 255
+2025-06-23 17:00:33.840 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 33 of 255
+2025-06-23 17:00:33.853 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 34 of 255
+2025-06-23 17:00:33.864 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 35 of 255
+2025-06-23 17:00:33.875 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 36 of 255
+2025-06-23 17:00:33.887 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 37 of 255
+2025-06-23 17:00:33.900 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 38 of 255
+2025-06-23 17:00:33.912 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 39 of 255
+2025-06-23 17:00:33.925 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 40 of 255
+2025-06-23 17:00:33.938 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 41 of 255
+2025-06-23 17:00:33.951 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 42 of 255
+2025-06-23 17:00:33.964 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 43 of 255
+2025-06-23 17:00:33.977 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 44 of 255
+2025-06-23 17:00:33.990 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 45 of 255
+2025-06-23 17:00:34.003 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 46 of 255
+2025-06-23 17:00:34.016 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 47 of 255
+2025-06-23 17:00:34.027 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 48 of 255
+2025-06-23 17:00:34.040 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 49 of 255
+2025-06-23 17:00:34.051 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 50 of 255
+2025-06-23 17:00:34.064 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 51 of 255
+2025-06-23 17:00:34.075 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 52 of 255
+2025-06-23 17:00:34.088 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 53 of 255
+2025-06-23 17:00:34.101 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 54 of 255
+2025-06-23 17:00:34.114 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 55 of 255
+2025-06-23 17:00:34.125 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 56 of 255
+2025-06-23 17:00:34.138 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 57 of 255
+2025-06-23 17:00:34.151 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 58 of 255
+2025-06-23 17:00:34.164 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 59 of 255
+2025-06-23 17:00:34.175 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 60 of 255
+2025-06-23 17:00:34.188 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 61 of 255
+2025-06-23 17:00:34.201 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 62 of 255
+2025-06-23 17:00:34.214 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 63 of 255
+2025-06-23 17:00:34.227 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 64 of 255
+2025-06-23 17:00:34.237 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 65 of 255
+2025-06-23 17:00:34.250 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 66 of 255
+2025-06-23 17:00:34.262 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 67 of 255
+2025-06-23 17:00:34.275 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 68 of 255
+2025-06-23 17:00:34.288 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 69 of 255
+2025-06-23 17:00:34.300 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 70 of 255
+2025-06-23 17:00:34.313 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 71 of 255
+2025-06-23 17:00:34.326 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 72 of 255
+2025-06-23 17:00:34.338 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 73 of 255
+2025-06-23 17:00:34.352 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 74 of 255
+2025-06-23 17:00:34.364 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 75 of 255
+2025-06-23 17:00:34.375 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 76 of 255
+2025-06-23 17:00:34.388 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 77 of 255
+2025-06-23 17:00:34.401 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 78 of 255
+2025-06-23 17:00:34.413 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 79 of 255
+2025-06-23 17:00:34.426 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 80 of 255
+2025-06-23 17:00:34.438 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 81 of 255
+2025-06-23 17:00:34.451 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 82 of 255
+2025-06-23 17:00:34.462 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 83 of 255
+2025-06-23 17:00:34.475 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 84 of 255
+2025-06-23 17:00:34.488 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 85 of 255
+2025-06-23 17:00:34.501 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 86 of 255
+2025-06-23 17:00:34.514 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 87 of 255
+2025-06-23 17:00:34.525 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 88 of 255
+2025-06-23 17:00:34.538 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 89 of 255
+2025-06-23 17:00:34.551 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 90 of 255
+2025-06-23 17:00:34.564 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 91 of 255
+2025-06-23 17:00:34.574 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 92 of 255
+2025-06-23 17:00:34.587 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 93 of 255
+2025-06-23 17:00:34.598 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 94 of 255
+2025-06-23 17:00:34.610 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 95 of 255
+2025-06-23 17:00:34.621 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 96 of 255
+2025-06-23 17:00:34.633 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 97 of 255
+2025-06-23 17:00:34.645 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 98 of 255
+2025-06-23 17:00:34.658 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 99 of 255
+2025-06-23 17:00:34.671 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 100 of 255
+2025-06-23 17:00:34.684 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 101 of 255
+2025-06-23 17:00:34.697 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 102 of 255
+2025-06-23 17:00:34.709 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 103 of 255
+2025-06-23 17:00:34.722 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 104 of 255
+2025-06-23 17:00:34.735 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 105 of 255
+2025-06-23 17:00:34.747 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 106 of 255
+2025-06-23 17:00:34.759 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 107 of 255
+2025-06-23 17:00:34.772 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 108 of 255
+2025-06-23 17:00:34.784 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 109 of 255
+2025-06-23 17:00:34.797 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 110 of 255
+2025-06-23 17:00:34.808 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 111 of 255
+2025-06-23 17:00:34.821 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 112 of 255
+2025-06-23 17:00:34.832 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 113 of 255
+2025-06-23 17:00:34.845 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 114 of 255
+2025-06-23 17:00:34.858 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 115 of 255
+2025-06-23 17:00:34.869 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 116 of 255
+2025-06-23 17:00:34.882 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 117 of 255
+2025-06-23 17:00:34.894 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 118 of 255
+2025-06-23 17:00:34.908 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 119 of 255
+2025-06-23 17:00:34.921 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 120 of 255
+2025-06-23 17:00:34.933 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 121 of 255
+2025-06-23 17:00:34.946 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 122 of 255
+2025-06-23 17:00:34.959 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 123 of 255
+2025-06-23 17:00:34.970 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 124 of 255
+2025-06-23 17:00:34.983 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 125 of 255
+2025-06-23 17:00:34.996 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 126 of 255
+2025-06-23 17:00:35.009 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 127 of 255
+2025-06-23 17:00:35.020 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 128 of 255
+2025-06-23 17:00:35.032 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 129 of 255
+2025-06-23 17:00:35.042 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 130 of 255
+2025-06-23 17:00:35.055 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 131 of 255
+2025-06-23 17:00:35.067 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 132 of 255
+2025-06-23 17:00:35.080 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 133 of 255
+2025-06-23 17:00:35.092 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 134 of 255
+2025-06-23 17:00:35.105 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 135 of 255
+2025-06-23 17:00:35.118 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 136 of 255
+2025-06-23 17:00:35.131 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 137 of 255
+2025-06-23 17:00:35.143 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 138 of 255
+2025-06-23 17:00:35.156 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 139 of 255
+2025-06-23 17:00:35.169 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 140 of 255
+2025-06-23 17:00:35.182 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 141 of 255
+2025-06-23 17:00:35.192 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 142 of 255
+2025-06-23 17:00:35.205 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 143 of 255
+2025-06-23 17:00:35.217 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 144 of 255
+2025-06-23 17:00:35.230 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 145 of 255
+2025-06-23 17:00:35.242 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 146 of 255
+2025-06-23 17:00:35.253 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 147 of 255
+2025-06-23 17:00:35.265 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 148 of 255
+2025-06-23 17:00:35.278 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 149 of 255
+2025-06-23 17:00:35.291 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 150 of 255
+2025-06-23 17:00:35.304 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 151 of 255
+2025-06-23 17:00:35.317 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 152 of 255
+2025-06-23 17:00:35.330 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 153 of 255
+2025-06-23 17:00:35.341 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 154 of 255
+2025-06-23 17:00:35.354 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 155 of 255
+2025-06-23 17:00:35.367 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 156 of 255
+2025-06-23 17:00:35.380 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 157 of 255
+2025-06-23 17:00:35.392 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 158 of 255
+2025-06-23 17:00:35.405 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 159 of 255
+2025-06-23 17:00:35.418 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 160 of 255
+2025-06-23 17:00:35.431 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 161 of 255
+2025-06-23 17:00:35.442 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 162 of 255
+2025-06-23 17:00:35.455 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 163 of 255
+2025-06-23 17:00:35.468 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 164 of 255
+2025-06-23 17:00:35.478 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 165 of 255
+2025-06-23 17:00:35.491 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 166 of 255
+2025-06-23 17:00:35.505 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 167 of 255
+2025-06-23 17:00:35.518 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 168 of 255
+2025-06-23 17:00:35.531 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 169 of 255
+2025-06-23 17:00:35.544 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 170 of 255
+2025-06-23 17:00:35.557 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 171 of 255
+2025-06-23 17:00:35.568 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 172 of 255
+2025-06-23 17:00:35.581 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 173 of 255
+2025-06-23 17:00:35.594 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 174 of 255
+2025-06-23 17:00:35.607 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 175 of 255
+2025-06-23 17:00:35.620 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 176 of 255
+2025-06-23 17:00:35.633 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 177 of 255
+2025-06-23 17:00:35.644 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 178 of 255
+2025-06-23 17:00:35.655 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 179 of 255
+2025-06-23 17:00:35.667 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 180 of 255
+2025-06-23 17:00:35.679 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 181 of 255
+2025-06-23 17:00:35.692 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 182 of 255
+2025-06-23 17:00:35.705 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 183 of 255
+2025-06-23 17:00:35.716 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 184 of 255
+2025-06-23 17:00:35.728 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 185 of 255
+2025-06-23 17:00:35.741 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 186 of 255
+2025-06-23 17:00:35.753 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 187 of 255
+2025-06-23 17:00:35.766 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 188 of 255
+2025-06-23 17:00:35.779 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 189 of 255
+2025-06-23 17:00:35.792 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 190 of 255
+2025-06-23 17:00:35.805 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 191 of 255
+2025-06-23 17:00:35.818 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 192 of 255
+2025-06-23 17:00:35.831 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 193 of 255
+2025-06-23 17:00:35.843 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 194 of 255
+2025-06-23 17:00:35.856 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 195 of 255
+2025-06-23 17:00:35.869 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 196 of 255
+2025-06-23 17:00:35.882 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 197 of 255
+2025-06-23 17:00:35.894 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 198 of 255
+2025-06-23 17:00:35.907 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 199 of 255
+2025-06-23 17:00:35.920 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 200 of 255
+2025-06-23 17:00:35.932 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 201 of 255
+2025-06-23 17:00:35.945 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 202 of 255
+2025-06-23 17:00:35.958 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 203 of 255
+2025-06-23 17:00:35.969 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 204 of 255
+2025-06-23 17:00:35.980 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 205 of 255
+2025-06-23 17:00:35.991 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 206 of 255
+2025-06-23 17:00:36.004 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 207 of 255
+2025-06-23 17:00:36.016 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 208 of 255
+2025-06-23 17:00:36.028 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 209 of 255
+2025-06-23 17:00:36.039 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 210 of 255
+2025-06-23 17:00:36.050 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 211 of 255
+2025-06-23 17:00:36.062 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 212 of 255
+2025-06-23 17:00:36.075 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 213 of 255
+2025-06-23 17:00:36.088 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 214 of 255
+2025-06-23 17:00:36.099 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 215 of 255
+2025-06-23 17:00:36.112 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 216 of 255
+2025-06-23 17:00:36.124 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 217 of 255
+2025-06-23 17:00:36.137 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 218 of 255
+2025-06-23 17:00:36.148 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 219 of 255
+2025-06-23 17:00:36.161 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 220 of 255
+2025-06-23 17:00:36.171 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 221 of 255
+2025-06-23 17:00:36.182 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 222 of 255
+2025-06-23 17:00:36.195 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 223 of 255
+2025-06-23 17:00:36.208 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 224 of 255
+2025-06-23 17:00:36.219 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 225 of 255
+2025-06-23 17:00:36.232 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 226 of 255
+2025-06-23 17:00:36.242 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 227 of 255
+2025-06-23 17:00:36.253 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 228 of 255
+2025-06-23 17:00:36.266 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 229 of 255
+2025-06-23 17:00:36.279 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 230 of 255
+2025-06-23 17:00:36.291 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 231 of 255
+2025-06-23 17:00:36.304 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 232 of 255
+2025-06-23 17:00:36.317 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 233 of 255
+2025-06-23 17:00:36.330 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 234 of 255
+2025-06-23 17:00:36.343 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 235 of 255
+2025-06-23 17:00:36.356 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 236 of 255
+2025-06-23 17:00:36.368 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 237 of 255
+2025-06-23 17:00:36.381 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 238 of 255
+2025-06-23 17:00:36.392 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 239 of 255
+2025-06-23 17:00:36.405 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 240 of 255
+2025-06-23 17:00:36.417 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 241 of 255
+2025-06-23 17:00:36.430 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 242 of 255
+2025-06-23 17:00:36.442 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 243 of 255
+2025-06-23 17:00:36.455 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 244 of 255
+2025-06-23 17:00:36.468 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 245 of 255
+2025-06-23 17:00:36.480 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 246 of 255
+2025-06-23 17:00:36.492 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 247 of 255
+2025-06-23 17:00:36.505 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 248 of 255
+2025-06-23 17:00:36.516 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 249 of 255
+2025-06-23 17:00:36.527 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 250 of 255
+2025-06-23 17:00:36.540 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 251 of 255
+2025-06-23 17:00:36.551 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 252 of 255
+2025-06-23 17:00:36.564 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 253 of 255
+2025-06-23 17:00:36.576 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Sending chunk: Chunk 254 of 255
+2025-06-23 17:00:36.589 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Transfer finishing: Sending completion notification
+2025-06-23 17:00:36.591 INFO [client.TransferHistory saveHistory] Transfer history saved to data/Pramitha_transfer_history.dat
+2025-06-23 17:00:36.591 INFO [common.LoggingManager logTransfer] [TRANSFER:5a11da13-6931-4939-8172-7b1d673de1cd] Saved transfer record: File: architecture.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:36.591 INFO [common.LoggingManager logTransfer] [TRANSFER:37cab9bb-0adf-4697-816c-328e13f7637d] Saved transfer record: File: IMG_3095.jpg, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:36.591 INFO [common.LoggingManager logTransfer] [TRANSFER:a19afc1c-3084-4cda-9faa-3f762b19c509] Saved transfer record: File: 36_Enhancing NS-3 for Distributed Network Simulation.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:36.591 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Saved transfer record: File: NS3_report_revised.pdf, Status: COMPLETED, From: Pramitha, To: Jayasooriya
+2025-06-23 17:00:36.592 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Transfer record updated: Status: Completed, File: NS3_report_revised.pdf
+2025-06-23 17:00:36.592 INFO [client.Client sendFileData] File transfer completed: 3a112c56-de7a-44fd-a3a3-4cc86559f987
+2025-06-23 17:00:36.592 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Transfer completed: All 255 chunks of NS3_report_revised.pdf sent successfully

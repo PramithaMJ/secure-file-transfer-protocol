@@ -1,14 +1,277 @@
-2025-06-23 12:03:54.361 INFO [common.LoggingManager initialize] Logging system initialized
-2025-06-23 12:03:54.394 INFO [client.ClientUI main] Starting Secure File Transfer Client application
-2025-06-23 12:03:54.818 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
-2025-06-23 12:06:14.670 INFO [client.Client connect] Connected to server: localhost:9999
-2025-06-23 12:06:14.672 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
-2025-06-23 12:06:14.673 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Jayasooriya
-2025-06-23 12:06:14.902 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Jayasooriya
-2025-06-23 12:06:14.914 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 12:06:14.919 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
-2025-06-23 12:06:14.920 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
-2025-06-23 12:06:14.923 INFO [client.Client login] Logged in as: Jayasooriya
-2025-06-23 12:06:14.923 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Jayasooriya
-2025-06-23 12:06:14.927 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
-2025-06-23 12:06:14.927 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-06-23 16:59:11.750 INFO [common.LoggingManager initialize] Logging system initialized
+2025-06-23 16:59:11.782 INFO [client.ClientUI main] Starting Secure File Transfer Client application
+2025-06-23 16:59:12.183 INFO [client.ClientUI lambda$main$21] Client UI initialized and displayed
+2025-06-23 17:00:12.790 INFO [client.Client connect] Connected to server: localhost:9999
+2025-06-23 17:00:12.791 INFO [common.LoggingManager logSecurity] [SECURITY] Established socket connection to localhost:9999
+2025-06-23 17:00:12.791 INFO [common.LoggingManager logSecurity] [SECURITY] Creating user object with credentials for: Jayasooriya
+2025-06-23 17:00:12.947 INFO [common.LoggingManager logSecurity] [SECURITY] Loading transfer history for user: Jayasooriya
+2025-06-23 17:00:12.956 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
+2025-06-23 17:00:12.957 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-06-23 17:00:12.957 INFO [common.LoggingManager logSecurity] [SECURITY] Sending authentication request to server
+2025-06-23 17:00:12.959 INFO [client.Client login] Logged in as: Jayasooriya
+2025-06-23 17:00:12.960 INFO [common.LoggingManager logSecurity] [SECURITY] Authentication successful for user: Jayasooriya
+2025-06-23 17:00:12.961 INFO [client.TransferHistory loadHistory] Loaded 1 transfer records from data/Jayasooriya_transfer_history.dat
+2025-06-23 17:00:12.962 INFO [common.LoggingManager logTransfer] [TRANSFER:698c910c-06c7-4bdf-aea8-1bf790802301] Loaded transfer record: File: Lab 1 - Pramitha.pdf, Status: COMPLETED, From: Jayasooriya, To: Pramitha
+2025-06-23 17:00:33.329 INFO [client.Client processStringMessage] Received transfer request: NS3_report_revised.pdf from Pramitha
+2025-06-23 17:00:33.333 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Received transfer request: File: NS3_report_revised.pdf, From: Pramitha, Size: 1044455 bytes
+2025-06-23 17:00:33.336 INFO [client.Client processMessage] Updating existing transfer request with ID: 3a112c56-de7a-44fd-a3a3-4cc86559f987
+2025-06-23 17:00:33.337 INFO [client.Client processMessage] Storing transfer request with ID: 3a112c56-de7a-44fd-a3a3-4cc86559f987
+2025-06-23 17:00:33.434 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 0 of 255
+2025-06-23 17:00:33.446 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 1 of 255
+2025-06-23 17:00:33.451 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 2 of 255
+2025-06-23 17:00:33.464 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 3 of 255
+2025-06-23 17:00:33.477 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 4 of 255
+2025-06-23 17:00:33.490 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 5 of 255
+2025-06-23 17:00:33.502 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 6 of 255
+2025-06-23 17:00:33.515 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 7 of 255
+2025-06-23 17:00:33.527 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 8 of 255
+2025-06-23 17:00:33.541 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 9 of 255
+2025-06-23 17:00:33.554 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 10 of 255
+2025-06-23 17:00:33.567 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 11 of 255
+2025-06-23 17:00:33.579 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 12 of 255
+2025-06-23 17:00:33.593 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 13 of 255
+2025-06-23 17:00:33.605 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 14 of 255
+2025-06-23 17:00:33.618 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 15 of 255
+2025-06-23 17:00:33.631 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 16 of 255
+2025-06-23 17:00:33.643 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 17 of 255
+2025-06-23 17:00:33.656 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 18 of 255
+2025-06-23 17:00:33.669 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 19 of 255
+2025-06-23 17:00:33.682 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 20 of 255
+2025-06-23 17:00:33.693 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 21 of 255
+2025-06-23 17:00:33.706 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 22 of 255
+2025-06-23 17:00:33.718 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 23 of 255
+2025-06-23 17:00:33.732 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 24 of 255
+2025-06-23 17:00:33.744 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 25 of 255
+2025-06-23 17:00:33.756 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 26 of 255
+2025-06-23 17:00:33.768 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 27 of 255
+2025-06-23 17:00:33.781 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 28 of 255
+2025-06-23 17:00:33.792 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 29 of 255
+2025-06-23 17:00:33.804 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 30 of 255
+2025-06-23 17:00:33.815 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 31 of 255
+2025-06-23 17:00:33.828 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 32 of 255
+2025-06-23 17:00:33.841 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 33 of 255
+2025-06-23 17:00:33.854 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 34 of 255
+2025-06-23 17:00:33.865 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 35 of 255
+2025-06-23 17:00:33.876 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 36 of 255
+2025-06-23 17:00:33.888 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 37 of 255
+2025-06-23 17:00:33.901 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 38 of 255
+2025-06-23 17:00:33.913 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 39 of 255
+2025-06-23 17:00:33.927 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 40 of 255
+2025-06-23 17:00:33.939 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 41 of 255
+2025-06-23 17:00:33.953 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 42 of 255
+2025-06-23 17:00:33.965 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 43 of 255
+2025-06-23 17:00:33.978 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 44 of 255
+2025-06-23 17:00:33.991 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 45 of 255
+2025-06-23 17:00:34.004 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 46 of 255
+2025-06-23 17:00:34.017 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 47 of 255
+2025-06-23 17:00:34.028 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 48 of 255
+2025-06-23 17:00:34.041 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 49 of 255
+2025-06-23 17:00:34.052 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 50 of 255
+2025-06-23 17:00:34.065 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 51 of 255
+2025-06-23 17:00:34.076 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 52 of 255
+2025-06-23 17:00:34.089 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 53 of 255
+2025-06-23 17:00:34.102 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 54 of 255
+2025-06-23 17:00:34.115 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 55 of 255
+2025-06-23 17:00:34.126 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 56 of 255
+2025-06-23 17:00:34.139 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 57 of 255
+2025-06-23 17:00:34.152 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 58 of 255
+2025-06-23 17:00:34.165 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 59 of 255
+2025-06-23 17:00:34.176 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 60 of 255
+2025-06-23 17:00:34.189 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 61 of 255
+2025-06-23 17:00:34.202 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 62 of 255
+2025-06-23 17:00:34.215 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 63 of 255
+2025-06-23 17:00:34.227 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 64 of 255
+2025-06-23 17:00:34.238 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 65 of 255
+2025-06-23 17:00:34.250 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 66 of 255
+2025-06-23 17:00:34.263 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 67 of 255
+2025-06-23 17:00:34.276 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 68 of 255
+2025-06-23 17:00:34.288 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 69 of 255
+2025-06-23 17:00:34.301 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 70 of 255
+2025-06-23 17:00:34.314 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 71 of 255
+2025-06-23 17:00:34.327 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 72 of 255
+2025-06-23 17:00:34.341 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 73 of 255
+2025-06-23 17:00:34.353 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 74 of 255
+2025-06-23 17:00:34.366 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 75 of 255
+2025-06-23 17:00:34.376 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 76 of 255
+2025-06-23 17:00:34.389 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 77 of 255
+2025-06-23 17:00:34.402 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 78 of 255
+2025-06-23 17:00:34.414 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 79 of 255
+2025-06-23 17:00:34.427 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 80 of 255
+2025-06-23 17:00:34.439 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 81 of 255
+2025-06-23 17:00:34.452 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 82 of 255
+2025-06-23 17:00:34.463 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 83 of 255
+2025-06-23 17:00:34.476 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 84 of 255
+2025-06-23 17:00:34.489 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 85 of 255
+2025-06-23 17:00:34.502 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 86 of 255
+2025-06-23 17:00:34.515 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 87 of 255
+2025-06-23 17:00:34.526 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 88 of 255
+2025-06-23 17:00:34.539 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 89 of 255
+2025-06-23 17:00:34.552 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 90 of 255
+2025-06-23 17:00:34.565 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 91 of 255
+2025-06-23 17:00:34.576 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 92 of 255
+2025-06-23 17:00:34.587 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 93 of 255
+2025-06-23 17:00:34.599 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 94 of 255
+2025-06-23 17:00:34.610 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 95 of 255
+2025-06-23 17:00:34.622 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 96 of 255
+2025-06-23 17:00:34.634 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 97 of 255
+2025-06-23 17:00:34.646 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 98 of 255
+2025-06-23 17:00:34.659 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 99 of 255
+2025-06-23 17:00:34.672 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 100 of 255
+2025-06-23 17:00:34.685 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 101 of 255
+2025-06-23 17:00:34.698 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 102 of 255
+2025-06-23 17:00:34.710 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 103 of 255
+2025-06-23 17:00:34.723 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 104 of 255
+2025-06-23 17:00:34.735 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 105 of 255
+2025-06-23 17:00:34.748 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 106 of 255
+2025-06-23 17:00:34.760 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 107 of 255
+2025-06-23 17:00:34.772 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 108 of 255
+2025-06-23 17:00:34.785 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 109 of 255
+2025-06-23 17:00:34.798 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 110 of 255
+2025-06-23 17:00:34.809 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 111 of 255
+2025-06-23 17:00:34.822 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 112 of 255
+2025-06-23 17:00:34.833 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 113 of 255
+2025-06-23 17:00:34.846 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 114 of 255
+2025-06-23 17:00:34.859 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 115 of 255
+2025-06-23 17:00:34.870 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 116 of 255
+2025-06-23 17:00:34.882 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 117 of 255
+2025-06-23 17:00:34.896 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 118 of 255
+2025-06-23 17:00:34.909 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 119 of 255
+2025-06-23 17:00:34.922 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 120 of 255
+2025-06-23 17:00:34.935 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 121 of 255
+2025-06-23 17:00:34.947 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 122 of 255
+2025-06-23 17:00:34.960 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 123 of 255
+2025-06-23 17:00:34.971 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 124 of 255
+2025-06-23 17:00:34.984 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 125 of 255
+2025-06-23 17:00:34.997 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 126 of 255
+2025-06-23 17:00:35.010 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 127 of 255
+2025-06-23 17:00:35.021 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 128 of 255
+2025-06-23 17:00:35.032 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 129 of 255
+2025-06-23 17:00:35.043 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 130 of 255
+2025-06-23 17:00:35.055 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 131 of 255
+2025-06-23 17:00:35.068 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 132 of 255
+2025-06-23 17:00:35.081 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 133 of 255
+2025-06-23 17:00:35.093 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 134 of 255
+2025-06-23 17:00:35.106 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 135 of 255
+2025-06-23 17:00:35.119 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 136 of 255
+2025-06-23 17:00:35.132 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 137 of 255
+2025-06-23 17:00:35.144 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 138 of 255
+2025-06-23 17:00:35.157 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 139 of 255
+2025-06-23 17:00:35.170 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 140 of 255
+2025-06-23 17:00:35.182 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 141 of 255
+2025-06-23 17:00:35.193 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 142 of 255
+2025-06-23 17:00:35.205 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 143 of 255
+2025-06-23 17:00:35.218 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 144 of 255
+2025-06-23 17:00:35.231 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 145 of 255
+2025-06-23 17:00:35.243 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 146 of 255
+2025-06-23 17:00:35.253 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 147 of 255
+2025-06-23 17:00:35.266 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 148 of 255
+2025-06-23 17:00:35.279 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 149 of 255
+2025-06-23 17:00:35.292 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 150 of 255
+2025-06-23 17:00:35.305 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 151 of 255
+2025-06-23 17:00:35.318 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 152 of 255
+2025-06-23 17:00:35.330 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 153 of 255
+2025-06-23 17:00:35.342 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 154 of 255
+2025-06-23 17:00:35.355 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 155 of 255
+2025-06-23 17:00:35.368 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 156 of 255
+2025-06-23 17:00:35.380 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 157 of 255
+2025-06-23 17:00:35.393 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 158 of 255
+2025-06-23 17:00:35.406 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 159 of 255
+2025-06-23 17:00:35.419 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 160 of 255
+2025-06-23 17:00:35.431 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 161 of 255
+2025-06-23 17:00:35.443 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 162 of 255
+2025-06-23 17:00:35.456 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 163 of 255
+2025-06-23 17:00:35.470 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 164 of 255
+2025-06-23 17:00:35.480 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 165 of 255
+2025-06-23 17:00:35.493 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 166 of 255
+2025-06-23 17:00:35.506 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 167 of 255
+2025-06-23 17:00:35.520 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 168 of 255
+2025-06-23 17:00:35.532 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 169 of 255
+2025-06-23 17:00:35.545 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 170 of 255
+2025-06-23 17:00:35.558 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 171 of 255
+2025-06-23 17:00:35.570 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 172 of 255
+2025-06-23 17:00:35.582 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 173 of 255
+2025-06-23 17:00:35.595 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 174 of 255
+2025-06-23 17:00:35.608 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 175 of 255
+2025-06-23 17:00:35.621 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 176 of 255
+2025-06-23 17:00:35.635 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 177 of 255
+2025-06-23 17:00:35.645 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 178 of 255
+2025-06-23 17:00:35.656 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 179 of 255
+2025-06-23 17:00:35.668 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 180 of 255
+2025-06-23 17:00:35.680 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 181 of 255
+2025-06-23 17:00:35.693 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 182 of 255
+2025-06-23 17:00:35.706 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 183 of 255
+2025-06-23 17:00:35.718 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 184 of 255
+2025-06-23 17:00:35.729 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 185 of 255
+2025-06-23 17:00:35.742 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 186 of 255
+2025-06-23 17:00:35.754 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 187 of 255
+2025-06-23 17:00:35.768 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 188 of 255
+2025-06-23 17:00:35.780 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 189 of 255
+2025-06-23 17:00:35.793 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 190 of 255
+2025-06-23 17:00:35.806 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 191 of 255
+2025-06-23 17:00:35.818 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 192 of 255
+2025-06-23 17:00:35.831 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 193 of 255
+2025-06-23 17:00:35.844 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 194 of 255
+2025-06-23 17:00:35.857 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 195 of 255
+2025-06-23 17:00:35.870 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 196 of 255
+2025-06-23 17:00:35.882 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 197 of 255
+2025-06-23 17:00:35.895 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 198 of 255
+2025-06-23 17:00:35.908 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 199 of 255
+2025-06-23 17:00:35.920 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 200 of 255
+2025-06-23 17:00:35.933 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 201 of 255
+2025-06-23 17:00:35.946 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 202 of 255
+2025-06-23 17:00:35.959 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 203 of 255
+2025-06-23 17:00:35.970 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 204 of 255
+2025-06-23 17:00:35.981 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 205 of 255
+2025-06-23 17:00:35.992 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 206 of 255
+2025-06-23 17:00:36.005 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 207 of 255
+2025-06-23 17:00:36.017 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 208 of 255
+2025-06-23 17:00:36.028 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 209 of 255
+2025-06-23 17:00:36.039 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 210 of 255
+2025-06-23 17:00:36.050 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 211 of 255
+2025-06-23 17:00:36.064 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 212 of 255
+2025-06-23 17:00:36.076 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 213 of 255
+2025-06-23 17:00:36.089 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 214 of 255
+2025-06-23 17:00:36.100 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 215 of 255
+2025-06-23 17:00:36.112 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 216 of 255
+2025-06-23 17:00:36.125 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 217 of 255
+2025-06-23 17:00:36.137 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 218 of 255
+2025-06-23 17:00:36.148 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 219 of 255
+2025-06-23 17:00:36.161 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 220 of 255
+2025-06-23 17:00:36.172 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 221 of 255
+2025-06-23 17:00:36.183 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 222 of 255
+2025-06-23 17:00:36.196 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 223 of 255
+2025-06-23 17:00:36.208 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 224 of 255
+2025-06-23 17:00:36.220 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 225 of 255
+2025-06-23 17:00:36.232 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 226 of 255
+2025-06-23 17:00:36.243 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 227 of 255
+2025-06-23 17:00:36.254 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 228 of 255
+2025-06-23 17:00:36.267 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 229 of 255
+2025-06-23 17:00:36.279 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 230 of 255
+2025-06-23 17:00:36.292 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 231 of 255
+2025-06-23 17:00:36.305 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 232 of 255
+2025-06-23 17:00:36.318 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 233 of 255
+2025-06-23 17:00:36.331 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 234 of 255
+2025-06-23 17:00:36.344 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 235 of 255
+2025-06-23 17:00:36.357 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 236 of 255
+2025-06-23 17:00:36.370 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 237 of 255
+2025-06-23 17:00:36.382 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 238 of 255
+2025-06-23 17:00:36.393 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 239 of 255
+2025-06-23 17:00:36.405 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 240 of 255
+2025-06-23 17:00:36.418 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 241 of 255
+2025-06-23 17:00:36.431 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 242 of 255
+2025-06-23 17:00:36.443 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 243 of 255
+2025-06-23 17:00:36.456 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 244 of 255
+2025-06-23 17:00:36.468 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 245 of 255
+2025-06-23 17:00:36.481 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 246 of 255
+2025-06-23 17:00:36.493 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 247 of 255
+2025-06-23 17:00:36.505 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 248 of 255
+2025-06-23 17:00:36.518 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 249 of 255
+2025-06-23 17:00:36.528 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 250 of 255
+2025-06-23 17:00:36.540 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 251 of 255
+2025-06-23 17:00:36.552 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 252 of 255
+2025-06-23 17:00:36.565 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 253 of 255
+2025-06-23 17:00:36.577 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Receiving chunk: Chunk 254 of 255
+2025-06-23 17:00:36.580 INFO [client.Client receiveFileChunk] File transfer completed: NS3_report_revised.pdf
+2025-06-23 17:00:36.580 INFO [common.LoggingManager logTransfer] [TRANSFER:3a112c56-de7a-44fd-a3a3-4cc86559f987] Transfer completed: Successfully received file: NS3_report_revised.pdf from Pramitha
+2025-06-23 17:00:36.590 INFO [client.Client processStringMessage] Transfer completed: 3a112c56-de7a-44fd-a3a3-4cc86559f987
+2025-06-23 17:02:27.392 INFO [common.LoggingManager logSecurity] [SECURITY] Initiating secure disconnect from server
