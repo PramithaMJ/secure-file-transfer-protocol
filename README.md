@@ -36,47 +36,48 @@ project implements a secure file transfer protocol that ensures confidentiality,
 ## Security Features
 
 1. **Confidentiality**:
+
    - RSA encryption for key exchange (`CryptoUtils.RSA_TRANSFORMATION = "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING"`)
    - AES-256 encryption for file contents (`CryptoUtils.AES_KEY_SIZE = 256`)
    - CBC mode with random IV for each chunk (`CryptoUtils.AES_TRANSFORMATION = "AES/CBC/PKCS5Padding"`)
-
 2. **Integrity**:
+
    - HMAC-SHA256 verification for each chunk (`CryptoUtils.HMAC_ALGORITHM = "HmacSHA256"`)
    - HMAC covers encrypted data, IV, timestamp, and nonce
-
 3. **Authentication**:
+
    - Server authenticates clients via user accounts (`UserManager.authenticateUser()`)
    - Clients verify server responses with digital signatures
    - Session-based authentication using secure tokens (`SessionManager.generateSessionToken()`)
-
 4. **Perfect Forward Secrecy**:
+
    - New symmetric keys generated for each file transfer (`Client.sendFile()`)
    - Ephemeral AES keys protect against compromise of long-term keys
-
 5. **Anti-Replay Protection**:
+
    - Unique nonce for each chunk (`SecureRandom.getInstanceStrong().nextBytes(nonceBytes)`)
    - Timestamp validation with 5-minute window (`MAX_MESSAGE_AGE_MS = 5 * 60 * 1000`)
    - Server-side tracking of used nonces (`usedNonces` ConcurrentHashMap)
    - Automatic cleanup of old nonces with scheduled executor
-
 6. **DoS Attack Protection**:
+
    - Rate limiting by IP address and user (`RateLimitManager.checkRateLimit()`)
    - Connection throttling with increasing penalties (`RateLimitManager.BandwidthTracker`)
    - Blacklisting of abusive IPs (`RateLimitManager.blacklistIP()`)
    - Continuous security monitoring (`DoSMonitor.performSecurityCheck()`)
-
 7. **Path Traversal Protection**:
+
    - Filename validation and sanitization
    - Secure file path creation with Path.normalize()
    - Prevention of directory traversal attacks (`..` and other unsafe sequences)
-
 8. **Public Key Validation**:
+
    - Minimum RSA 2048-bit key strength enforcement
    - Algorithm validation (RSA-only)
    - Key fingerprint generation for verification (`CryptoUtils.generateKeyFingerprint()`)
    - Prevention of key spoofing attacks
-
 9. **Digital Signatures**:
+
    - SHA256withRSA digital signatures (`CryptoUtils.SIGNATURE_ALGORITHM = "SHA256withRSA"`)
    - Non-repudiation: cryptographic proof of sender identity
    - End-to-end authentication from sender to recipient
@@ -188,3 +189,62 @@ Access the SonarQube dashboard for detailed analysis:
 
 ![SonarQube Security Analysis](images/sonar-cube-dashboard-2.png)
 
+## User Interface Screenshots
+
+### UI-1.png
+
+![UI-1](images/UI-1.png)
+
+The main client interface showing the login screen. Users can connect to the server by entering their username and server address.
+
+### UI-2.png
+
+![UI-2](images/Ui-2.png)
+
+File transfer window showing the file selection and recipient options. This screen allows users to initiate secure transfers to other connected users.
+
+### UI-3.png
+
+![UI-3](images/UI-3.png)
+
+Transfer history panel displaying past and current file transfers with their statuses, timestamps, and recipients/senders.
+
+### UI-4.png
+
+![UI-4](images/UI-4.png)
+
+Active transfer monitoring interface showing real-time progress of ongoing file transfers with encryption status.
+
+### UI-5.png
+
+![UI-5](images/UI-5.png)
+
+Security settings panel allowing users to configure encryption strength and other security-related options.
+
+## Log Output Screenshots
+
+### log-1.png
+
+![log-1](images/log-1.png)
+
+Example of normal transfer logs showing successful encryption, integrity verification, and sequence tracking. Note the ordered sequence numbers indicating proper packet flow.
+
+### log-2.png
+
+![log-2](images/log-2.png)
+
+Security alert logs showing detected replay attempts. The highlighted sections show the anti-replay protection system identifying duplicate sequence numbers with different nonces, a key indicator of potential replay attacks.
+
+## SonarQube Integration
+
+### sonar-cube-dashboard.png
+
+![SonarQube Dashboard](images/sonar-cube-dashboard.png)
+
+Main SonarQube dashboard showing code quality metrics and security vulnerabilities overview.
+
+### sonar-cube-dashboard-2.png
+
+![SonarQube Dashboard Details](images/sonar-cube-dashboard-2.png)
+
+Detailed security vulnerability report from SonarQube with specific issues identified in the codebase.
