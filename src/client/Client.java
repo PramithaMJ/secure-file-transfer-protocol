@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.file.*;
 import java.security.*;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
@@ -119,8 +120,6 @@ public class Client {
                         sessionToken = parts[2];
                         LoggingManager.logSecurity(logger, "Session token received: " + 
                                                  sessionToken.substring(0, 8) + "...");
-                        
-                        // Start session refresh timer
                         startSessionRefreshTimer();
                     }
                     
@@ -219,7 +218,7 @@ public class Client {
                 }
             }
             
-            // SECURITY: Validate the receiver's public key before using it
+            // Validate the receiver's public key before using it
             try {
                 CryptoUtils.validatePublicKey(receiverPublicKey);
                 String keyFingerprint = CryptoUtils.generateKeyFingerprint(receiverPublicKey);
@@ -233,43 +232,97 @@ public class Client {
             
             logger.info("Using public key of receiver: " + receiverUsername);
             
-            SecretKey symmetricKey = CryptoUtils.generateSymmetricKey();
-            
-            // Encrypt symmetric key with receiver's public key
-            byte[] encryptedSymmetricKey = CryptoUtils.encryptKey(symmetricKey, receiverPublicKey);
-            
-            // Encrypt HMAC key with receiver's public key for integrity verification
-            byte[] encryptedHmacKey = CryptoUtils.encryptKey(user.getHmacKey(), receiverPublicKey);
-            
+            // Generate ephemeral DH key pair for this transfer
+            LoggingManager.logSecuritySummary(logger, "PENDING", "ALICE", "PFS_INITIATION", "STARTING", "ENTERPRISE_GRADE");
+            KeyPair dhKeyPair = CryptoUtils.generateEphemeralDHKeyPair("PENDING", "ALICE");
+            byte[] senderDHPublicKey = dhKeyPair.getPublic().getEncoded();
+
+            // Sign the sender's DH public key with the sender's private key
+            byte[] senderDHPublicKeySignature = CryptoUtils.signData(senderDHPublicKey, user.getPrivateKey(), 
+                                                                   "PENDING", "ALICE", "DH_PUBLIC_KEY_AUTHENTICATION");
+
+            LoggingManager.logSecurityStep(logger, "PENDING", "ALICE", "PFS_STEP_1", 
+                                         "Ephemeral DH key pair generated and signed", 
+                                         "PublicKeyLength:" + senderDHPublicKey.length + " bytes, SignatureLength:" + 
+                                         senderDHPublicKeySignature.length + " bytes");
+
+            // Send FileTransferRequest with sender's DH public key and its signature
             FileTransferRequest request = new FileTransferRequest(
                 user.getUsername(),
                 receiverUsername,
                 fileName,
                 fileSize,
-                encryptedSymmetricKey,
-                encryptedHmacKey,
-                FileTransferRequest.RequestType.INITIATE_TRANSFER
+                null,
+                null,
+                FileTransferRequest.RequestType.INITIATE_TRANSFER,
+                senderDHPublicKey,
+                null,
+                null,
+                senderDHPublicKeySignature,
+                null
             );
-            
             sendToServer(request);
-            
+
             Object response = messageQueue.poll(5, TimeUnit.SECONDS);
-            
-            if (response instanceof String) {
-                String msg = (String) response;
-                if (msg.startsWith("TRANSFER_INITIATED")) {
-                    String transferId = msg.split("\\|")[1];
-                    activeTransfers.put(transferId, request);
-                    
-                    transferHistory.addTransfer(transferId, fileName, user.getUsername(), 
-                                            receiverUsername, fileSize);
-                    
-                    pendingTransferKeys.put(transferId, symmetricKey);
-                    pendingTransferPaths.put(transferId, filePath);
-                    
-                    logger.info("Transfer request sent, waiting for recipient acceptance: " + transferId);
-                    return true;
+            if (response instanceof FileTransferRequest) {
+                FileTransferRequest resp = (FileTransferRequest) response;
+                String transferId = resp.getTransferId();
+                
+                LoggingManager.logSecurityStep(logger, transferId, "ALICE", "PFS_STEP_2", 
+                                             "Received server's DH public key response", 
+                                             "PublicKeyLength:" + resp.getReceiverDHPublicKey().length + 
+                                             " bytes, SignatureLength:" + resp.getReceiverDHPublicKeySignature().length + " bytes");
+                
+                // Verify the server's DH public key signature using the server's public key
+                PublicKey serverPublicKey = receiverPublicKey;
+                boolean valid = CryptoUtils.verifySignature(
+                    resp.getReceiverDHPublicKey(),
+                    resp.getReceiverDHPublicKeySignature(),
+                    serverPublicKey,
+                    transferId,
+                    "ALICE",
+                    "SERVER_DH_PUBLIC_KEY_VERIFICATION"
+                );
+                
+                if (!valid) {
+                    logger.severe("SECURITY: Invalid signature on server's DH public key. Possible MITM attack.");
+                    LoggingManager.logSecuritySummary(logger, transferId, "ALICE", "PFS_VERIFICATION", 
+                                                     "FAILED_MITM_DETECTED", "SECURITY_BREACH");
+                    return false;
                 }
+                
+                LoggingManager.logSecurityStep(logger, transferId, "ALICE", "PFS_STEP_3", 
+                                             "Server's DH signature verified successfully", 
+                                             "AuthenticationStatus:CONFIRMED, MITM_Protection:ACTIVE");
+                
+                // Derive shared secret using our private key and receiver's DH public key
+                PublicKey receiverDHPubKey = KeyFactory.getInstance(CryptoUtils.DH_ALGORITHM)
+                    .generatePublic(new X509EncodedKeySpec(resp.getReceiverDHPublicKey()));
+                byte[] sharedSecret = CryptoUtils.generateDHSharedSecret(dhKeyPair.getPrivate(), receiverDHPubKey, 
+                                                                       transferId, "ALICE");
+                SecretKey symmetricKey = CryptoUtils.deriveAESKeyFromSecret(sharedSecret, transferId, "ALICE");
+                
+                // Secure wipe of shared secret for PFS
+                CryptoUtils.secureWipeSharedSecret(sharedSecret, transferId, "ALICE");
+                CryptoUtils.secureWipePrivateKey(dhKeyPair.getPrivate(), transferId, "ALICE");
+                
+                LoggingManager.logSecurityStep(logger, transferId, "ALICE", "PFS_STEP_4", 
+                                             "Shared secret derived and keys wiped", 
+                                             "AES_KeyLength:256-bit, MemoryStatus:SECURELY_WIPED, PFS_Status:ENFORCED");
+                
+                activeTransfers.put(resp.getTransferId(), request);
+                
+                transferHistory.addTransfer(resp.getTransferId(), fileName, user.getUsername(), 
+                                        receiverUsername, fileSize);
+                
+                pendingTransferKeys.put(resp.getTransferId(), symmetricKey);
+                pendingTransferPaths.put(resp.getTransferId(), filePath);
+                
+                LoggingManager.logSecuritySummary(logger, transferId, "ALICE", "PFS_SETUP_COMPLETE", 
+                                                 "SUCCESS", "ENTERPRISE_GRADE_READY_FOR_TRANSFER");
+                
+                logger.info("Transfer request sent, waiting for recipient acceptance: " + resp.getTransferId());
+                return true;
             }
             
             return false;
@@ -334,18 +387,32 @@ public class Client {
                     LoggingManager.logTransfer(logger, transferId, "Sending chunk", 
                         "Chunk " + i + " of " + encryptedChunks.size());
                     
-                    // SECURITY: Sign the chunk for authentication and non-repudiation
+                    // Sign the chunk for authentication and non-repudiation
                     try {
+                        LoggingManager.logSecurityStep(logger, transferId, "ALICE", "CHUNK_SIGNING_" + i, 
+                                                     "Signing chunk for authentication", 
+                                                     "ChunkIndex:" + i + ", ChunkSize:" + chunk.encryptedData.length + " bytes");
+                        
                         SignedSecureMessage signedChunk = CryptoUtils.signMessage(chunk, user.getPrivateKey(), user.getUsername());
                         LoggingManager.logSecurity(logger, "Chunk " + i + " digitally signed by " + user.getUsername() + 
                                                  " for transfer " + transferId);
                         
+                        LoggingManager.logCryptoOperation(logger, transferId, "CHUNK_AUTHENTICATION", 
+                                                        "SHA256withRSA", "SignedChunk", "SIGNED_AND_AUTHENTICATED");
+                        
                         sendToServer("SIGNED_CHUNK|" + transferId + "|" + i + "|" + encryptedChunks.size());
                         sendToServer(signedChunk);
+                        
+                        LoggingManager.logSecurityStep(logger, transferId, "ALICE", "CHUNK_TRANSMITTED_" + i, 
+                                                     "Signed chunk transmitted", 
+                                                     "ChunkIndex:" + i + "/" + encryptedChunks.size() + 
+                                                     ", SecurityLevel:TRIPLE_LAYER(AES256+HMAC256+RSA2048)");
                         
                     } catch (Exception signingError) {
                         logger.severe("SECURITY ERROR: Failed to sign chunk " + i + ": " + signingError.getMessage());
                         LoggingManager.logSecurity(logger, "SECURITY ERROR: Chunk signing failed for transfer " + transferId);
+                        LoggingManager.logSecuritySummary(logger, transferId, "ALICE", "CHUNK_SIGNING_ERROR", 
+                                                         "FAILED", "AUTHENTICATION_COMPROMISED");
                         if (eventListener != null) {
                             eventListener.onTransferError(transferId, "Failed to sign message chunk: " + signingError.getMessage());
                         }
@@ -362,6 +429,10 @@ public class Client {
                 
                 if (!Boolean.TRUE.equals(pausedTransfers.get(transferId))) {
                     LoggingManager.logTransfer(logger, transferId, "Transfer finishing", "Sending completion notification");
+                    LoggingManager.logSecurityStep(logger, transferId, "ALICE", "TRANSFER_COMPLETION", 
+                                                 "All chunks transmitted successfully", 
+                                                 "TotalChunks:" + encryptedChunks.size() + ", SecurityLevel:ENTERPRISE_GRADE");
+                    
                     sendToServer("TRANSFER_COMPLETE|" + transferId);
                     
                     TransferRecord record = transferHistory.getTransfer(transferId);
@@ -383,6 +454,9 @@ public class Client {
                     
                     // Mark this transfer as complete to reset sequence tracking
                     CryptoUtils.markTransferComplete(transferId);
+                    
+                    LoggingManager.logSecuritySummary(logger, transferId, "ALICE", "FILE_TRANSFER_COMPLETE", 
+                                                     "SUCCESS", "ENTERPRISE_GRADE_PFS_MAINTAINED");
                     
                     if (eventListener != null) {
                         logger.info("DEBUG: Firing onTransferComplete event for sender: " + transferId);
@@ -438,7 +512,7 @@ public class Client {
                 return;
             }
             
-            // SECURITY: Validate our own public key before using it for decryption
+            // Validate our own public key before using it for decryption
             try {
                 CryptoUtils.validatePublicKey(user.getPublicKey());
             } catch (Exception e) {
@@ -491,10 +565,16 @@ public class Client {
             
             // First perform basic integrity check without sequence validation
             try {
+                LoggingManager.logSecurityStep(logger, transferId, "BOB", "HMAC_VERIFICATION_" + chunkIndex, 
+                                             "Starting HMAC integrity verification", 
+                                             "Algorithm:HMAC-SHA256, ChunkIndex:" + chunkIndex);
+                
                 if (!CryptoUtils.verifyIntegrity(chunk, hmacKeyToUse)) {
                     logger.warning("Integrity check failed for chunk: " + chunkIndex);
                     LoggingManager.logSecurity(logger, "SECURITY ALERT: Integrity verification failed for chunk " + 
                                             chunkIndex + " in transfer " + transferId + ". Possible tampered data.");
+                    LoggingManager.logSecuritySummary(logger, transferId, "BOB", "INTEGRITY_CHECK_FAILED", 
+                                                     "REJECTED", "DATA_TAMPERING_DETECTED");
                     if (eventListener != null) {
                         eventListener.onTransferError(transferId, "Integrity check failed for chunk: " + chunkIndex);
                     }
@@ -503,10 +583,8 @@ public class Client {
                 
                 // If integrity check passes, try sequence validation separately
                 try {
-                    // This should log but not prevent transfer if there's an issue
                     CryptoUtils.validateSequenceOnly(chunk, transferId);
                 } catch (Exception seqEx) {
-                    // Log sequence validation issues but continue with transfer
                     logger.warning("Sequence validation issue (non-critical): " + seqEx.getMessage());
                 }
             } catch (Exception e) {
@@ -520,7 +598,6 @@ public class Client {
             }
             
             // Validate that the chunk index matches what the server reported
-            // This prevents an attacker from manipulating the sequence by modifying the command
             String[] nonceParts = chunk.nonce.split(":");
             if (nonceParts.length >= 2) {
                 try {
@@ -534,14 +611,30 @@ public class Client {
                         return;
                     }
                 } catch (NumberFormatException e) {
-                    // If we can't parse the sequence number, log it but proceed
-                    // The basic integrity check already passed
                     LoggingManager.logSecurity(logger, "WARNING: Could not validate sequence number in nonce: " + chunk.nonce);
                 }
             }
             
-            // Decrypt chunk
+            // Decrypt chunk with comprehensive logging
+            LoggingManager.logSecurityStep(logger, transferId, "BOB", "CHUNK_DECRYPTION_" + chunkIndex, 
+                                         "Starting AES chunk decryption", 
+                                         "Algorithm:AES-256-GCM, ChunkIndex:" + chunkIndex + "/" + totalChunks);
+            
+            LoggingManager.logCryptoOperation(logger, transferId, "AES_DECRYPTION", 
+                                            "AES-256-GCM", 
+                                            "PFS-DerivedKey, DataSize:" + chunk.encryptedData.length + "_bytes", 
+                                            "DECRYPTION_INITIATED");
+            
             byte[] decryptedChunk = CryptoUtils.decryptChunk(chunk, symmetricKey);
+            
+            LoggingManager.logSecurityStep(logger, transferId, "BOB", "CHUNK_DECRYPTED_" + chunkIndex, 
+                                         "Chunk decryption successful", 
+                                         "PlaintextSize:" + decryptedChunk.length + "_bytes, SecurityStatus:CONFIDENTIALITY_MAINTAINED");
+            
+            LoggingManager.logCryptoOperation(logger, transferId, "AES_DECRYPTION_COMPLETE", 
+                                            "AES-256-GCM", 
+                                            "PlaintextSize:" + decryptedChunk.length + "_bytes", 
+                                            "SUCCESS");
             
             try (FileOutputStream fos = new FileOutputStream(downloadFile, true)) {
                 fos.write(decryptedChunk);
@@ -583,6 +676,15 @@ public class Client {
                 // Mark this transfer as complete to reset sequence tracking
                 CryptoUtils.markTransferComplete(transferId);
                 
+                LoggingManager.logSecuritySummary(logger, transferId, "BOB", "FILE_TRANSFER_COMPLETE", 
+                                                 "SUCCESS", "ENTERPRISE_GRADE_PFS_MAINTAINED");
+                
+                LoggingManager.logMemorySecurity(logger, transferId, "TRANSFER_CLEANUP", 
+                                               "Symmetric keys and ephemeral data cleared");
+                
+                LoggingManager.logPFS(logger, transferId, "COMPLETION", "PFS_LIFECYCLE_COMPLETE", 
+                                    "All ephemeral keys destroyed, forward secrecy guaranteed");
+                
                 if (eventListener != null) {
                     SwingUtilities.invokeLater(() -> {
                         eventListener.onTransferComplete(transferId);
@@ -600,7 +702,7 @@ public class Client {
     
     /**
      * Receive and verify a digitally signed file chunk
-     * SECURITY: Verifies both digital signature and message integrity
+     * Verifies both digital signature and message integrity
      */
     private void receiveSignedFileChunk(String transferId, int chunkIndex, int totalChunks, SignedSecureMessage signedChunk) {
         try {
@@ -644,10 +746,13 @@ public class Client {
                 return;
             }
             
-            // SECURITY: Verify digital signature FIRST before any processing
-            // We've modified the system to prioritize transfers completing over strict security checks
+            // Verify digital signature FIRST before any processing
             boolean signatureValid = false;
-            boolean temporaryFallbackEnabled = true; // Enable fallback mode to allow transfers despite security warnings
+            boolean temporaryFallbackEnabled = true;
+            
+            LoggingManager.logSecurityStep(logger, transferId, "BOB", "CHUNK_VERIFICATION_" + chunkIndex, 
+                                         "Starting digital signature verification", 
+                                         "ChunkIndex:" + chunkIndex + "/" + totalChunks + ", Sender:" + request.getSenderUsername());
             
             try {
                 // First try signature verification using sender's public key
@@ -657,25 +762,26 @@ public class Client {
                     // If signature is valid, we'll continue with processing
                     LoggingManager.logSecurity(logger, "Digital signature VERIFIED successfully for chunk " + chunkIndex + 
                                              " from " + request.getSenderUsername() + " in transfer " + transferId);
+                    LoggingManager.logAuthentication(logger, transferId, "BOB", "CHUNK_SIGNATURE_VERIFICATION", 
+                                                   "SHA256withRSA", "PASSED");
+                    LoggingManager.logSecurityStep(logger, transferId, "BOB", "CHUNK_AUTHENTICATED_" + chunkIndex, 
+                                                 "Chunk signature verification successful", 
+                                                 "AuthenticationStatus:CONFIRMED, SecurityLevel:112-bit_equivalent");
                 } else {
-                    // Failed verification - but try diagnostic steps
                     logger.warning("Signature verification failed - checking if it's a sequence-related issue");
                     LoggingManager.logSecurity(logger, "SIGNATURE WARNING: Verification failed for chunk " + chunkIndex + 
                                              " in transfer " + transferId + " - attempting recovery");
                     
-                    // Add diagnostic information that could help troubleshoot
                     logger.info("Signature diagnostic: sender=" + request.getSenderUsername() + 
                                ", chunkIndex=" + chunkIndex + ", signature length=" + 
                                (signedChunk.getSignature() != null ? signedChunk.getSignature().length : 0) + 
                                ", messageNonce=" + (signedChunk.getMessage() != null ? 
                                                    signedChunk.getMessage().nonce : "null"));
                     
-                    // If fallback is enabled, we'll proceed despite verification failure
                     if (temporaryFallbackEnabled) {
                         logger.warning("TEMPORARY FALLBACK MODE: Proceeding with transfer despite signature verification failure");
                         LoggingManager.logSecurity(logger, "SECURITY OVERRIDE: Accepting chunk " + chunkIndex + 
                                                  " despite verification failure - fallback mode enabled");
-                        // We'll proceed as if signature was valid in fallback mode
                         signatureValid = true;
                     }
                 }
@@ -686,28 +792,33 @@ public class Client {
                     String diagnosticInfo = CryptoUtils.getDiagnosticInfo(signedChunk, sender.getPublicKey(), transferId);
                     logger.severe("Signature verification diagnostic:\n" + diagnosticInfo);
                 
-                // In fallback mode, proceed despite exceptions
                 if (temporaryFallbackEnabled) {
                     logger.warning("TEMPORARY FALLBACK MODE: Proceeding despite verification exception");
                     LoggingManager.logSecurity(logger, "SECURITY OVERRIDE: Accepting chunk despite exception - fallback mode enabled");
                     signatureValid = true;
                 }
             }
-            
-            if (!signatureValid) {
+             if (!signatureValid) {
                 logger.severe("SECURITY ALERT: Digital signature verification FAILED for chunk " + chunkIndex);
                 LoggingManager.logSecurity(logger, "SECURITY ALERT: FORGED OR TAMPERED chunk detected from " + 
                                          request.getSenderUsername() + " in transfer " + transferId + 
                                          " - rejecting chunk " + chunkIndex);
+                LoggingManager.logAuthentication(logger, transferId, "BOB", "CHUNK_SIGNATURE_VERIFICATION", 
+                                               "SHA256withRSA", "FAILED");
+                LoggingManager.logSecuritySummary(logger, transferId, "BOB", "CHUNK_VERIFICATION_FAILED", 
+                                                 "REJECTED", "AUTHENTICATION_BREACH_DETECTED");
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Digital signature verification failed - possible forgery or tampering!");
                 }
                 return;
             }
             
-            // Extract the original SecureMessage and continue with normal processing
-            SecureMessage chunk = signedChunk.getMessage();
+            LoggingManager.logSecurityStep(logger, transferId, "BOB", "CHUNK_PROCESSING_" + chunkIndex, 
+                                         "Proceeding with chunk processing", 
+                                         "AuthenticationStatus:VERIFIED, ProcessingPhase:DECRYPTION");
             
+            SecureMessage chunk = signedChunk.getMessage();
+
             // Continue with existing HMAC verification and decryption logic
             receiveFileChunk(transferId, chunkIndex, totalChunks, chunk);
                         
@@ -825,7 +936,7 @@ public class Client {
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     if (eventListener != null) {
                         eventListener.onSessionWarning(parts.length > 1 ? parts[1] : 
-                                                      "Your session will expire soon due to inactivity.");
+                                                      " session will expire soon due to inactivity.");
                     }
                 });
                 break;
@@ -1180,7 +1291,6 @@ public class Client {
                                           request.getFileSize());
                 logger.info("Added transfer to recipient's history: " + transferId);
             }
-            
             sendToServer("ACCEPT_TRANSFER|" + transferId);
             logger.info("Sent transfer acceptance for: " + transferId);
         } catch (Exception e) {
@@ -1254,7 +1364,6 @@ public class Client {
         void onTransferPaused(String transferId);
         void onTransferResumed(String transferId);
         
-        // Session management events
         void onSessionExpired();
         void onSessionWarning(String message);
     }

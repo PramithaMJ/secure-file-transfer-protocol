@@ -7,6 +7,8 @@ import java.net.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.security.KeyPair;
+import java.security.PrivateKey;
 
 public class ServerConnectionHandler implements Runnable {
     private static final Logger logger = LoggingManager.getLogger(ServerConnectionHandler.class.getName());
@@ -67,7 +69,7 @@ public class ServerConnectionHandler implements Runnable {
             // Only apply rate limiting for non-chunk transfers
             if (!isChunkTransfer && !rateLimitManager.allowRequest(clientIP)) {
                 logger.warning("Request rate limit exceeded for IP: " + clientIP);
-                sendError("Rate limit exceeded. Please slow down your requests.");
+                sendError("Rate limit exceeded. Please slow down  requests.");
                 return;
             }
             
@@ -226,21 +228,143 @@ public class ServerConnectionHandler implements Runnable {
     private void handleFileTransferRequest(FileTransferRequest request) throws IOException {
         String sender = request.getSenderUsername();
         String receiver = request.getReceiverUsername();
+        String transferId = UUID.randomUUID().toString();
         
         logger.info("File transfer request from " + sender + " to " + receiver + ": " + request.getFileName());
+        LoggingManager.logSecuritySummary(logger, transferId, "SERVER", "PFS_RELAY_INITIATION", 
+                                         "STARTING", "ENTERPRISE_GRADE_RELAY_ARCHITECTURE");
+        
+        // Verify sender's DH public key signature for MITM protection
+        if (request.getSenderDHPublicKey() != null && request.getSenderDHPublicKeySignature() != null) {
+            LoggingManager.logSecurityStep(logger, transferId, "SERVER", "SENDER_DH_VERIFICATION", 
+                                         "Verifying sender's DH public key signature", 
+                                         "Sender:" + sender + ", KeyLength:" + request.getSenderDHPublicKey().length + "_bytes");
+            
+            User senderUser = userManager.getUser(sender);
+            if (senderUser != null && senderUser.getPublicKey() != null) {
+                try {
+                    boolean valid = CryptoUtils.verifySignature(
+                        request.getSenderDHPublicKey(),
+                        request.getSenderDHPublicKeySignature(),
+                        senderUser.getPublicKey(),
+                        transferId,
+                        "SERVER",
+                        "SENDER_DH_AUTHENTICATION"
+                    );
+                    
+                    if (valid) {
+                        LoggingManager.logAuthentication(logger, transferId, "SERVER", "SENDER_DH_VERIFICATION", 
+                                                       "SHA256withRSA", "PASSED");
+                        LoggingManager.logSecurityStep(logger, transferId, "SERVER", "MITM_PROTECTION", 
+                                                     "Sender authentication confirmed", 
+                                                     "SecurityStatus:AUTHENTICATED, MITM_Risk:MITIGATED");
+                    } else {
+                        LoggingManager.logSecurity(logger, "SECURITY ALERT: Invalid sender DH signature for transfer " + transferId + 
+                                                 ". Possible MITM attack from " + sender);
+                        LoggingManager.logAuthentication(logger, transferId, "SERVER", "SENDER_DH_VERIFICATION", 
+                                                       "SHA256withRSA", "FAILED");
+                        LoggingManager.logSecuritySummary(logger, transferId, "SERVER", "MITM_ATTACK_DETECTED", 
+                                                         "REJECTED", "SECURITY_BREACH_PREVENTED");
+                        sendError("Invalid sender authentication - possible security attack");
+                        return;
+                    }
+                } catch (Exception e) {
+                    LoggingManager.logSecurity(logger, "SECURITY ERROR: Failed to verify sender DH signature: " + e.getMessage());
+                    sendError("Authentication verification failed");
+                    return;
+                }
+            }
+        }
         
         User receiverUser = userManager.getUser(receiver);
         if (receiverUser == null || !receiverUser.isOnline()) {
+            LoggingManager.logTransfer(logger, transferId, "Transfer rejected", 
+                "Recipient " + receiver + " not found or offline");
             sendError("Recipient " + receiver + " not found or offline");
             return;
         }
         
-        String transferId = UUID.randomUUID().toString();
         activeTransfers.put(transferId, request);
         
-        userManager.forwardFileTransferRequest(request, transferId);
+        // Generate ephemeral DH key pair for the server relay
+        LoggingManager.logPFS(logger, transferId, "SERVER_KEY_GENERATION", "Starting server relay DH key generation", 
+                            "Role:RELAY_SERVER, Algorithm:" + CryptoUtils.DH_ALGORITHM + ", KeySize:" + CryptoUtils.DH_KEY_SIZE + "-bit");
         
-        send("TRANSFER_INITIATED|" + transferId);
+        KeyPair dhKeyPair;
+        byte[] receiverDHPublicKey;
+        try {
+            dhKeyPair = CryptoUtils.generateEphemeralDHKeyPair(transferId, "SERVER");
+            receiverDHPublicKey = dhKeyPair.getPublic().getEncoded();
+            
+            LoggingManager.logKeyLifecycle(logger, transferId, "SERVER_DH_KEYPAIR", "GENERATED", 
+                                         "Role:RELAY_SERVER, PublicKeyLength:" + receiverDHPublicKey.length + "_bytes");
+            
+        } catch (Exception e) {
+            logger.warning("Failed to generate server DH key pair: " + e.getMessage());
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Server DH key generation failed for transfer " + transferId);
+            LoggingManager.logSecuritySummary(logger, transferId, "SERVER", "KEY_GENERATION_FAILED", 
+                                             "FAILED", "CRYPTOGRAPHIC_ERROR");
+            sendError("Internal error: cannot generate DH key");
+            return;
+        }
+        
+        // Sign the server's DH public key with the server's private key
+        LoggingManager.logSecurityStep(logger, transferId, "SERVER", "DH_KEY_SIGNING", 
+                                     "Signing server's DH public key for authentication", 
+                                     "KeyLength:" + receiverDHPublicKey.length + "_bytes");
+        
+        byte[] receiverDHPublicKeySignature = null;
+        try {
+            PrivateKey serverPrivateKey = currentUser != null ? currentUser.getPrivateKey() : null;
+            if (serverPrivateKey != null) {
+                receiverDHPublicKeySignature = CryptoUtils.signData(receiverDHPublicKey, serverPrivateKey, 
+                                                                  transferId, "SERVER", "SERVER_DH_AUTHENTICATION");
+                
+                LoggingManager.logAuthentication(logger, transferId, "SERVER", "DH_KEY_SIGNING", 
+                                               "SHA256withRSA", "SUCCESS");
+                LoggingManager.logKeyLifecycle(logger, transferId, "SERVER_DH_SIGNATURE", "CREATED", 
+                                             "SignatureLength:" + receiverDHPublicKeySignature.length + "_bytes");
+                
+            } else {
+                logger.warning("Server private key not available for signing DH public key.");
+                LoggingManager.logSecurity(logger, "SECURITY WARNING: Server private key unavailable for DH signing");
+            }
+        } catch (Exception e) {
+            logger.warning("Failed to sign server DH public key: " + e.getMessage());
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Server DH key signing failed: " + e.getMessage());
+        }
+        
+        LoggingManager.logPFS(logger, transferId, "RELAY_SETUP", "Server relay DH setup completed", 
+                            "Sender:" + sender + ", Receiver:" + receiver + ", RelayStatus:READY");
+        
+        // Respond to client with a FileTransferRequest containing the server's DH public key, its signature, and transferId
+        FileTransferRequest response = new FileTransferRequest(
+            sender,
+            receiver,
+            request.getFileName(),
+            request.getFileSize(),
+            null,
+            null,
+            FileTransferRequest.RequestType.ACKNOWLEDGE_KEY,
+            request.getSenderDHPublicKey(),
+            receiverDHPublicKey,
+            transferId,
+            request.getSenderDHPublicKeySignature(),
+            receiverDHPublicKeySignature
+        );
+        
+        LoggingManager.logSecurityStep(logger, transferId, "SERVER", "RELAY_RESPONSE", 
+                                     "Sending DH key response to sender", 
+                                     "ResponseType:ACKNOWLEDGE_KEY, SecurityLevel:ENTERPRISE_GRADE");
+        
+        send(response);
+        
+        LoggingManager.logTransfer(logger, transferId, "Transfer request forwarded", 
+            "Forwarding to " + receiver + " with transfer ID: " + transferId);
+        LoggingManager.logSecuritySummary(logger, transferId, "SERVER", "PFS_RELAY_SETUP_COMPLETE", 
+                                         "SUCCESS", "RELAY_ARCHITECTURE_SECURE");
+        
+        userManager.forwardFileTransferRequest(request, transferId);
     }
     
     private void handleFileChunk(SecureMessage chunk) {
@@ -516,10 +640,10 @@ public class ServerConnectionHandler implements Runnable {
                     Thread.sleep(5 * 60 * 1000); // Check every 5 minutes
                     
                     if (!validateSession()) {
-                        LoggingManager.logSecurity(logger, "Session expired for user: " + 
+                        LoggingManager.logSecurity(logger, "Session expired for user: " +
                                                  (currentUser != null ? currentUser.getUsername() : "unknown"));
                         try {
-                            send("SESSION_EXPIRED|Your session has expired. Please login again.");
+                            send("SESSION_EXPIRED| session has expired. Please login again.");
                             Thread.sleep(1000); // Give time for message to be sent
                         } catch (IOException | InterruptedException e) {
                         }
@@ -529,7 +653,7 @@ public class ServerConnectionHandler implements Runnable {
                     
                     if (sessionManager.isSessionExpiringsoon(currentSessionToken)) {
                         try {
-                            send("SESSION_WARNING|Your session will expire soon due to inactivity.");
+                            send("SESSION_WARNING| session will expire soon due to inactivity.");
                         } catch (IOException e) {
                             logger.warning("Failed to send session warning: " + e.getMessage());
                         }
@@ -589,12 +713,13 @@ public class ServerConnectionHandler implements Runnable {
     private void handleLogout() throws IOException {
         if (currentUser != null) {
             LoggingManager.logSecurity(logger, "User logging out: " + currentUser.getUsername());
-            
             if (currentSessionToken != null) {
                 sessionManager.removeSession(currentSessionToken);
                 currentSessionToken = null;
             }
-            
+        }
+        
+        if (currentUser != null) {
             currentUser.setOnline(false);
             userManager.broadcastUserStatus(currentUser);
             currentUser = null;

@@ -12,6 +12,11 @@ public class FileTransferRequest implements Serializable {
     private byte[] encryptedSymmetricKey;
     private byte[] encryptedHmacKey;
     private RequestType type;
+    private byte[] senderDHPublicKey;
+    private byte[] receiverDHPublicKey;
+    private String transferId;
+    private byte[] senderDHPublicKeySignature;
+    private byte[] receiverDHPublicKeySignature;
     
     public enum RequestType {
         INITIATE_TRANSFER,
@@ -39,6 +44,30 @@ public class FileTransferRequest implements Serializable {
         this.type = type;
     }
     
+    public FileTransferRequest(String senderUsername, String receiverUsername, String fileName, 
+                             long fileSize, byte[] encryptedSymmetricKey, byte[] encryptedHmacKey, RequestType type,
+                             byte[] senderDHPublicKey, byte[] receiverDHPublicKey) {
+        this(senderUsername, receiverUsername, fileName, fileSize, encryptedSymmetricKey, encryptedHmacKey, type);
+        this.senderDHPublicKey = senderDHPublicKey;
+        this.receiverDHPublicKey = receiverDHPublicKey;
+    }
+
+    public FileTransferRequest(String senderUsername, String receiverUsername, String fileName, 
+                             long fileSize, byte[] encryptedSymmetricKey, byte[] encryptedHmacKey, RequestType type,
+                             byte[] senderDHPublicKey, byte[] receiverDHPublicKey, String transferId) {
+        this(senderUsername, receiverUsername, fileName, fileSize, encryptedSymmetricKey, encryptedHmacKey, type, senderDHPublicKey, receiverDHPublicKey);
+        this.transferId = transferId;
+    }
+
+    public FileTransferRequest(String senderUsername, String receiverUsername, String fileName, 
+                             long fileSize, byte[] encryptedSymmetricKey, byte[] encryptedHmacKey, RequestType type,
+                             byte[] senderDHPublicKey, byte[] receiverDHPublicKey, String transferId,
+                             byte[] senderDHPublicKeySignature, byte[] receiverDHPublicKeySignature) {
+        this(senderUsername, receiverUsername, fileName, fileSize, encryptedSymmetricKey, encryptedHmacKey, type, senderDHPublicKey, receiverDHPublicKey, transferId);
+        this.senderDHPublicKeySignature = senderDHPublicKeySignature;
+        this.receiverDHPublicKeySignature = receiverDHPublicKeySignature;
+    }
+
     public String getSenderUsername() {
         return senderUsername;
     }
@@ -70,6 +99,21 @@ public class FileTransferRequest implements Serializable {
     public void setType(RequestType type) {
         this.type = type;
     }
+    
+    public byte[] getSenderDHPublicKey() {
+        return senderDHPublicKey;
+    }
+    public byte[] getReceiverDHPublicKey() {
+        return receiverDHPublicKey;
+    }
+    public String getTransferId() {
+        return transferId;
+    }
+    public void setTransferId(String transferId) {
+        this.transferId = transferId;
+    }
+    public byte[] getSenderDHPublicKeySignature() { return senderDHPublicKeySignature; }
+    public byte[] getReceiverDHPublicKeySignature() { return receiverDHPublicKeySignature; }
     
     @Override
     public String toString() {

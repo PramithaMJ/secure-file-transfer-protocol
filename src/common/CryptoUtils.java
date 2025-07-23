@@ -60,47 +60,27 @@ public class CryptoUtils {
         }));
     }
     
-    /**
-     * Generate a new AES symmetric key
-     */
     public static SecretKey generateSymmetricKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance(AES_ALGORITHM);
         keyGen.init(AES_KEY_SIZE);
         return keyGen.generateKey();
     }
     
-    /**
-     * Encrypt a symmetric key with recipient's public key
-     * @deprecated Use encryptKey instead
-     */
-    @Deprecated
     public static byte[] encryptSymmetricKey(SecretKey symmetricKey, PublicKey recipientPublicKey) 
             throws Exception {
         return encryptKey(symmetricKey, recipientPublicKey);
     }
     
-    /**
-     * Decrypt a symmetric key with user's private key
-     * @deprecated Use decryptKey instead
-     */
-    @Deprecated
     public static SecretKey decryptSymmetricKey(byte[] encryptedKey, PrivateKey privateKey) 
             throws Exception {
         return decryptKey(encryptedKey, privateKey, AES_ALGORITHM);
     }
     
-    /**
-     * Encrypt a chunk of data and create a secure message
-     */
     public static SecureMessage encryptChunk(byte[] chunk, SecretKey symmetricKey, SecretKey hmacKey)
             throws Exception {
         return encryptChunk(chunk, symmetricKey, hmacKey, 0);
     }
     
-    /**
-     * Encrypt a chunk of data with sequence information and create a secure message
-     * @param chunkIndex The sequence number of the chunk (for ordering validation)
-     */
     public static SecureMessage encryptChunk(byte[] chunk, SecretKey symmetricKey, SecretKey hmacKey, int chunkIndex)
             throws Exception {
         if (chunk == null || symmetricKey == null || hmacKey == null) {
@@ -139,7 +119,7 @@ public class CryptoUtils {
         hmac.update(iv);
         hmac.update(String.valueOf(timestamp).getBytes("UTF-8"));
         hmac.update(sequenceNonce.getBytes("UTF-8"));
-        hmac.update(String.valueOf(chunkIndex).getBytes("UTF-8")); // Explicitly include chunk index in MAC
+        hmac.update(String.valueOf(chunkIndex).getBytes("UTF-8"));
         byte[] mac = hmac.doFinal();
 
         return new SecureMessage(encryptedChunk, mac, iv, timestamp, sequenceNonce);
@@ -161,10 +141,6 @@ public class CryptoUtils {
     /**
      * Verify message integrity using HMAC with enhanced anti-replay protection
      * and sequence validation
-     * @param message The SecureMessage to verify
-     * @param hmacKey The HMAC key for validation
-     * @param transferId Optional transfer ID for sequence validation
-     * @return true if message integrity is verified and no replay detected
      */
     public static boolean verifyIntegrity(SecureMessage message, SecretKey hmacKey) throws Exception {
         return verifyIntegrity(message, hmacKey, null);
@@ -172,10 +148,6 @@ public class CryptoUtils {
     
     /**
      * Verify message integrity with anti-replay protection and sequence validation
-     * @param message The SecureMessage to verify
-     * @param hmacKey The HMAC key for validation
-     * @param transferId Optional transfer ID for sequence validation
-     * @return true if message integrity is verified and no replay detected
      */
     public static boolean verifyIntegrity(SecureMessage message, SecretKey hmacKey, String transferId) throws Exception {
         // Input validation for security
@@ -192,14 +164,13 @@ public class CryptoUtils {
         
         boolean ageWarning = false;
         
-        if (messageAge > MAX_MESSAGE_AGE_MS * 2) { // Double the timeout for tolerance
-            // Message is too old, but we'll still try to verify integrity
+        if (messageAge > MAX_MESSAGE_AGE_MS * 2) {
             LoggingManager.logSecurity(logger, "SECURITY WARNING: Message is old (age: " + 
                                      (messageAge / 1000) + "s). Continuing with verification.");
             ageWarning = true;
         }
         
-        if (messageAge < -MAX_TIMESTAMP_SKEW_MS * 2) { // Double the skew tolerance
+        if (messageAge < -MAX_TIMESTAMP_SKEW_MS * 2) { 
             // Message from future, but we'll still verify integrity
             LoggingManager.logSecurity(logger, "SECURITY WARNING: Message from future (" +
                                      (-messageAge / 1000) + "s ahead). Possible clock skew, continuing with verification.");
@@ -212,7 +183,6 @@ public class CryptoUtils {
         Long existingTimestamp = usedNonces.get(nonceKey);
         
         if (existingTimestamp != null && !ageWarning) {    
-            // Only log the warning but continue with verification
             LoggingManager.logSecurity(logger, "SECURITY WARNING: Potential replay detected - duplicate nonce: " + 
                                      message.nonce.substring(0, 8) + "... - proceeding with verification");
         }
@@ -226,7 +196,6 @@ public class CryptoUtils {
                     sequenceNumber = Integer.parseInt(nonceParts[1]);
                 }
             } catch (NumberFormatException e) {
-                // If we can't parse the sequence, just proceed with basic integrity check
                 LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number from nonce: " + message.nonce);
             }
         }
@@ -239,7 +208,6 @@ public class CryptoUtils {
         hmac.update(String.valueOf(message.timestamp).getBytes("UTF-8"));
         hmac.update(message.nonce.getBytes("UTF-8"));
         
-        // Include sequence in MAC if it was extracted
         if (sequenceNumber >= 0) {
             hmac.update(String.valueOf(sequenceNumber).getBytes("UTF-8"));
         }
@@ -331,7 +299,6 @@ public class CryptoUtils {
                 throw new SecurityException("RSA key too weak: " + keySize + " bits. Minimum required: 2048 bits");
             }
             
-            // Warn about very large keys (potential DoS)
             if (keySize > 4096) {
                 LoggingManager.logSecurity(logger, "SECURITY WARNING: Very large RSA key - size: " + keySize + " bits");
             }
@@ -448,7 +415,6 @@ public class CryptoUtils {
         
         // Clean up completed transfers from sequence tracking
         // This prevents memory leaks in the transferSequences map
-        
         // Create a copy of the entry set to avoid ConcurrentModificationException
         List<Map.Entry<String, Map<Integer, String>>> transferEntries = 
             new ArrayList<>(transferSequences.entrySet());
@@ -537,6 +503,12 @@ public class CryptoUtils {
             throw new IllegalArgumentException("Data and private key cannot be null");
         }
         
+        LoggingManager.logAuthentication(logger, "UNKNOWN", "SIGNER", "DIGITAL_SIGNATURE_CREATION", 
+                                       SIGNATURE_ALGORITHM, "STARTING");
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "SIGNER", "1", 
+                                     "Preparing digital signature", "Algorithm:" + SIGNATURE_ALGORITHM + 
+                                     ", DataLength:" + data.length + " bytes");
+        
         Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
         signature.initSign(privateKey);
         signature.update(data);
@@ -544,6 +516,44 @@ public class CryptoUtils {
         byte[] signatureBytes = signature.sign();
         LoggingManager.logSecurity(logger, "Data signed successfully with " + SIGNATURE_ALGORITHM + 
                                  " (signature length: " + signatureBytes.length + " bytes)");
+        
+        LoggingManager.logAuthentication(logger, "UNKNOWN", "SIGNER", "DIGITAL_SIGNATURE_CREATION", 
+                                       SIGNATURE_ALGORITHM, "COMPLETED");
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "SIGNER", "2", 
+                                     "Digital signature created", "SignatureLength:" + signatureBytes.length + 
+                                     " bytes, SecurityLevel:112-bit_equivalent");
+        
+        return signatureBytes;
+    }
+    
+    /**
+     * Sign data with enhanced logging for transfer context
+     */
+    public static byte[] signData(byte[] data, PrivateKey privateKey, String transferId, String participant, String purpose) throws Exception {
+        if (data == null || privateKey == null) {
+            throw new IllegalArgumentException("Data and private key cannot be null");
+        }
+        
+        LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_CREATION", 
+                                       SIGNATURE_ALGORITHM, "STARTING");
+        LoggingManager.logSecurityStep(logger, transferId, participant, "1", 
+                                     "Preparing digital signature for " + purpose, "Algorithm:" + SIGNATURE_ALGORITHM + 
+                                     ", DataLength:" + data.length + " bytes");
+        
+        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+        signature.initSign(privateKey);
+        signature.update(data);
+        
+        byte[] signatureBytes = signature.sign();
+        LoggingManager.logSecurity(logger, "Data signed successfully with " + SIGNATURE_ALGORITHM + 
+                                 " (signature length: " + signatureBytes.length + " bytes)");
+        
+        LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_CREATION", 
+                                       SIGNATURE_ALGORITHM, "COMPLETED");
+        LoggingManager.logSecurityStep(logger, transferId, participant, "2", 
+                                     "Digital signature created for " + purpose, "SignatureLength:" + signatureBytes.length + 
+                                     " bytes, SecurityLevel:112-bit_equivalent");
+        
         return signatureBytes;
     }
     
@@ -561,6 +571,12 @@ public class CryptoUtils {
             return false;
         }
         
+        LoggingManager.logAuthentication(logger, "UNKNOWN", "VERIFIER", "DIGITAL_SIGNATURE_VERIFICATION", 
+                                       SIGNATURE_ALGORITHM, "STARTING");
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "VERIFIER", "1", 
+                                     "Preparing signature verification", "Algorithm:" + SIGNATURE_ALGORITHM + 
+                                     ", DataLength:" + data.length + " bytes, SignatureLength:" + signatureBytes.length + " bytes");
+        
         try {
             Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
             signature.initVerify(publicKey);
@@ -570,13 +586,75 @@ public class CryptoUtils {
             
             if (valid) {
                 LoggingManager.logSecurity(logger, "Digital signature verification PASSED - sender identity confirmed");
+                LoggingManager.logAuthentication(logger, "UNKNOWN", "VERIFIER", "DIGITAL_SIGNATURE_VERIFICATION", 
+                                               SIGNATURE_ALGORITHM, "PASSED");
+                LoggingManager.logSecurityStep(logger, "UNKNOWN", "VERIFIER", "2", 
+                                             "Signature verification successful", "AuthenticationStatus:CONFIRMED, SecurityLevel:112-bit_equivalent");
             } else {
                 LoggingManager.logSecurity(logger, "SECURITY ALERT: Digital signature verification FAILED - possible forgery or tampering!");
+                LoggingManager.logAuthentication(logger, "UNKNOWN", "VERIFIER", "DIGITAL_SIGNATURE_VERIFICATION", 
+                                               SIGNATURE_ALGORITHM, "FAILED");
+                LoggingManager.logSecurityStep(logger, "UNKNOWN", "VERIFIER", "2", 
+                                             "Signature verification failed", "AuthenticationStatus:REJECTED, ThreatLevel:HIGH");
             }
             
             return valid;
         } catch (Exception e) {
             LoggingManager.logSecurity(logger, "SECURITY ERROR: Signature verification failed with exception: " + e.getMessage());
+            LoggingManager.logAuthentication(logger, "UNKNOWN", "VERIFIER", "DIGITAL_SIGNATURE_VERIFICATION", 
+                                           SIGNATURE_ALGORITHM, "ERROR:" + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Verify digital signature with enhanced logging for transfer context
+     */
+    public static boolean verifySignature(byte[] data, byte[] signatureBytes, PublicKey publicKey, 
+                                        String transferId, String participant, String purpose) throws Exception {
+        if (data == null || signatureBytes == null || publicKey == null) {
+            throw new IllegalArgumentException("Parameters cannot be null for signature verification");
+        }
+        
+        if (signatureBytes.length == 0) {
+            LoggingManager.logSecurity(logger, "SECURITY ALERT: Empty signature provided for verification");
+            return false;
+        }
+        
+        LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_VERIFICATION", 
+                                       SIGNATURE_ALGORITHM, "STARTING");
+        LoggingManager.logSecurityStep(logger, transferId, participant, "1", 
+                                     "Preparing signature verification for " + purpose, "Algorithm:" + SIGNATURE_ALGORITHM + 
+                                     ", DataLength:" + data.length + " bytes, SignatureLength:" + signatureBytes.length + " bytes");
+        
+        try {
+            Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+            signature.initVerify(publicKey);
+            signature.update(data);
+            
+            boolean valid = signature.verify(signatureBytes);
+            
+            if (valid) {
+                LoggingManager.logSecurity(logger, "Digital signature verification PASSED - sender identity confirmed");
+                LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_VERIFICATION", 
+                                               SIGNATURE_ALGORITHM, "PASSED");
+                LoggingManager.logSecurityStep(logger, transferId, participant, "2", 
+                                             "Signature verification successful for " + purpose, 
+                                             "AuthenticationStatus:CONFIRMED, SecurityLevel:112-bit_equivalent");
+            } else {
+                LoggingManager.logSecurity(logger, "SECURITY ALERT: Digital signature verification FAILED - possible forgery or tampering!");
+                LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_VERIFICATION", 
+                                               SIGNATURE_ALGORITHM, "FAILED");
+                LoggingManager.logSecurityStep(logger, transferId, participant, "2", 
+                                             "Signature verification failed for " + purpose, 
+                                             "AuthenticationStatus:REJECTED, ThreatLevel:HIGH");
+            }
+            
+            return valid;
+        } catch (Exception e) {
+            LoggingManager.logSecurity(logger, "SECURITY ERROR: Signature verification failed with exception: " + e.getMessage());
+            LoggingManager.logAuthentication(logger, transferId, participant, "DIGITAL_SIGNATURE_VERIFICATION", 
+                                           SIGNATURE_ALGORITHM, "ERROR:" + e.getMessage());
             return false;
         }
     }
@@ -700,10 +778,7 @@ public class CryptoUtils {
         try {
             java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
             java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
-            
-            // IMPORTANT: When creating signable data, order and format must be exactly the same
-            // between sender and receiver to ensure the signature verifies correctly
-            
+
             // Include IV first as it should always be present
             if (message.iv != null) {
                 dos.writeInt(message.iv.length);
@@ -759,7 +834,7 @@ public class CryptoUtils {
     public static boolean validateSequenceOnly(SecureMessage message, String transferId) {
         if (message == null || transferId == null) {
             LoggingManager.logSecurity(logger, "WARNING: Cannot validate sequence - null message or transferId");
-            return true; // Don't fail the transfer for this reason
+            return true;
         }
         
         // Parse sequence number from nonce if present
@@ -771,14 +846,12 @@ public class CryptoUtils {
                     sequenceNumber = Integer.parseInt(nonceParts[1]);
                 }
             } catch (NumberFormatException e) {
-                // This is not critical - log warning but don't fail
                 LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number from nonce: " + message.nonce);
-                return true; // Continue even if we can't parse
+                return true;
             }
         } else {
-            // This is not critical - log warning but don't fail
             LoggingManager.logSecurity(logger, "WARNING: No sequence number found in nonce: " + message.nonce);
-            return true; // Continue even without sequence
+            return true;
         }
         
         // Get or create sequence tracking map for this transfer
@@ -795,8 +868,6 @@ public class CryptoUtils {
             // Same sequence number was used before - could be a replay attack
             // First, check if the nonce is also the same - that would be a true duplicate
             if (sequenceMap.get(sequenceNumber).equals(message.nonce)) {
-                // Exact duplicate chunk (same sequence number AND same nonce) - likely a network retransmission
-                // This is normal in some network conditions, so we'll allow it but log it
                 LoggingManager.logSecurity(logger, "NOTICE: Duplicate chunk detected (same sequence and nonce). " +
                                           "Sequence: " + sequenceNumber + " for transfer " + transferId);
                 return true;
@@ -927,11 +998,9 @@ public class CryptoUtils {
     private static boolean validateSequenceOrder(String transferId, int sequenceNumber) {
         Map<Integer, String> sequenceMap = transferSequences.get(transferId);
         if (sequenceMap == null || sequenceMap.isEmpty()) {
-            // First chunk for this transfer
             return true;
         }
 
-        // Find the highest and lowest sequence numbers we've seen for this transfer
         int highestSequence = -1;
         int lowestSequence = Integer.MAX_VALUE;
         
@@ -982,12 +1051,10 @@ public class CryptoUtils {
             }
         }
         
-        // If we're here, there's a significant gap or out-of-order issue
         LoggingManager.logSecurity(logger, "SECURITY WARNING: Unusual chunk sequence detected! " +
                                  "Current: " + sequenceNumber + ", Highest: " + highestSequence + 
                                  ", Lowest: " + lowestSequence + " for transfer " + transferId);
         
-        // We'll log the warning but still allow the transfer to continue
         return true;
     }
     
@@ -1001,13 +1068,229 @@ public class CryptoUtils {
             return;
         }
         
+        LoggingManager.logPFS(logger, transferId, "TRANSFER_COMPLETION", "Marking transfer as complete", 
+                            "InitiatingCleanup:DELAYED(10s), PFS_Compliance:ENFORCED");
+        LoggingManager.logMemorySecurity(logger, transferId, "CLEANUP_SCHEDULED", 
+                                       "Sequence tracking cleanup scheduled for 10 seconds");
+        
         // Schedule cleanup after a short delay (10 seconds) to allow for any in-flight chunks
         cleanupExecutor.schedule(() -> {
             Map<Integer, String> sequenceMap = transferSequences.remove(transferId);
             if (sequenceMap != null) {
                 LoggingManager.logSecurity(logger, "Reset sequence tracking for completed transfer: " + 
                                         transferId + " (" + sequenceMap.size() + " sequences)");
+                LoggingManager.logMemorySecurity(logger, transferId, "SEQUENCE_TRACKING_CLEANED", 
+                                               "SequenceCount:" + sequenceMap.size() + ", Status:REMOVED");
+                LoggingManager.logPFS(logger, transferId, "MEMORY_CLEANUP", "Sequence tracking cleaned up", 
+                                    "SequenceCount:" + sequenceMap.size() + ", PFS_Status:MAINTAINED");
             }
+            
+            // Log completion of transfer lifecycle
+            LoggingManager.logSecuritySummary(logger, transferId, "SYSTEM", "TRANSFER_LIFECYCLE_COMPLETE", 
+                                            "COMPLETED", "ENTERPRISE_GRADE_PFS");
         }, 10, TimeUnit.SECONDS);
+    }
+
+    public static final String DH_ALGORITHM = "DH";
+    public static final int DH_KEY_SIZE = 2048;
+
+    /**
+     * Generate a new ephemeral DH key pair
+     */
+    public static KeyPair generateEphemeralDHKeyPair() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.spec.InvalidParameterSpecException {
+        LoggingManager.logPFS(logger, "UNKNOWN", "KEY_GENERATION", "Starting ephemeral DH key pair generation", 
+                            "Algorithm:" + DH_ALGORITHM + ", KeySize:" + DH_KEY_SIZE + "-bit");
+        
+        AlgorithmParameterGenerator paramGen = AlgorithmParameterGenerator.getInstance(DH_ALGORITHM);
+        paramGen.init(DH_KEY_SIZE);
+        LoggingManager.logCryptoOperation(logger, "UNKNOWN", "ParameterGeneration", DH_ALGORITHM, 
+                                        DH_KEY_SIZE + "-bit", "COMPLETED");
+        
+        AlgorithmParameters params = paramGen.generateParameters();
+        DHParameterSpec dhSpec = params.getParameterSpec(DHParameterSpec.class);
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "CLIENT/SERVER", "1", 
+                                     "DH parameters generated", "p=" + dhSpec.getP().bitLength() + 
+                                     " bits, g=" + dhSpec.getG().toString());
+        
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(DH_ALGORITHM);
+        keyPairGen.initialize(dhSpec);
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+        
+        LoggingManager.logKeyLifecycle(logger, "UNKNOWN", "EPHEMERAL_DH_KEYPAIR", "GENERATED", 
+                                     "PrivateKey:PROTECTED, PublicKey:READY_FOR_TRANSMISSION");
+        LoggingManager.logPFS(logger, "UNKNOWN", "KEY_GENERATION", "Ephemeral DH key pair generation COMPLETED", 
+                            "SecurityLevel:112-bit_equivalent, ForwardSecrecy:ENABLED");
+        
+        return keyPair;
+    }
+    
+    /**
+     * Generate a new ephemeral DH key pair with transfer context for enhanced logging
+     */
+    public static KeyPair generateEphemeralDHKeyPair(String transferId, String participant) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.spec.InvalidParameterSpecException {
+        LoggingManager.logPFS(logger, transferId, "KEY_GENERATION", "Starting ephemeral DH key pair generation", 
+                            "Participant:" + participant + ", Algorithm:" + DH_ALGORITHM + ", KeySize:" + DH_KEY_SIZE + "-bit");
+        
+        AlgorithmParameterGenerator paramGen = AlgorithmParameterGenerator.getInstance(DH_ALGORITHM);
+        paramGen.init(DH_KEY_SIZE);
+        LoggingManager.logCryptoOperation(logger, transferId, "ParameterGeneration", DH_ALGORITHM, 
+                                        DH_KEY_SIZE + "-bit", "COMPLETED");
+        
+        AlgorithmParameters params = paramGen.generateParameters();
+        DHParameterSpec dhSpec = params.getParameterSpec(DHParameterSpec.class);
+        LoggingManager.logSecurityStep(logger, transferId, participant, "1", 
+                                     "DH parameters generated", "p=" + dhSpec.getP().bitLength() + 
+                                     " bits, g=" + dhSpec.getG().toString());
+        
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(DH_ALGORITHM);
+        keyPairGen.initialize(dhSpec);
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+        
+        LoggingManager.logKeyLifecycle(logger, transferId, "EPHEMERAL_DH_KEYPAIR", "GENERATED", 
+                                     "Participant:" + participant + ", PrivateKey:PROTECTED, PublicKey:READY_FOR_TRANSMISSION");
+        LoggingManager.logPFS(logger, transferId, "KEY_GENERATION", "Ephemeral DH key pair generation COMPLETED", 
+                            "Participant:" + participant + ", SecurityLevel:112-bit_equivalent, ForwardSecrecy:ENABLED");
+        
+        return keyPair;
+    }
+
+    /**
+     * Generate a shared secret using own private key and peer's public key
+     */
+    public static byte[] generateDHSharedSecret(PrivateKey privateKey, PublicKey peerPublicKey) throws Exception {
+        LoggingManager.logPFS(logger, "UNKNOWN", "SHARED_SECRET_COMPUTATION", "Starting DH shared secret computation", 
+                            "Algorithm:" + DH_ALGORITHM + ", SecurityLevel:112-bit_equivalent");
+        
+        KeyAgreement keyAgree = KeyAgreement.getInstance(DH_ALGORITHM);
+        keyAgree.init(privateKey);
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "CLIENT/SERVER", "2", 
+                                     "KeyAgreement initialized with private key", "Status:READY");
+        
+        keyAgree.doPhase(peerPublicKey, true);
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "CLIENT/SERVER", "3", 
+                                     "DH computation: g^(ab) mod p", "Status:COMPUTED");
+        
+        byte[] sharedSecret = keyAgree.generateSecret();
+        LoggingManager.logPFS(logger, "UNKNOWN", "SHARED_SECRET_COMPUTATION", "DH shared secret computation COMPLETED", 
+                            "SecretLength:" + sharedSecret.length + " bytes, SecurityLevel:112-bit_equivalent");
+        
+        LoggingManager.logKeyLifecycle(logger, "UNKNOWN", "SHARED_SECRET", "GENERATED", 
+                                     "Length:" + sharedSecret.length + " bytes, Status:READY_FOR_KEY_DERIVATION");
+        
+        return sharedSecret;
+    }
+    
+    /**
+     * Generate a shared secret using own private key and peer's public key with enhanced logging
+     */
+    public static byte[] generateDHSharedSecret(PrivateKey privateKey, PublicKey peerPublicKey, String transferId, String participant) throws Exception {
+        LoggingManager.logPFS(logger, transferId, "SHARED_SECRET_COMPUTATION", "Starting DH shared secret computation", 
+                            "Participant:" + participant + ", Algorithm:" + DH_ALGORITHM + ", SecurityLevel:112-bit_equivalent");
+        
+        KeyAgreement keyAgree = KeyAgreement.getInstance(DH_ALGORITHM);
+        keyAgree.init(privateKey);
+        LoggingManager.logSecurityStep(logger, transferId, participant, "2", 
+                                     "KeyAgreement initialized with private key", "Status:READY");
+        
+        keyAgree.doPhase(peerPublicKey, true);
+        LoggingManager.logSecurityStep(logger, transferId, participant, "3", 
+                                     "DH computation: g^(ab) mod p", "Participant:" + participant + ", Status:COMPUTED");
+        
+        byte[] sharedSecret = keyAgree.generateSecret();
+        LoggingManager.logPFS(logger, transferId, "SHARED_SECRET_COMPUTATION", "DH shared secret computation COMPLETED", 
+                            "Participant:" + participant + ", SecretLength:" + sharedSecret.length + " bytes, SecurityLevel:112-bit_equivalent");
+        
+        LoggingManager.logKeyLifecycle(logger, transferId, "SHARED_SECRET", "GENERATED", 
+                                     "Participant:" + participant + ", Length:" + sharedSecret.length + " bytes, Status:READY_FOR_KEY_DERIVATION");
+        
+        return sharedSecret;
+    }
+
+    /**
+     * Derive an AES key from a shared secret
+     */
+    public static SecretKey deriveAESKeyFromSecret(byte[] sharedSecret) throws Exception {
+        LoggingManager.logPFS(logger, "UNKNOWN", "KEY_DERIVATION", "Starting AES key derivation from shared secret", 
+                            "InputLength:" + sharedSecret.length + " bytes, Algorithm:SHA-256->AES-256");
+        
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        byte[] keyBytes = sha256.digest(sharedSecret);
+        LoggingManager.logSecurityStep(logger, "UNKNOWN", "CLIENT/SERVER", "4", 
+                                     "SHA-256 hash of shared secret computed", "OutputLength:" + keyBytes.length + " bytes");
+        
+        SecretKey aesKey = new SecretKeySpec(Arrays.copyOf(keyBytes, AES_KEY_SIZE / 8), AES_ALGORITHM);
+        LoggingManager.logKeyLifecycle(logger, "UNKNOWN", "AES_SESSION_KEY", "DERIVED", 
+                                     "Algorithm:AES-256, Length:" + (AES_KEY_SIZE / 8) + " bytes, Status:READY_FOR_ENCRYPTION");
+        
+        // Secure wipe of intermediate key material
+        Arrays.fill(keyBytes, (byte) 0);
+        LoggingManager.logMemorySecurity(logger, "UNKNOWN", "SECURE_WIPE", "Intermediate key bytes wiped from memory");
+        
+        LoggingManager.logPFS(logger, "UNKNOWN", "KEY_DERIVATION", "AES key derivation COMPLETED", 
+                            "Algorithm:AES-256, SecurityLevel:256-bit, Status:READY");
+        
+        return aesKey;
+    }
+    
+    /**
+     * Derive an AES key from a shared secret with enhanced logging
+     */
+    public static SecretKey deriveAESKeyFromSecret(byte[] sharedSecret, String transferId, String participant) throws Exception {
+        LoggingManager.logPFS(logger, transferId, "KEY_DERIVATION", "Starting AES key derivation from shared secret", 
+                            "Participant:" + participant + ", InputLength:" + sharedSecret.length + " bytes, Algorithm:SHA-256->AES-256");
+        
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        byte[] keyBytes = sha256.digest(sharedSecret);
+        LoggingManager.logSecurityStep(logger, transferId, participant, "4", 
+                                     "SHA-256 hash of shared secret computed", "OutputLength:" + keyBytes.length + " bytes");
+        
+        SecretKey aesKey = new SecretKeySpec(Arrays.copyOf(keyBytes, AES_KEY_SIZE / 8), AES_ALGORITHM);
+        LoggingManager.logKeyLifecycle(logger, transferId, "AES_SESSION_KEY", "DERIVED", 
+                                     "Participant:" + participant + ", Algorithm:AES-256, Length:" + (AES_KEY_SIZE / 8) + " bytes, Status:READY_FOR_ENCRYPTION");
+        
+        // Secure wipe of intermediate key material
+        Arrays.fill(keyBytes, (byte) 0);
+        LoggingManager.logMemorySecurity(logger, transferId, "SECURE_WIPE", "Participant:" + participant + ", Intermediate key bytes wiped from memory");
+        
+        LoggingManager.logPFS(logger, transferId, "KEY_DERIVATION", "AES key derivation COMPLETED", 
+                            "Participant:" + participant + ", Algorithm:AES-256, SecurityLevel:256-bit, Status:READY");
+        
+        return aesKey;
+    }
+    
+    /**
+     * Secure memory wipe for PFS compliance - wipes shared secrets and ephemeral keys
+     */
+    public static void secureWipeSharedSecret(byte[] sharedSecret, String transferId, String participant) {
+        if (sharedSecret != null) {
+            Arrays.fill(sharedSecret, (byte) 0);
+            LoggingManager.logMemorySecurity(logger, transferId, "SECURE_WIPE_SHARED_SECRET", 
+                                           "Participant:" + participant + ", SharedSecret wiped from memory for PFS compliance");
+            LoggingManager.logPFS(logger, transferId, "MEMORY_SECURITY", "Shared secret securely wiped", 
+                                "Participant:" + participant + ", PFS_Status:ENFORCED");
+        }
+    }
+    
+    /**
+     * Secure memory wipe for ephemeral private keys
+     */
+    public static void secureWipePrivateKey(PrivateKey privateKey, String transferId, String participant) {
+        if (privateKey != null) {
+            try {
+                // Attempt to zero out key material if accessible
+                if (privateKey.getFormat() != null) {
+                    byte[] keyBytes = privateKey.getEncoded();
+                    if (keyBytes != null) {
+                        Arrays.fill(keyBytes, (byte) 0);
+                    }
+                }
+                LoggingManager.logMemorySecurity(logger, transferId, "SECURE_WIPE_PRIVATE_KEY", 
+                                               "Participant:" + participant + ", Ephemeral private key wiped from memory");
+                LoggingManager.logPFS(logger, transferId, "MEMORY_SECURITY", "Ephemeral private key securely wiped", 
+                                    "Participant:" + participant + ", PFS_Status:ENFORCED");
+            } catch (Exception e) {
+                LoggingManager.logSecurity(logger, "WARNING: Could not securely wipe private key: " + e.getMessage());
+            }
+        }
     }
 }

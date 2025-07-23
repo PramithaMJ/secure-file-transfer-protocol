@@ -81,4 +81,87 @@ public class LoggingManager {
     public static void logTransfer(Logger logger, String transferId, String event, String details) {
         logger.log(Level.INFO, "[TRANSFER:" + transferId + "] " + event + (details != null ? ": " + details : ""));
     }
+    
+    /**
+     * Log Perfect Forward Secrecy (PFS) related security operations
+     * These logs capture the complete PFS lifecycle for security auditing
+     */
+    public static void logPFS(Logger logger, String transferId, String phase, String operation, String details) {
+        String logMessage = "[PFS:" + transferId + "] Phase:" + phase + " | " + operation;
+        if (details != null && !details.isEmpty()) {
+            logMessage += " | " + details;
+        }
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log detailed step-by-step security operations for complete audit trail
+     */
+    public static void logSecurityStep(Logger logger, String transferId, String participant, 
+                                     String step, String operation, String details) {
+        String logMessage = "[SECURITY-STEP:" + transferId + "] " + participant + " | Step:" + step + 
+                           " | " + operation;
+        if (details != null && !details.isEmpty()) {
+            logMessage += " | " + details;
+        }
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log cryptographic operations with enhanced details for security monitoring
+     */
+    public static void logCryptoOperation(Logger logger, String transferId, String operation, 
+                                        String algorithm, String keyInfo, String result) {
+        String logMessage = "[CRYPTO-OP:" + transferId + "] " + operation + " | Algorithm:" + algorithm;
+        if (keyInfo != null && !keyInfo.isEmpty()) {
+            logMessage += " | KeyInfo:" + keyInfo;
+        }
+        if (result != null && !result.isEmpty()) {
+            logMessage += " | Result:" + result;
+        }
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log key lifecycle events for PFS compliance monitoring
+     */
+    public static void logKeyLifecycle(Logger logger, String transferId, String keyType, 
+                                     String operation, String details) {
+        String logMessage = "[KEY-LIFECYCLE:" + transferId + "] " + keyType + " | " + operation;
+        if (details != null && !details.isEmpty()) {
+            logMessage += " | " + details;
+        }
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log authentication and verification steps
+     */
+    public static void logAuthentication(Logger logger, String transferId, String participant, 
+                                       String operation, String method, String result) {
+        String logMessage = "[AUTH:" + transferId + "] " + participant + " | " + operation + 
+                           " | Method:" + method + " | Result:" + result;
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log memory security operations (key wiping, secure cleanup)
+     */
+    public static void logMemorySecurity(Logger logger, String transferId, String operation, String details) {
+        String logMessage = "[MEMORY-SEC:" + transferId + "] " + operation;
+        if (details != null && !details.isEmpty()) {
+            logMessage += " | " + details;
+        }
+        logger.log(Level.INFO, logMessage);
+    }
+    
+    /**
+     * Log end-to-end security flow summary for easy tracking
+     */
+    public static void logSecuritySummary(Logger logger, String transferId, String participant, 
+                                        String phase, String status, String securityLevel) {
+        String logMessage = "[SECURITY-SUMMARY:" + transferId + "] " + participant + " | Phase:" + phase + 
+                           " | Status:" + status + " | SecurityLevel:" + securityLevel;
+        logger.log(Level.INFO, logMessage);
+    }
 }
