@@ -580,11 +580,10 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     public void onSessionExpired() {
         SwingUtilities.invokeLater(() -> {
             JOptionPane.showMessageDialog(this, 
-                "Your session has expired due to inactivity.\nPlease login again.", 
+                " session has expired due to inactivity.\nPlease login again.", 
                 "Session Expired", 
                 JOptionPane.WARNING_MESSAGE);
             
-            // Force logout
             logout();
             
             log("Session expired - logged out automatically");
@@ -595,7 +594,7 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
     public void onSessionWarning(String message) {
         SwingUtilities.invokeLater(() -> {
             int choice = JOptionPane.showConfirmDialog(this,
-                message + "\nWould you like to refresh your session?",
+                message + "\nWould you like to refresh  session?",
                 "Session Warning",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE);
@@ -603,7 +602,7 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
             if (choice == JOptionPane.YES_OPTION) {
                 // User activity will automatically refresh the session
                 log("Session activity detected - session refreshed");
-                refreshUserList(); // This will trigger session refresh
+                refreshUserList(); 
             } else {
                 log("Session warning: " + message);
             }

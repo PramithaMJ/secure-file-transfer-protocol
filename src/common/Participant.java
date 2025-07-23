@@ -72,7 +72,7 @@ public class Participant implements Serializable {
     }
     
     public void setSerializedPublicKey(byte[] publicKeyBytes) {
-        // SECURITY: Validate the public key before accepting it
+        // Validate the public key before accepting it
         try {
             PublicKey key = CryptoUtils.bytesToPublicKey(publicKeyBytes);
             CryptoUtils.validatePublicKey(key);

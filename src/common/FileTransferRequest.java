@@ -12,11 +12,11 @@ public class FileTransferRequest implements Serializable {
     private byte[] encryptedSymmetricKey;
     private byte[] encryptedHmacKey;
     private RequestType type;
-    private byte[] senderDHPublicKey; // Ephemeral DH public key (optional, for PFS)
-    private byte[] receiverDHPublicKey; // Ephemeral DH public key (optional, for PFS)
+    private byte[] senderDHPublicKey;
+    private byte[] receiverDHPublicKey;
     private String transferId;
-    private byte[] senderDHPublicKeySignature; // Signature of sender's DH public key
-    private byte[] receiverDHPublicKeySignature; // Signature of receiver's DH public key
+    private byte[] senderDHPublicKeySignature;
+    private byte[] receiverDHPublicKeySignature;
     
     public enum RequestType {
         INITIATE_TRANSFER,
