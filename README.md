@@ -107,11 +107,11 @@ java -cp build client.ClientUI
 
 ### **Comprehensive Security Documentation**
 
-- **[ Alice & Bob Security Demo](docs/ALICE_BOB_SECURITY_DEMO_CODEBASE.md)** - Complete walkthrough with code references
-- **[ Perfect Forward Secrecy Demo](docs/PFS_INTERACTIVE_DEMO.md)** - PFS implementation details
-- **[ Attack Prevention Analysis](docs/ATTACK_PREVENTION_DEMO.md)** - Real attack scenarios & defenses
-- **[ Comprehensive Security Report](docs/COMPREHENSIVE_SECURITY_REPORT.md)** - Enterprise security analysis
-- **[ Visual Security Guide](docs/VISUAL_SECURITY_GUIDE.md)** - Security flow diagrams
+- **[ Alice & Bob Security Demo](docs/md/ALICE_BOB_SECURITY_DEMO_CODEBASE.md)** - Complete walkthrough with code references
+- **[ Perfect Forward Secrecy Demo](docs/md/PFS_INTERACTIVE_DEMO.md)** - PFS implementation details
+- **[ Attack Prevention Analysis](docs/md/ATTACK_PREVENTION_DEMO.md)** - Real attack scenarios & defenses
+- **[ Comprehensive Security Report](docs/md/COMPREHENSIVE_SECURITY_REPORT.md)** - Enterprise security analysis
+- **[ Visual Security Guide](docs/md/VISUAL_SECURITY_GUIDE.md)** - Security flow diagrams
 
 ### *Advanced Security Features
 
