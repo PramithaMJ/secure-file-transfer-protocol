@@ -7,6 +7,8 @@ import java.net.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.security.KeyPair;
+import java.security.PrivateKey;
 
 public class ServerConnectionHandler implements Runnable {
     private static final Logger logger = LoggingManager.getLogger(ServerConnectionHandler.class.getName());
@@ -226,21 +228,56 @@ public class ServerConnectionHandler implements Runnable {
     private void handleFileTransferRequest(FileTransferRequest request) throws IOException {
         String sender = request.getSenderUsername();
         String receiver = request.getReceiverUsername();
-        
         logger.info("File transfer request from " + sender + " to " + receiver + ": " + request.getFileName());
-        
         User receiverUser = userManager.getUser(receiver);
         if (receiverUser == null || !receiverUser.isOnline()) {
             sendError("Recipient " + receiver + " not found or offline");
             return;
         }
-        
         String transferId = UUID.randomUUID().toString();
         activeTransfers.put(transferId, request);
-        
+        // Generate ephemeral DH key pair for the server
+        KeyPair dhKeyPair;
+        byte[] receiverDHPublicKey;
+        try {
+            dhKeyPair = common.CryptoUtils.generateEphemeralDHKeyPair();
+            receiverDHPublicKey = dhKeyPair.getPublic().getEncoded();
+        } catch (Exception e) {
+            logger.warning("Failed to generate server DH key pair: " + e.getMessage());
+            sendError("Internal error: cannot generate DH key");
+            return;
+        }
+        // Sign the server's DH public key with the server's private key
+        byte[] receiverDHPublicKeySignature = null;
+        try {
+            // You need to provide a way to access the server's private key. Here, assume currentUser.getPrivateKey() or similar.
+            // If not available, you may need to load it from a keystore or config.
+            PrivateKey serverPrivateKey = currentUser != null ? currentUser.getPrivateKey() : null;
+            if (serverPrivateKey != null) {
+                receiverDHPublicKeySignature = CryptoUtils.signData(receiverDHPublicKey, serverPrivateKey);
+            } else {
+                logger.warning("Server private key not available for signing DH public key.");
+            }
+        } catch (Exception e) {
+            logger.warning("Failed to sign server DH public key: " + e.getMessage());
+        }
+        // Respond to client with a FileTransferRequest containing the server's DH public key, its signature, and transferId
+        FileTransferRequest response = new FileTransferRequest(
+            sender,
+            receiver,
+            request.getFileName(),
+            request.getFileSize(),
+            null,
+            null,
+            FileTransferRequest.RequestType.ACKNOWLEDGE_KEY,
+            request.getSenderDHPublicKey(),
+            receiverDHPublicKey,
+            transferId,
+            request.getSenderDHPublicKeySignature(),
+            receiverDHPublicKeySignature
+        );
+        send(response);
         userManager.forwardFileTransferRequest(request, transferId);
-        
-        send("TRANSFER_INITIATED|" + transferId);
     }
     
     private void handleFileChunk(SecureMessage chunk) {
@@ -516,7 +553,7 @@ public class ServerConnectionHandler implements Runnable {
                     Thread.sleep(5 * 60 * 1000); // Check every 5 minutes
                     
                     if (!validateSession()) {
-                        LoggingManager.logSecurity(logger, "Session expired for user: " + 
+                        LoggingManager.logSecurity(logger, "Session expired for user: " +
                                                  (currentUser != null ? currentUser.getUsername() : "unknown"));
                         try {
                             send("SESSION_EXPIRED|Your session has expired. Please login again.");
@@ -589,12 +626,13 @@ public class ServerConnectionHandler implements Runnable {
     private void handleLogout() throws IOException {
         if (currentUser != null) {
             LoggingManager.logSecurity(logger, "User logging out: " + currentUser.getUsername());
-            
             if (currentSessionToken != null) {
                 sessionManager.removeSession(currentSessionToken);
                 currentSessionToken = null;
             }
-            
+        }
+        
+        if (currentUser != null) {
             currentUser.setOnline(false);
             userManager.broadcastUserStatus(currentUser);
             currentUser = null;

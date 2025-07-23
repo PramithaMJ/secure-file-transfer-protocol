@@ -700,10 +700,7 @@ public class CryptoUtils {
         try {
             java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
             java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
-            
-            // IMPORTANT: When creating signable data, order and format must be exactly the same
-            // between sender and receiver to ensure the signature verifies correctly
-            
+
             // Include IV first as it should always be present
             if (message.iv != null) {
                 dos.writeInt(message.iv.length);
@@ -759,7 +756,7 @@ public class CryptoUtils {
     public static boolean validateSequenceOnly(SecureMessage message, String transferId) {
         if (message == null || transferId == null) {
             LoggingManager.logSecurity(logger, "WARNING: Cannot validate sequence - null message or transferId");
-            return true; // Don't fail the transfer for this reason
+            return true;
         }
         
         // Parse sequence number from nonce if present
@@ -771,14 +768,12 @@ public class CryptoUtils {
                     sequenceNumber = Integer.parseInt(nonceParts[1]);
                 }
             } catch (NumberFormatException e) {
-                // This is not critical - log warning but don't fail
                 LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number from nonce: " + message.nonce);
-                return true; // Continue even if we can't parse
+                return true;
             }
         } else {
-            // This is not critical - log warning but don't fail
             LoggingManager.logSecurity(logger, "WARNING: No sequence number found in nonce: " + message.nonce);
-            return true; // Continue even without sequence
+            return true;
         }
         
         // Get or create sequence tracking map for this transfer
@@ -1009,5 +1004,40 @@ public class CryptoUtils {
                                         transferId + " (" + sequenceMap.size() + " sequences)");
             }
         }, 10, TimeUnit.SECONDS);
+    }
+
+    public static final String DH_ALGORITHM = "DH";
+    public static final int DH_KEY_SIZE = 2048;
+
+    /**
+     * Generate a new ephemeral DH key pair
+     */
+    public static KeyPair generateEphemeralDHKeyPair() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, java.security.spec.InvalidParameterSpecException {
+        AlgorithmParameterGenerator paramGen = AlgorithmParameterGenerator.getInstance(DH_ALGORITHM);
+        paramGen.init(DH_KEY_SIZE);
+        AlgorithmParameters params = paramGen.generateParameters();
+        DHParameterSpec dhSpec = params.getParameterSpec(DHParameterSpec.class);
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(DH_ALGORITHM);
+        keyPairGen.initialize(dhSpec);
+        return keyPairGen.generateKeyPair();
+    }
+
+    /**
+     * Generate a shared secret using own private key and peer's public key
+     */
+    public static byte[] generateDHSharedSecret(PrivateKey privateKey, PublicKey peerPublicKey) throws Exception {
+        KeyAgreement keyAgree = KeyAgreement.getInstance(DH_ALGORITHM);
+        keyAgree.init(privateKey);
+        keyAgree.doPhase(peerPublicKey, true);
+        return keyAgree.generateSecret();
+    }
+
+    /**
+     * Derive an AES key from a shared secret
+     */
+    public static SecretKey deriveAESKeyFromSecret(byte[] sharedSecret) throws Exception {
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        byte[] keyBytes = sha256.digest(sharedSecret);
+        return new SecretKeySpec(Arrays.copyOf(keyBytes, AES_KEY_SIZE / 8), AES_ALGORITHM);
     }
 }

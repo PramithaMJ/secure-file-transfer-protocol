@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.file.*;
 import java.security.*;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
@@ -233,43 +234,60 @@ public class Client {
             
             logger.info("Using public key of receiver: " + receiverUsername);
             
-            SecretKey symmetricKey = CryptoUtils.generateSymmetricKey();
-            
-            // Encrypt symmetric key with receiver's public key
-            byte[] encryptedSymmetricKey = CryptoUtils.encryptKey(symmetricKey, receiverPublicKey);
-            
-            // Encrypt HMAC key with receiver's public key for integrity verification
-            byte[] encryptedHmacKey = CryptoUtils.encryptKey(user.getHmacKey(), receiverPublicKey);
-            
+            // Generate ephemeral DH key pair for this transfer
+            KeyPair dhKeyPair = CryptoUtils.generateEphemeralDHKeyPair();
+            byte[] senderDHPublicKey = dhKeyPair.getPublic().getEncoded();
+
+            // Sign the sender's DH public key with the sender's private key
+            byte[] senderDHPublicKeySignature = CryptoUtils.signData(senderDHPublicKey, user.getPrivateKey());
+
+            // Send FileTransferRequest with sender's DH public key and its signature
             FileTransferRequest request = new FileTransferRequest(
                 user.getUsername(),
                 receiverUsername,
                 fileName,
                 fileSize,
-                encryptedSymmetricKey,
-                encryptedHmacKey,
-                FileTransferRequest.RequestType.INITIATE_TRANSFER
+                null, // No encrypted symmetric key; will derive via DH
+                null, // No encrypted HMAC key; will derive via DH
+                FileTransferRequest.RequestType.INITIATE_TRANSFER,
+                senderDHPublicKey,
+                null, // receiverDHPublicKey will be filled by server in response
+                null, // transferId (set by server)
+                senderDHPublicKeySignature,
+                null // receiverDHPublicKeySignature
             );
-            
             sendToServer(request);
-            
+
             Object response = messageQueue.poll(5, TimeUnit.SECONDS);
-            
-            if (response instanceof String) {
-                String msg = (String) response;
-                if (msg.startsWith("TRANSFER_INITIATED")) {
-                    String transferId = msg.split("\\|")[1];
-                    activeTransfers.put(transferId, request);
-                    
-                    transferHistory.addTransfer(transferId, fileName, user.getUsername(), 
-                                            receiverUsername, fileSize);
-                    
-                    pendingTransferKeys.put(transferId, symmetricKey);
-                    pendingTransferPaths.put(transferId, filePath);
-                    
-                    logger.info("Transfer request sent, waiting for recipient acceptance: " + transferId);
-                    return true;
+            if (response instanceof FileTransferRequest) {
+                FileTransferRequest resp = (FileTransferRequest) response;
+                // Verify the server's DH public key signature using the server's long-term public key
+                PublicKey serverPublicKey = receiverPublicKey; // Assuming receiverPublicKey is the server's long-term key
+                boolean valid = CryptoUtils.verifySignature(
+                    resp.getReceiverDHPublicKey(),
+                    resp.getReceiverDHPublicKeySignature(),
+                    serverPublicKey
+                );
+                if (!valid) {
+                    logger.severe("SECURITY: Invalid signature on server's DH public key. Possible MITM attack.");
+                    return false;
                 }
+                // Derive shared secret using our private key and receiver's DH public key
+                PublicKey receiverDHPubKey = KeyFactory.getInstance(CryptoUtils.DH_ALGORITHM)
+                    .generatePublic(new X509EncodedKeySpec(resp.getReceiverDHPublicKey()));
+                byte[] sharedSecret = CryptoUtils.generateDHSharedSecret(dhKeyPair.getPrivate(), receiverDHPubKey);
+                SecretKey symmetricKey = CryptoUtils.deriveAESKeyFromSecret(sharedSecret);
+                
+                activeTransfers.put(resp.getTransferId(), request);
+                
+                transferHistory.addTransfer(resp.getTransferId(), fileName, user.getUsername(), 
+                                        receiverUsername, fileSize);
+                
+                pendingTransferKeys.put(resp.getTransferId(), symmetricKey);
+                pendingTransferPaths.put(resp.getTransferId(), filePath);
+                
+                logger.info("Transfer request sent, waiting for recipient acceptance: " + resp.getTransferId());
+                return true;
             }
             
             return false;
@@ -1180,7 +1198,6 @@ public class Client {
                                           request.getFileSize());
                 logger.info("Added transfer to recipient's history: " + transferId);
             }
-            
             sendToServer("ACCEPT_TRANSFER|" + transferId);
             logger.info("Sent transfer acceptance for: " + transferId);
         } catch (Exception e) {
