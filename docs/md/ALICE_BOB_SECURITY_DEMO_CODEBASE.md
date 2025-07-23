@@ -25,14 +25,14 @@ Alice (Sender)                Server (Relay Hub)                Bob (Receiver)
 ┌─────────────┐                ┌─────────────┐                ┌─────────────┐
 │ Client.java │                │ Server.java │                │ Client.java │
 │ RSA-2048    │◄──────────────►│             │◄──────────────►│ RSA-2048    │
-│ Long-term   │   TLS/Session  │   SESSION   │   TLS/Session  │ Long-term   │
+│             │   TLS/Session  │   SESSION   │   TLS/Session  │             │
 │ Key Pair    │   Management   │ MANAGEMENT  │   Management   │ Key Pair    │
 └─────────────┘                │ & SECURITY  │                └─────────────┘
        │                       │ MONITORING  │                       │
 ┌─────────────┐                └─────────────┘                ┌─────────────┐
 │ Ephemeral   │                       │                       │ Ephemeral   │
 │ DH KeyPair  │◄─────── AUTHENTICATED DH RELAY ──────────────►│ DH KeyPair  │
-│ a, g^a      │          (Digital Signatures)                │ b, g^b      │
+│ a, g^a      │          (Digital Signatures)                 │ b, g^b      │
 └─────────────┘                       │                       └─────────────┘
        │                              │                              │
        └──────── SHARED SECRET: K = g^(ab) mod p ────────────────────┘
