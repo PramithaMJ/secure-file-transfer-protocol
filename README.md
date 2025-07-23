@@ -25,18 +25,27 @@ This project implements a secure file transfer protocol with **Perfect Forward S
 Directory structure:
 
 ```
-└──secure-file-transfer-protocol/
+Directory structure:
     ├── README.md
     ├── build.bat
     ├── build.sh
     ├── sonar-project.properties
     ├── data/
     │   ├── Alice_transfer_history.dat
-    │   └── Bob_transfer_history.dat
+    │   ├── Bob_transfer_history.dat
+    │   └── Charlie_transfer_history.dat
     ├── docs/
     │   ├── [Update]Security Flow Architecture.drawio
     │   ├── architecture.xml
-    │   └── Security Flow Architecture.drawio
+    │   ├── new architecture.drawio
+    │   ├── Security Flow Architecture.drawio
+    │   └── md/
+    │       ├── ALICE_BOB_SECURITY_DEMO_CODEBASE.md
+    │       ├── ATTACK_PREVENTION_DEMO.md
+    │       ├── COMPREHENSIVE_SECURITY_REPORT.md
+    │       ├── INTERACTIVE_SECURITY_FLOW.md
+    │       ├── PFS_INTERACTIVE_DEMO.md
+    │       └── VISUAL_SECURITY_GUIDE.md
     ├── resources/
     │   ├── config.properties
     │   └── logging.properties
@@ -70,6 +79,7 @@ Directory structure:
     │       └── build.yml
     └── .scannerwork/
         └── .sonar_lock
+
 ```
 
 ## Java Version Requirement
