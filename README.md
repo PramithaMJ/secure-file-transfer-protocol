@@ -5,7 +5,7 @@
 [![PFS Enabled](https://img.shields.io/badge/PFS-Enabled-blue)](docs/PFS_INTERACTIVE_DEMO.md)
 [![Code Quality](https://img.shields.io/badge/quality-enterprise%20grade-success)](docs/COMPREHENSIVE_SECURITY_REPORT.md)
 
-![Security Demo](https://img.shields.io/badge/🎥_Watch-Security_Demo-red?style=for-the-badge)
+## Video Demo : [YouTube](https://youtu.be/0arjgfnfygI)
 
 This project implements a secure file transfer protocol with **Perfect Forward Secrecy (PFS)** that ensures confidentiality, integrity, authentication, and protection against sophisticated attacks. It uses a client-server-client relay architecture with ephemeral Diffie-Hellman key exchange to support multiple users transferring files with enterprise-level security.
 
@@ -19,49 +19,6 @@ This project implements a secure file transfer protocol with **Perfect Forward S
 **DoS Protection** - Multi-tier rate limiting and IP blacklisting
 **Real-Time Security Monitoring** - Automated threat detection & response
 **Enterprise Compliance** - NIST/NSA approved cryptographic standards
-
-## Security Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                CLIENT-SERVER-CLIENT RELAY ARCHITECTURE              │
-│                     with Perfect Forward Secrecy                    │
-└─────────────────────────────────────────────────────────────────────┘
-
-Alice (Sender)              Server (Relay)              Bob (Receiver)
-┌─────────────┐              ┌─────────────┐              ┌─────────────┐
-│ RSA-2048    │              │   SESSION   │              │ RSA-2048    │
-│ Long-term   │◄─────────────►│ MANAGEMENT  │◄─────────────►│ Long-term │
-│ Key Pair    │              │ & SECURITY  │              │ Key Pair    │
-└─────────────┘              └─────────────┘              └─────────────┘
-       │                            │                            │
-┌─────────────┐                     │                     ┌─────────────┐
-│ Ephemeral   │                     │                     │ Ephemeral   │
-│ DH Keys     │◄────────AUTHENTICATED RELAY───────────────►│ DH Keys    │
-│ (2048-bit)  │                     │                     │ (2048-bit)  │
-└─────────────┘                     │                     └─────────────┘
-       │                            │                            │
-       └──────────────── SHARED SECRET K = g^(ab) mod p ────────────────┘
-                              │
-                    ┌─────────────────┐
-                    │ AES-256 Session │
-                    │ Key = HKDF(K)   │
-                    └─────────────────┘
-```
-
-## Cryptographic Specifications
-
-
-| **Security Component**     | **Algorithm**        | **Key Size** | **Security Level** |
-| -------------------------- | -------------------- | ------------ | ------------------ |
-| **Asymmetric Encryption**  | RSA-OAEP-SHA256      | 2048-bit     | 112-bit equivalent |
-| **Symmetric Encryption**   | AES-256-CBC          | 256-bit      | 256-bit            |
-| **Message Authentication** | HMAC-SHA256          | 256-bit      | 256-bit            |
-| **Digital Signatures**     | SHA256withRSA        | 2048-bit     | 112-bit equivalent |
-| **Key Exchange**           | Diffie-Hellman (PFS) | 2048-bit     | 112-bit equivalent |
-| **Hash Functions**         | SHA-256              | N/A          | 256-bit            |
-
-** Security Compliance:** NIST SP 800-57, FIPS 140-2, NSA Suite B Compatible
 
 ## Directory Structure
 
@@ -271,6 +228,21 @@ Based on your codebase, here's the updated security features section with specif
 - **Session Security**: Perfect Forward Secrecy enabled
 - **Attack Detection**: Real-time monitoring
 - **Memory Security**: Secure key wiping implemented
+
+
+## Cryptographic Specifications
+
+
+| **Security Component**     | **Algorithm**        | **Key Size** | **Security Level** |
+| -------------------------- | -------------------- | ------------ | ------------------ |
+| **Asymmetric Encryption**  | RSA-OAEP-SHA256      | 2048-bit     | 112-bit equivalent |
+| **Symmetric Encryption**   | AES-256-CBC          | 256-bit      | 256-bit            |
+| **Message Authentication** | HMAC-SHA256          | 256-bit      | 256-bit            |
+| **Digital Signatures**     | SHA256withRSA        | 2048-bit     | 112-bit equivalent |
+| **Key Exchange**           | Diffie-Hellman (PFS) | 2048-bit     | 112-bit equivalent |
+| **Hash Functions**         | SHA-256              | N/A          | 256-bit            |
+
+** Security Compliance:** NIST SP 800-57, FIPS 140-2, NSA Suite B Compatible
 
 ### **Enterprise Features**
 
