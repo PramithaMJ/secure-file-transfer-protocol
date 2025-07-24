@@ -263,6 +263,78 @@ Based on your codebase, here's the updated security features section with specif
 **Cross-Platform** - Java 17+ compatibility
 **Production Ready** - Comprehensive error handling
 
+### User Interface Screenshots
+
+#### UI-1.png
+
+![UI-1](images/UI-1.png)
+
+The main client interface showing the login screen. Users can connect to the server by entering their username and server address.
+
+#### UI-2.png
+
+![UI-2](images/Ui-2.png)
+
+File transfer window showing the file selection and recipient options. This screen allows users to initiate secure transfers to other connected users.
+
+#### UI-3.png
+
+![UI-3](images/UI-3.png)
+
+Transfer history panel displaying past and current file transfers with their statuses, timestamps, and recipients/senders.
+
+#### UI-4.png
+
+![UI-4](images/Ui-4.png)
+
+Active transfer monitoring interface showing real-time progress of ongoing file transfers with encryption status.
+
+#### UI-5.png
+
+![UI-5](images/UI-5.png)
+
+Security settings panel allowing users to configure encryption strength and other security-related options.
+
+### Log Output Screenshots
+
+#### log-1.png
+
+![log-1](images/log-1.png)
+
+Example of normal transfer logs showing successful encryption, integrity verification, and sequence tracking. Note the ordered sequence numbers indicating proper packet flow.
+
+#### log-2.png
+
+![log-2](images/log-2.png)
+
+Security alert logs showing detected replay attempts. The highlighted sections show the anti-replay protection system identifying duplicate sequence numbers with different nonces, a key indicator of potential replay attacks.
+
+### SonarQube Integration
+
+### Viewing Results
+
+Access the SonarQube dashboard for detailed analysis:
+
+- [Project Dashboard](http://157.230.40.190:9000/dashboard?id=Pramitha)
+- [Security Hotspots](http://157.230.40.190:9000/security_hotspots?id=Pramitha)
+- [Vulnerabilities](http://157.230.40.190:9000/project/issues?id=Pramitha&resolved=false&types=VULNERABILITY)
+
+### sonar-cube-dashboard.png
+
+![SonarQube Dashboard](images/sonar-cube-dashboard.png)
+
+Main SonarQube dashboard showing code quality metrics and security vulnerabilities overview.
+
+### sonar-cube-dashboard-2.png
+
+![SonarQube Dashboard Details](images/sonar-cube-dashboard-2.png)
+
+Detailed security vulnerability report from SonarQube with specific issues identified in the codebase.
+
+### SonarQube Security Analysis
+
+![SonarQube Security Analysis](images/sonar-cube-dashboard-2.png)
+
 ### **Support & Contact**
 
 For security questions, vulnerability reports, or enterprise licensing:
