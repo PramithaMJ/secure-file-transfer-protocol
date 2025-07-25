@@ -467,6 +467,8 @@ Security settings panel allowing users to configure encryption strength and othe
 
 ## Log Output Screenshots
 
+### For details oftput refer : [Logs](https://github.com/PramithaMJ/secure-file-transfer-protocol/tree/master/logs)
+
 ### log-1.png
 
 ![log-1](images/log-1.png)
