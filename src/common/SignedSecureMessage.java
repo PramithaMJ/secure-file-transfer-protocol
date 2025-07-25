@@ -14,9 +14,6 @@ public class SignedSecureMessage implements Serializable {
     private String senderUsername;
     private long signatureTimestamp;
     
-    /**
-     * Create a SignedSecureMessage with message and signature
-     */
     public SignedSecureMessage(SecureMessage message, byte[] signature) {
         if (message == null || signature == null) {
             throw new IllegalArgumentException("Message and signature cannot be null");
@@ -25,10 +22,7 @@ public class SignedSecureMessage implements Serializable {
         this.signature = signature.clone(); // Defensive copy
         this.signatureTimestamp = System.currentTimeMillis();
     }
-    
-    /**
-     * Create a SignedSecureMessage with sender identification
-     */
+
     public SignedSecureMessage(SecureMessage message, byte[] signature, String senderUsername) {
         this(message, signature);
         this.senderUsername = senderUsername;
@@ -53,10 +47,7 @@ public class SignedSecureMessage implements Serializable {
     public void setSenderUsername(String senderUsername) { 
         this.senderUsername = senderUsername; 
     }
-    
-    /**
-     * Get a summary of this signed message for logging
-     */
+
     public String getSignatureSummary() {
         StringBuilder summary = new StringBuilder();
         summary.append("SignedSecureMessage{");
@@ -70,9 +61,6 @@ public class SignedSecureMessage implements Serializable {
         return summary.toString();
     }
     
-    /**
-     * Validate the basic structure of this signed message
-     */
     public boolean isValid() {
         return message != null && 
                signature != null && 

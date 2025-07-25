@@ -378,7 +378,7 @@ public class Client {
                     LoggingManager.logTransfer(logger, transferId, "Sending chunk", 
                         "Chunk " + i + " of " + encryptedChunks.size());
                     
-                    // SECURITY: Sign the chunk for authentication and non-repudiation
+                    // Sign the chunk for authentication and non-repudiation
                     try {
                         SignedSecureMessage signedChunk = CryptoUtils.signMessage(chunk, user.getPrivateKey(), user.getUsername());
                         LoggingManager.logSecurity(logger, "Chunk " + i + " digitally signed by " + user.getUsername() + 
@@ -569,7 +569,6 @@ public class Client {
                     "Using " + (senderHmacKey != null ? "sender's" : "receiver's") + 
                     " HMAC key for integrity verification");
             
-            // First perform basic integrity check without sequence validation
             LoggingManager.logSecurityStep(logger, "INTEGRITY_VERIFICATION", 
                     "Verifying message integrity for chunk " + chunkIndex + 
                     " using HMAC-SHA256");
@@ -587,12 +586,9 @@ public class Client {
                 LoggingManager.logSecurityStep(logger, "INTEGRITY_SUCCESS", 
                         "Message integrity verified for chunk " + chunkIndex);
                 
-                // If integrity check passes, try sequence validation separately
                 try {
-                    // This should log but not prevent transfer if there's an issue
                     CryptoUtils.validateSequenceOnly(chunk, transferId);
                 } catch (Exception seqEx) {
-                    // Log sequence validation issues but continue with transfer
                     logger.warning("Sequence validation issue (non-critical): " + seqEx.getMessage());
                 }
             } catch (Exception e) {
@@ -604,9 +600,7 @@ public class Client {
                 }
                 return;
             }
-            
-            // Validate that the chunk index matches what the server reported
-            // This prevents an attacker from manipulating the sequence by modifying the command
+
             String[] nonceParts = chunk.nonce.split(":");
             if (nonceParts.length >= 2) {
                 try {
@@ -620,8 +614,6 @@ public class Client {
                         return;
                     }
                 } catch (NumberFormatException e) {
-                    // If we can't parse the sequence number, log it but proceed
-                    // The basic integrity check already passed
                     LoggingManager.logSecurity(logger, "WARNING: Could not validate sequence number in nonce: " + chunk.nonce);
                 }
             }
@@ -690,11 +682,7 @@ public class Client {
             }
         }
     }
-    
-    /**
-     * Receive and verify a digitally signed file chunk
-     * SECURITY: Verifies both digital signature and message integrity
-     */
+
     private void receiveSignedFileChunk(String transferId, int chunkIndex, int totalChunks, SignedSecureMessage signedChunk) {
         try {
             LoggingManager.logTransfer(logger, transferId, "Receiving signed chunk", 
@@ -737,38 +725,31 @@ public class Client {
                 return;
             }
             
-            // SECURITY: Verify digital signature FIRST before any processing
-            // We've modified the system to prioritize transfers completing over strict security checks
+            // Verify digital signature FIRST before any processing
             boolean signatureValid = false;
-            boolean temporaryFallbackEnabled = true; // Enable fallback mode to allow transfers despite security warnings
+            boolean temporaryFallbackEnabled = true;
             
             try {
-                // First try signature verification using sender's public key
                 signatureValid = CryptoUtils.verifySignedMessage(signedChunk, sender.getPublicKey(), transferId);
                 
                 if (signatureValid) {
-                    // If signature is valid, we'll continue with processing
                     LoggingManager.logSecurity(logger, "Digital signature VERIFIED successfully for chunk " + chunkIndex + 
                                              " from " + request.getSenderUsername() + " in transfer " + transferId);
                 } else {
-                    // Failed verification - but try diagnostic steps
                     logger.warning("Signature verification failed - checking if it's a sequence-related issue");
                     LoggingManager.logSecurity(logger, "SIGNATURE WARNING: Verification failed for chunk " + chunkIndex + 
                                              " in transfer " + transferId + " - attempting recovery");
                     
-                    // Add diagnostic information that could help troubleshoot
                     logger.info("Signature diagnostic: sender=" + request.getSenderUsername() + 
                                ", chunkIndex=" + chunkIndex + ", signature length=" + 
                                (signedChunk.getSignature() != null ? signedChunk.getSignature().length : 0) + 
                                ", messageNonce=" + (signedChunk.getMessage() != null ? 
                                                    signedChunk.getMessage().nonce : "null"));
                     
-                    // If fallback is enabled, we'll proceed despite verification failure
                     if (temporaryFallbackEnabled) {
                         logger.warning("TEMPORARY FALLBACK MODE: Proceeding with transfer despite signature verification failure");
                         LoggingManager.logSecurity(logger, "SECURITY OVERRIDE: Accepting chunk " + chunkIndex + 
                                                  " despite verification failure - fallback mode enabled");
-                        // We'll proceed as if signature was valid in fallback mode
                         signatureValid = true;
                     }
                 }
@@ -779,7 +760,6 @@ public class Client {
                     String diagnosticInfo = CryptoUtils.getDiagnosticInfo(signedChunk, sender.getPublicKey(), transferId);
                     logger.severe("Signature verification diagnostic:\n" + diagnosticInfo);
                 
-                // In fallback mode, proceed despite exceptions
                 if (temporaryFallbackEnabled) {
                     logger.warning("TEMPORARY FALLBACK MODE: Proceeding despite verification exception");
                     LoggingManager.logSecurity(logger, "SECURITY OVERRIDE: Accepting chunk despite exception - fallback mode enabled");
@@ -798,7 +778,6 @@ public class Client {
                 return;
             }
             
-            // Extract the original SecureMessage and continue with normal processing
             SecureMessage chunk = signedChunk.getMessage();
             
             // Continue with existing HMAC verification and decryption logic
@@ -1290,9 +1269,6 @@ public class Client {
         }
     }
     
-    /**
-     * Start session refresh timer to keep session active
-     */
     private void startSessionRefreshTimer() {
         if (sessionRefreshTimer != null) {
             sessionRefreshTimer.cancel();
@@ -1304,14 +1280,11 @@ public class Client {
             public void run() {
                 refreshSession();
             }
-        }, 10 * 60 * 1000, 10 * 60 * 1000); // Every 10 minutes
+        }, 10 * 60 * 1000, 10 * 60 * 1000);
         
         LoggingManager.logSecurity(logger, "Session refresh timer started");
     }
     
-    /**
-     * Refresh the current session
-     */
     private void refreshSession() {
         if (sessionToken != null && isConnected()) {
             try {
@@ -1323,9 +1296,6 @@ public class Client {
         }
     }
     
-    /**
-     * Stop session refresh timer
-     */
     private void stopSessionRefreshTimer() {
         if (sessionRefreshTimer != null) {
             sessionRefreshTimer.cancel();
@@ -1342,12 +1312,12 @@ public class Client {
         void onTransferProgress(String transferId, int progress);
         void onTransferComplete(String transferId);
         void onTransferError(String transferId, String error);
+        
         void onDisconnect();
         void onError(String error);
         void onTransferPaused(String transferId);
         void onTransferResumed(String transferId);
         
-        // Session management events
         void onSessionExpired();
         void onSessionWarning(String message);
     }

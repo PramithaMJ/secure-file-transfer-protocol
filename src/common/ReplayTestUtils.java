@@ -128,12 +128,9 @@ public class ReplayTestUtils {
         CryptoUtils.markTransferComplete(transferId);
         LoggingManager.logSecurity(logger, "TEST: Marked transfer as complete: " + transferId);
         
-        // Wait for cleanup to occur
         LoggingManager.logSecurity(logger, "TEST: Waiting for cleanup...");
-        Thread.sleep(11000); // Wait 11 seconds (cleanup delay is 10 seconds)
-        
-        // Try to verify a new chunk with same transfer ID
-        // This should work as if it's a new transfer
+        Thread.sleep(11000); 
+
         byte[] newData = "Test data after completion".getBytes();
         SecureMessage newMessage = CryptoUtils.encryptChunk(newData, symmetricKey, hmacKey, 0);
         boolean result = CryptoUtils.verifyIntegrity(newMessage, hmacKey, transferId);
@@ -162,29 +159,21 @@ public class ReplayTestUtils {
             LoggingManager.logSecurity(logger, "TEST: Legitimate message " + i + " verification: " + result);
         }
         
-        // Create a manually crafted replay attack (changing nonce but keeping sequence number)
-        // This simulates an attacker trying to replay message 1 by modifying the nonce
         SecureMessage originalMessage = legitimateMessages.get(1); // Message with sequence 1
         
-        // Create a fake replay message by manipulating the nonce
-        // This mimics what an attacker might try to do
         SecureMessage replayMessage = new SecureMessage(
             originalMessage.encryptedData,
             originalMessage.mac,
             originalMessage.iv,
-            System.currentTimeMillis(), // Current timestamp
-            generateFakeNonce() + ":1" // Keep sequence number 1 but change base nonce
+            System.currentTimeMillis(), 
+            generateFakeNonce() + ":1"
         );
         
-        // Try to verify the replay message - should be detected and rejected
         boolean replayResult = CryptoUtils.verifyIntegrity(replayMessage, hmacKey, transferId);
         LoggingManager.logSecurity(logger, "TEST: Replay attack detection test result: " + replayResult + 
                                  " (should be rejected - false)");
     }
-    
-    /**
-     * Generate a test crypto key
-     */
+  
     private static SecretKey generateTestKey(String algorithm) throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance(algorithm.split("SHA")[0]); // Handle HMAC algorithms
         if (algorithm.equals("AES")) {
@@ -192,10 +181,7 @@ public class ReplayTestUtils {
         }
         return keyGen.generateKey();
     }
-    
-    /**
-     * Generate a fake nonce for replay testing
-     */
+
     private static String generateFakeNonce() throws NoSuchAlgorithmException {
         byte[] nonceBytes = new byte[16];
         SecureRandom.getInstanceStrong().nextBytes(nonceBytes);

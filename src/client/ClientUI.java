@@ -601,9 +601,8 @@ public class ClientUI extends JFrame implements Client.ClientEventListener {
                 JOptionPane.WARNING_MESSAGE);
             
             if (choice == JOptionPane.YES_OPTION) {
-                // User activity will automatically refresh the session
                 log("Session activity detected - session refreshed");
-                refreshUserList(); // This will trigger session refresh
+                refreshUserList(); 
             } else {
                 log("Session warning: " + message);
             }

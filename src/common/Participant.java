@@ -28,7 +28,6 @@ public class Participant implements Serializable {
         hmacKeyGen.init(256);
         this.hmacKey = hmacKeyGen.generateKey();
         
-        // Store serialized form of public key
         this.serializedPublicKey = rsaKeyPair.getPublic().getEncoded();
     }
     
@@ -36,7 +35,7 @@ public class Participant implements Serializable {
         this();
         this.serializedPublicKey = serializedPublicKey;
         
-        // SECURITY: Validate the provided public key
+        //  Validate the provided public key
         try {
             PublicKey key = CryptoUtils.bytesToPublicKey(serializedPublicKey);
             CryptoUtils.validatePublicKey(key);
@@ -72,7 +71,7 @@ public class Participant implements Serializable {
     }
     
     public void setSerializedPublicKey(byte[] publicKeyBytes) {
-        // SECURITY: Validate the public key before accepting it
+        //  Validate the public key before accepting it
         try {
             PublicKey key = CryptoUtils.bytesToPublicKey(publicKeyBytes);
             CryptoUtils.validatePublicKey(key);
