@@ -1,6 +1,9 @@
 # Secure File Transfer Protocol
 
 [![Build](https://github.com/PramithaMJ/secure-file-transfer-protocol/actions/workflows/build.yml/badge.svg)](https://github.com/PramithaMJ/secure-file-transfer-protocol/actions/workflows/build.yml)
+[![Security Rating](https://img.shields.io/badge/security-A%2B-brightgreen)](http://157.230.40.190:9000/dashboard?id=Pramitha)
+[![PFS Enabled](https://img.shields.io/badge/PFS-Enabled-blue)](docs/PFS_INTERACTIVE_DEMO.md)
+[![Code Quality](https://img.shields.io/badge/quality-enterprise%20grade-success)](docs/COMPREHENSIVE_SECURITY_REPORT.md)
 
 This project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
