@@ -5,6 +5,7 @@
 This project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
 ## Video Demo : [YouTube](https://youtu.be/0arjgfnfygI)
+### For details output refer : [Logs](https://github.com/PramithaMJ/secure-file-transfer-protocol/tree/master/logs)
 
 ## Directory Structure
 
@@ -467,7 +468,7 @@ Security settings panel allowing users to configure encryption strength and othe
 
 ## Log Output Screenshots
 
-### For details oftput refer : [Logs](https://github.com/PramithaMJ/secure-file-transfer-protocol/tree/master/logs)
+### For details output refer : [Logs](https://github.com/PramithaMJ/secure-file-transfer-protocol/tree/master/logs)
 
 ### log-1.png
 
