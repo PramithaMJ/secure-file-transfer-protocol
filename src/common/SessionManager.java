@@ -11,14 +11,9 @@ import java.util.logging.Logger;
 public class SessionManager {
     private static final Logger logger = LoggingManager.getLogger(SessionManager.class.getName());
     
-    // Session timeout
-    private static final long SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
-    
-    // Maximum session duration
-    private static final long MAX_SESSION_DURATION_MS = 8 * 60 * 60 * 1000; // 8 hours
-    
-    // Warning time before session expires
-    private static final long SESSION_WARNING_MS = 5 * 60 * 1000; // 5 minutes
+    private static final long SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+    private static final long MAX_SESSION_DURATION_MS = 8 * 60 * 60 * 1000;
+    private static final long SESSION_WARNING_MS = 5 * 60 * 1000;
     
     private final ConcurrentHashMap<String, Session> activeSessions = new ConcurrentHashMap<>();
     private final ScheduledExecutorService cleanupService = Executors.newSingleThreadScheduledExecutor();

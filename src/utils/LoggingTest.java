@@ -13,10 +13,8 @@ public class LoggingTest {
         try {
             System.out.println("Starting logging test...");
             
-            // Initialize the logging system
             LoggingManager.initialize();
             
-            // Test all logging methods with various levels and details
             testAllLoggingMethods();
             
             System.out.println("Logging test completed. Please check the log files:");

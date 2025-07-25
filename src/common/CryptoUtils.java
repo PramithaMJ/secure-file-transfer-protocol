@@ -25,15 +25,12 @@ public class CryptoUtils {
     public static final int AES_KEY_SIZE = 256;
     public static final int CHUNK_SIZE = 4096; // 4KB chunks
     
-    // Anti-replay protection constants
-    private static final long MAX_MESSAGE_AGE_MS = 5 * 60 * 1000; // 5 minutes
-    private static final long MAX_TIMESTAMP_SKEW_MS = 60 * 1000; // 1 minute allowed clock skew
+    private static final long MAX_MESSAGE_AGE_MS = 5 * 60 * 1000;
+    private static final long MAX_TIMESTAMP_SKEW_MS = 60 * 1000;
     private static final int MAX_NONCE_CACHE_SIZE = 20000;
     
-    // Enhanced nonce tracking system (maps transfer ID to map of sequence numbers and timestamps)
     private static final ConcurrentHashMap<String, Map<Integer, String>> transferSequences = new ConcurrentHashMap<>();
     
-    // Track used nonces regardless of transfer for basic replay protection
     private static final ConcurrentHashMap<String, Long> usedNonces = new ConcurrentHashMap<>();
     
     // Cleanup service for old nonces
@@ -71,9 +68,7 @@ public class CryptoUtils {
     
     /**
      * Encrypt a symmetric key with recipient's public key
-     * @deprecated Use encryptKey instead
      */
-    @Deprecated
     public static byte[] encryptSymmetricKey(SecretKey symmetricKey, PublicKey recipientPublicKey) 
             throws Exception {
         return encryptKey(symmetricKey, recipientPublicKey);
@@ -81,9 +76,7 @@ public class CryptoUtils {
     
     /**
      * Decrypt a symmetric key with user's private key
-     * @deprecated Use decryptKey instead
      */
-    @Deprecated
     public static SecretKey decryptSymmetricKey(byte[] encryptedKey, PrivateKey privateKey) 
             throws Exception {
         return decryptKey(encryptedKey, privateKey, AES_ALGORITHM);
@@ -255,15 +248,13 @@ public class CryptoUtils {
                 "Message timestamp: " + message.timestamp + ", Current time: " + currentTime + 
                 ", Age: " + (messageAge / 1000) + "s");
         
-        if (messageAge > MAX_MESSAGE_AGE_MS * 2) { // Double the timeout for tolerance
-            // Message is too old, but we'll still try to verify integrity
+        if (messageAge > MAX_MESSAGE_AGE_MS * 2) { 
             LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
                     "Message is old (age: " + (messageAge / 1000) + "s). Continuing with verification.");
             ageWarning = true;
         }
         
-        if (messageAge < -MAX_TIMESTAMP_SKEW_MS * 2) { // Double the skew tolerance
-            // Message from future, but we'll still verify integrity
+        if (messageAge < -MAX_TIMESTAMP_SKEW_MS * 2) { 
             LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
                     "Message from future (" + (-messageAge / 1000) + "s ahead). Possible clock skew, continuing with verification.");
             ageWarning = true;
@@ -278,7 +269,6 @@ public class CryptoUtils {
                 "Checking nonce uniqueness: " + message.nonce.substring(0, 8) + "...");
         
         if (existingTimestamp != null && !ageWarning) {    
-            // Only log the warning but continue with verification
             LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
                     "Potential replay detected - duplicate nonce: " + 
                     message.nonce.substring(0, 8) + "... - proceeding with verification");
@@ -296,7 +286,6 @@ public class CryptoUtils {
                             (transferId != null ? " for transfer: " + transferId : ""));
                 }
             } catch (NumberFormatException e) {
-                // If we can't parse the sequence, just proceed with basic integrity check
                 LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
                         "Could not parse sequence number from nonce: " + message.nonce);
             }
@@ -328,22 +317,18 @@ public class CryptoUtils {
         
         // 5. ANTI-REPLAY and sequence validation: Track nonces but be more lenient with failures
         if (macValid) {
-            // Track this nonce as used - even in temporary fallback mode
             usedNonces.put(nonceKey, currentTime);
             LoggingManager.logSecurityStep(logger, "NONCE_TRACKING", 
                     "Recorded nonce as used: " + message.nonce.substring(0, 8) + "...");
             
             // If transfer ID is provided and sequence number was parsed, log sequence info
             if (transferId != null && sequenceNumber >= 0) {
-                // Get or create sequence tracking map for this transfer
                 Map<Integer, String> sequenceMap = transferSequences.computeIfAbsent(transferId, k -> new ConcurrentHashMap<>());
                 
                 LoggingManager.logSecurityStep(logger, "SEQUENCE_TRACKING", 
                         "Validating sequence " + sequenceNumber + " for transfer: " + transferId);
                 
-                // Check if we've seen this sequence number before in this transfer
                 if (sequenceMap.containsKey(sequenceNumber)) {
-                    // Same sequence number was used before - log but don't fail
                     LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
                             "Duplicate sequence number " + sequenceNumber + 
                             " for transfer " + transferId + " - allowing anyway");
@@ -411,24 +396,20 @@ public class CryptoUtils {
             RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
             int keySize = rsaPublicKey.getModulus().bitLength();
             
-            // Enforce minimum key size of 2048 bits (industry standard)
             if (keySize < 2048) {
                 LoggingManager.logSecurity(logger, "SECURITY ALERT: Weak RSA key rejected - size: " + keySize + " bits");
                 throw new SecurityException("RSA key too weak: " + keySize + " bits. Minimum required: 2048 bits");
             }
             
-            // Warn about very large keys (potential DoS)
             if (keySize > 4096) {
                 LoggingManager.logSecurity(logger, "SECURITY WARNING: Very large RSA key - size: " + keySize + " bits");
             }
             
-            // 3. Validate public exponent (should be standard values like 65537)
             long publicExponent = rsaPublicKey.getPublicExponent().longValue();
             if (publicExponent != 65537 && publicExponent != 3 && publicExponent != 17) {
                 LoggingManager.logSecurity(logger, "SECURITY WARNING: Non-standard RSA public exponent: " + publicExponent);
             }
             
-            // 4. Check for small public exponent vulnerability (though 3 is technically valid)
             if (publicExponent < 65537) {
                 LoggingManager.logSecurity(logger, "SECURITY WARNING: Small RSA public exponent may be vulnerable: " + publicExponent);
             }
@@ -531,10 +512,7 @@ public class CryptoUtils {
             int removedCount = initialSize - usedNonces.size();
             LoggingManager.logSecurity(logger, "Cleaned up " + removedCount + " expired nonces from cache");
         }
-        
-        // Clean up completed transfers from sequence tracking
-        // This prevents memory leaks in the transferSequences map
-        
+
         // Create a copy of the entry set to avoid ConcurrentModificationException
         List<Map.Entry<String, Map<Integer, String>>> transferEntries = 
             new ArrayList<>(transferSequences.entrySet());
@@ -585,8 +563,6 @@ public class CryptoUtils {
         return sb.toString();
     }
     
-    // ANTI-REPLAY
-    
     /**
      * Get maximum message age in milliseconds
      */
@@ -611,8 +587,6 @@ public class CryptoUtils {
             LoggingManager.logSecurity(logger, "ADMIN: Cleanup service shutdown interrupted");
         }
     }
-    
-    // DIGITAL SIGNATURE METHODS FOR AUTHENTICATION AND NON-REPUDIATION
     
     /**
      * Sign data with private key for authentication and non-repudiation
@@ -700,9 +674,6 @@ public class CryptoUtils {
     /**
      * Verify a SignedSecureMessage with additional transfer context
      * Verifies message integrity, sender authenticity, and sequence integrity
-     * @param signedMessage The signed message to verify
-     * @param senderPublicKey The public key of the sender for signature verification
-     * @param transferId Optional transfer ID for enhanced replay protection
      */
     public static boolean verifySignedMessage(SignedSecureMessage signedMessage, PublicKey senderPublicKey, String transferId) throws Exception {
         if (signedMessage == null || senderPublicKey == null) {
@@ -713,18 +684,14 @@ public class CryptoUtils {
         long currentTime = System.currentTimeMillis();
         long signatureAge = currentTime - signedMessage.getSignatureTimestamp();
         
-        // Use a wider tolerance for timestamp validation to accommodate clock skew
-        // This helps in environments where system clocks might not be perfectly synchronized
         if (signatureAge > MAX_MESSAGE_AGE_MS * 1.5) { // Increased tolerance (7.5 minutes instead of 5)
             LoggingManager.logSecurity(logger, "SECURITY WARNING: SignedSecureMessage with old signature (age: " + 
                                      (signatureAge / 1000) + "s) - accepting but logging.");
-            // Continue processing despite age - prioritize successful transfer
         }
         
-        if (signatureAge < -MAX_TIMESTAMP_SKEW_MS * 2) { // Double the acceptable future skew (2 minutes)
+        if (signatureAge < -MAX_TIMESTAMP_SKEW_MS * 2) { 
             LoggingManager.logSecurity(logger, "SECURITY WARNING: SignedSecureMessage from future (" + 
                                      (-signatureAge / 1000) + "s ahead) - possible clock skew, accepting but logging.");
-            // Continue processing despite future timestamp - prioritize successful transfer
         }
         
         // 2. Recreate the signable data from the message
@@ -738,14 +705,11 @@ public class CryptoUtils {
                                      (signedMessage.getSenderUsername() != null ? signedMessage.getSenderUsername() : "unknown"));
             
             // 4. If signature is valid and transferId is provided, perform sequence validation on the embedded message
-            // But don't let sequence validation failures prevent the transfer
             if (transferId != null) {
                 try {
                     SecureMessage innerMsg = signedMessage.getMessage();
-                    // Track the sequence separately, but don't make it a pass/fail requirement
                     validateSequenceOnly(innerMsg, transferId);
                     
-                    // Extract sequence number for diagnostic logs
                     int sequenceNumber = -1;
                     if (innerMsg.nonce != null && innerMsg.nonce.contains(":")) {
                         try {
@@ -756,11 +720,9 @@ public class CryptoUtils {
                                                          " for transfer " + transferId);
                             }
                         } catch (NumberFormatException e) {
-                            // Just for logging, continue regardless
                         }
                     }
                 } catch (Exception e) {
-                    // Log but don't fail the signature verification
                     LoggingManager.logSecurity(logger, "WARNING: Error during sequence validation: " + e.getMessage());
                 }
             }
@@ -775,8 +737,6 @@ public class CryptoUtils {
     
     /**
      * Create signable data from SecureMessage components
-     * Ensures all critical message components are included in signature
-     * Uses a standardized format to ensure consistent results between sender and receiver
      */
     private static byte[] createSignableData(SecureMessage message) throws Exception {
         if (message == null) {
@@ -786,9 +746,6 @@ public class CryptoUtils {
         try {
             java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
             java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
-            
-            // IMPORTANT: When creating signable data, order and format must be exactly the same
-            // between sender and receiver to ensure the signature verifies correctly
             
             // Include IV first as it should always be present
             if (message.iv != null) {
@@ -814,14 +771,10 @@ public class CryptoUtils {
                 dos.writeInt(0);
             }
             
-            // Include timestamp as a predictable size value
             dos.writeLong(message.timestamp);
-            
-            // Include nonce (critical for replay protection), but exclude any sequence information
-            // This ensures the signature verification is decoupled from sequence checking
+
             String nonceToSign = message.nonce;
             if (nonceToSign != null && nonceToSign.contains(":")) {
-                // Only include the base nonce (before the sequence number) in the signature
                 nonceToSign = nonceToSign.split(":", 2)[0];
             }
             dos.writeUTF(nonceToSign != null ? nonceToSign : "");
@@ -840,15 +793,13 @@ public class CryptoUtils {
     
     /**
      * Validate only the sequence number for a message, without performing MAC validation
-     * This is used when we want to track sequence numbers but already verified the signature
      */
     public static boolean validateSequenceOnly(SecureMessage message, String transferId) {
         if (message == null || transferId == null) {
             LoggingManager.logSecurity(logger, "WARNING: Cannot validate sequence - null message or transferId");
-            return true; // Don't fail the transfer for this reason
+            return true;
         }
         
-        // Parse sequence number from nonce if present
         int sequenceNumber = -1;
         if (message.nonce != null && message.nonce.contains(":")) {
             try {
@@ -857,51 +808,37 @@ public class CryptoUtils {
                     sequenceNumber = Integer.parseInt(nonceParts[1]);
                 }
             } catch (NumberFormatException e) {
-                // This is not critical - log warning but don't fail
                 LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number from nonce: " + message.nonce);
-                return true; // Continue even if we can't parse
+                return true; 
             }
         } else {
-            // This is not critical - log warning but don't fail
             LoggingManager.logSecurity(logger, "WARNING: No sequence number found in nonce: " + message.nonce);
-            return true; // Continue even without sequence
+            return true; 
         }
         
-        // Get or create sequence tracking map for this transfer
         Map<Integer, String> sequenceMap = transferSequences.computeIfAbsent(transferId, k -> new ConcurrentHashMap<>());
         
-        // Log sequence tracking map size periodically for diagnostics
         if (sequenceNumber % 50 == 0) {
             LoggingManager.logSecurity(logger, "Sequence tracking info: Transfer " + transferId + 
                                      " has " + sequenceMap.size() + " sequences tracked");
         }
         
-        // Check if we've seen this sequence number before in this transfer
         if (sequenceMap.containsKey(sequenceNumber)) {
-            // Same sequence number was used before - could be a replay attack
-            // First, check if the nonce is also the same - that would be a true duplicate
             if (sequenceMap.get(sequenceNumber).equals(message.nonce)) {
-                // Exact duplicate chunk (same sequence number AND same nonce) - likely a network retransmission
-                // This is normal in some network conditions, so we'll allow it but log it
                 LoggingManager.logSecurity(logger, "NOTICE: Duplicate chunk detected (same sequence and nonce). " +
                                           "Sequence: " + sequenceNumber + " for transfer " + transferId);
                 return true;
             } else {
-                // Different nonce with same sequence - likely a replay attack attempt
                 LoggingManager.logSecurity(logger, "SECURITY ALERT: Replay attack detected! Duplicate sequence " + 
                                          sequenceNumber + " with different nonce for transfer " + transferId + 
                                          ". Original nonce: " + sequenceMap.get(sequenceNumber).split(":", 2)[0] + 
                                          ", New nonce: " + message.nonce.split(":", 2)[0]);
-                // In case of a suspected replay attack, we reject the chunk
                 return false;
             }
         }
         
-        // Validate the sequence order to detect gaps or out-of-order chunks
         validateSequenceOrder(transferId, sequenceNumber);
         
-        // Store this sequence number as used for this transfer ID
-        // We use the nonce as the value to ensure uniqueness
         sequenceMap.put(sequenceNumber, message.nonce);
         LoggingManager.logSecurity(logger, "Recorded chunk sequence " + sequenceNumber + " for transfer " + transferId);
         return true;
@@ -910,10 +847,6 @@ public class CryptoUtils {
     /**
      * Diagnostic method to troubleshoot signature verification issues
      * This method provides detailed information about a signed message without failing on validation issues
-     * @param signedMessage The signed message to analyze
-     * @param senderPublicKey The public key of the sender
-     * @param transferId The transfer ID
-     * @return A diagnostic string with information about the message
      */
     public static String getDiagnosticInfo(SignedSecureMessage signedMessage, PublicKey senderPublicKey, String transferId) {
         if (signedMessage == null) {
@@ -923,7 +856,6 @@ public class CryptoUtils {
         StringBuilder diagnosticInfo = new StringBuilder();
         diagnosticInfo.append("DIAGNOSTIC INFO FOR SIGNED MESSAGE\n");
         
-        // Basic message structure
         diagnosticInfo.append("Sender: ").append(signedMessage.getSenderUsername() != null ? 
                                                signedMessage.getSenderUsername() : "unknown").append("\n");
         diagnosticInfo.append("Signature present: ").append(signedMessage.getSignature() != null).append("\n");
@@ -932,7 +864,6 @@ public class CryptoUtils {
         }
         diagnosticInfo.append("Signature timestamp: ").append(signedMessage.getSignatureTimestamp()).append("\n");
         
-        // Inner message
         SecureMessage innerMsg = signedMessage.getMessage();
         if (innerMsg != null) {
             diagnosticInfo.append("Inner message present: true\n");
@@ -958,7 +889,6 @@ public class CryptoUtils {
             diagnosticInfo.append("Inner message present: false\n");
         }
         
-        // Try verification
         if (senderPublicKey != null && innerMsg != null) {
             try {
                 byte[] messageData = createSignableData(innerMsg);
@@ -982,7 +912,6 @@ public class CryptoUtils {
             if (sequenceMap != null) {
                 diagnosticInfo.append("Sequence map size for transfer: ").append(sequenceMap.size()).append("\n");
                 
-                // Check if this sequence number is already in the map
                 int sequenceNumber = -1;
                 if (innerMsg.nonce.contains(":")) {
                     try {
@@ -993,7 +922,6 @@ public class CryptoUtils {
                                          .append(sequenceMap.containsKey(sequenceNumber)).append("\n");
                         }
                     } catch (NumberFormatException e) {
-                        // Ignore parsing errors in diagnostic
                     }
                 }
             } else {
@@ -1006,9 +934,6 @@ public class CryptoUtils {
     
     /**
      * Validate the chunk sequence to check for gaps or out-of-order chunks
-     * @param transferId The transfer ID
-     * @param sequenceNumber The current sequence number
-     * @return True if the sequence is valid, false if there's a significant gap or out-of-order issue
      */
     private static boolean validateSequenceOrder(String transferId, int sequenceNumber) {
         Map<Integer, String> sequenceMap = transferSequences.get(transferId);
@@ -1017,23 +942,19 @@ public class CryptoUtils {
             return true;
         }
 
-        // Find the highest and lowest sequence numbers we've seen for this transfer
         int highestSequence = -1;
         int lowestSequence = Integer.MAX_VALUE;
         
-        // Calculate some statistics about the sequence map
         Set<Integer> sequenceNumbers = sequenceMap.keySet();
         for (Integer seq : sequenceNumbers) {
             highestSequence = Math.max(highestSequence, seq);
             lowestSequence = Math.min(lowestSequence, seq);
         }
         
-        // Calculate expected vs. actual sequence count for gap detection
         int expectedCount = highestSequence - lowestSequence + 1;
         int actualCount = sequenceNumbers.size();
         double completeness = (double) actualCount / expectedCount * 100.0;
         
-        // Log gap information periodically for very large transfers
         if (sequenceNumber % 100 == 0 && expectedCount > 100) {
             LoggingManager.logSecurity(logger, "Sequence statistics for transfer " + transferId + 
                                      ": Range [" + lowestSequence + "-" + highestSequence + "], " +
@@ -1041,26 +962,19 @@ public class CryptoUtils {
                                      String.format("%.1f%%", completeness) + " complete)");
         }
         
-        // Allow sequence to be equal to highest+1 (next in order)
         if (sequenceNumber == highestSequence + 1) {
             return true;
         }
         
-        // Allow receiving a slightly older sequence number (for out-of-order delivery)
-        // We'll allow up to 10 chunks out-of-order, which is reasonable for most networks
         if (sequenceNumber >= highestSequence - 10 && sequenceNumber <= highestSequence) {
             return true;
         }
         
-        // Allow a small jump forward (in case of lost chunks)
-        // Maximum tolerable gap is 5 chunks (increased from 3)
         if (sequenceNumber > highestSequence && sequenceNumber <= highestSequence + 5) {
             return true;
         }
         
-        // For large transfers, we need to be more lenient with sequence gaps
         if (sequenceMap.size() > 100) {
-            // For large transfers, allow bigger gaps as network conditions may vary more
             if (sequenceNumber > highestSequence && sequenceNumber <= highestSequence + 20) {
                 LoggingManager.logSecurity(logger, "NOTICE: Larger sequence gap allowed for large transfer " + 
                                          transferId + ". Current: " + sequenceNumber + ", Previous highest: " + highestSequence);
@@ -1068,26 +982,18 @@ public class CryptoUtils {
             }
         }
         
-        // If we're here, there's a significant gap or out-of-order issue
         LoggingManager.logSecurity(logger, "SECURITY WARNING: Unusual chunk sequence detected! " +
                                  "Current: " + sequenceNumber + ", Highest: " + highestSequence + 
                                  ", Lowest: " + lowestSequence + " for transfer " + transferId);
         
-        // We'll log the warning but still allow the transfer to continue
         return true;
     }
     
-    /**
-     * Mark a transfer as complete, which will reset its sequence tracking after a short delay
-     * This prevents replay alerts when a new transfer with the same ID starts later
-     * @param transferId The ID of the completed transfer
-     */
     public static void markTransferComplete(String transferId) {
         if (transferId == null || transferId.isEmpty()) {
             return;
         }
         
-        // Schedule cleanup after a short delay (10 seconds) to allow for any in-flight chunks
         cleanupExecutor.schedule(() -> {
             Map<Integer, String> sequenceMap = transferSequences.remove(transferId);
             if (sequenceMap != null) {
