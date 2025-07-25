@@ -11,7 +11,7 @@ This project implements a secure file transfer protocol that ensures confidentia
 Directory structure:
 
 ```
-└──secure-file-transfer-protocol/
+└──-secure-file-transfer-protocol/
     ├── README.md
     ├── build.bat
     ├── build.sh
@@ -20,9 +20,18 @@ Directory structure:
     │   ├── Alice_transfer_history.dat
     │   └── Bob_transfer_history.dat
     ├── docs/
-    │   ├── [Update]Security Flow Architecture.drawio
-    │   ├── architecture.xml
-    │   └── Security Flow Architecture.drawio
+    │   └── draw.io/
+    │       ├── [Update]Security Flow Architecture.drawio
+    │       ├── architecture.xml
+    │       ├── Detailed_Security_Flow.drawio
+    │       ├── Detailed_Security_Flow_with_Logs.drawio
+    │       ├── Security Flow Architecture.drawio
+    │       └── securityfllow.drawio
+    ├── logs/
+    │   └── security/
+    │       ├── security_flow_emergency_1_0.log.lck
+    │       ├── security_flow_emergency_2_0.log.lck
+    │       └── security_flow_emergency_3_0.log.lck
     ├── resources/
     │   ├── config.properties
     │   └── logging.properties
@@ -46,16 +55,19 @@ Directory structure:
     │   │   ├── SignedSecureMessage.java
     │   │   ├── TransferRecord.java
     │   │   └── User.java
-    │   └── server/
-    │       ├── DoSMonitor.java
-    │       ├── Server.java
-    │       ├── ServerConnectionHandler.java
-    │       └── UserManager.java
+    │   ├── server/
+    │   │   ├── DoSMonitor.java
+    │   │   ├── Server.java
+    │   │   ├── ServerConnectionHandler.java
+    │   │   └── UserManager.java
+    │   └── utils/
+    │       └── LoggingTest.java
     ├── .github/
     │   └── workflows/
     │       └── build.yml
     └── .scannerwork/
         └── .sonar_lock
+
 ```
 
 ## Java Version Requirement
