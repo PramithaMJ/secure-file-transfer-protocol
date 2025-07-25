@@ -1,0 +1,2 @@
+2025-07-25 18:49:58.008 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Established socket connection to localhost:9999
+2025-07-25 18:49:58.010 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: USER_CREATION | Creating user object with credentials for: Bob

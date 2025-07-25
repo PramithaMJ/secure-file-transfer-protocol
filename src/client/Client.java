@@ -95,47 +95,67 @@ public class Client {
     
     public boolean login(String username) {
         try {
+            LoggingManager.logSecurityStep(logger, "LOGIN_START", 
+                    "Starting authentication process for user: " + username);
+                    
             if (!connected) {
+                LoggingManager.logSecurityStep(logger, "CONNECTION_INIT", 
+                        "Not connected to server, initiating connection");
                 connect();
             }
             
-            LoggingManager.logSecurity(logger, "Creating user object with credentials for: " + username);
+            LoggingManager.logSecurityStep(logger, "USER_CREATION", 
+                    "Creating user object with credentials for: " + username);
             this.user = new User(username);
             
-            LoggingManager.logSecurity(logger, "Loading transfer history for user: " + username);
+            LoggingManager.logSecurityStep(logger, "HISTORY_LOADING", 
+                    "Loading transfer history for user: " + username);
             this.transferHistory = new TransferHistory(username);
             
-            LoggingManager.logSecurity(logger, "Sending authentication request to server");
+            LoggingManager.logSecurityStep(logger, "AUTH_REQUEST", 
+                    "Sending authentication request to server");
             sendToServer(user);
             
+            LoggingManager.logSecurityStep(logger, "WAITING_RESPONSE", 
+                    "Waiting for server authentication response");
             Object response = messageQueue.poll(5, TimeUnit.SECONDS);
             
             if (response instanceof String) {
                 String msg = (String) response;
                 if (msg.startsWith("LOGIN_SUCCESS") || msg.startsWith("REGISTER_SUCCESS")) {
+                    boolean isNewUser = msg.startsWith("REGISTER_SUCCESS");
+                    
                     // Parse session token from response
                     String[] parts = msg.split("\\|");
                     if (parts.length >= 3) {
                         sessionToken = parts[2];
-                        LoggingManager.logSecurity(logger, "Session token received: " + 
-                                                 sessionToken.substring(0, 8) + "...");
+                        LoggingManager.logSession(logger, sessionToken, "RECEIVED", 
+                                "Session token received from server for user: " + username);
                         
                         // Start session refresh timer
+                        LoggingManager.logSecurityStep(logger, "SESSION_REFRESH_TIMER", 
+                                "Starting session refresh timer");
                         startSessionRefreshTimer();
                     }
                     
                     logger.info("Logged in as: " + username);
-                    LoggingManager.logSecurity(logger, "Authentication successful for user: " + username);
+                    LoggingManager.logAuthentication(logger, username, true, 
+                            isNewUser ? "New user registration successful" : "Login successful");
                     return true;
                 } else {
-                    LoggingManager.logSecurity(logger, "Authentication failed for user: " + username);
+                    LoggingManager.logAuthentication(logger, username, false, 
+                            "Authentication failed: " + msg);
                 }
+            } else {
+                LoggingManager.logAuthentication(logger, username, false, 
+                        "No response received from server or invalid response type");
             }
             
             return false;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error during login", e);
-            LoggingManager.logSecurity(logger, "Exception during authentication: " + e.getMessage());
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                    "Exception during authentication: " + e.getMessage());
             return false;
         }
     }
@@ -281,27 +301,40 @@ public class Client {
     
     private void sendFileData(String transferId, String filePath, SecretKey symmetricKey) {
         try {
+            LoggingManager.logSecurityStep(logger, "FILE_TRANSFER_START", 
+                    "Starting secure file transfer process for transfer ID: " + transferId);
+                    
             Path path = Paths.get(filePath);
             byte[] fileData = Files.readAllBytes(path);
             String fileName = path.getFileName().toString();
             
+            LoggingManager.logSecurityStep(logger, "FILE_LOADED", 
+                    "Loaded file data: " + fileName + ", Size: " + fileData.length + " bytes");
             LoggingManager.logTransfer(logger, transferId, "Starting file transfer", 
                 "File: " + fileName + ", Size: " + fileData.length + " bytes");
             
             FileTransferRequest request = activeTransfers.get(transferId);
             if (request == null) {
                 logger.warning("Transfer not found: " + transferId);
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING,
+                        "Attempted to send file data for unknown transfer ID: " + transferId);
                 LoggingManager.logTransfer(logger, transferId, "Transfer aborted", "Transfer request not found");
                 return;
             }
             
+            LoggingManager.logSecurityStep(logger, "ENCRYPTION_START", 
+                    "Starting file encryption process, using AES symmetric key");
             LoggingManager.logCrypto(logger, "File chunking", "Starting file encryption with chunk size " + CHUNK_SIZE);
+            
             List<SecureMessage> encryptedChunks = new ArrayList<>();
             for (int i = 0; i < fileData.length; i += CHUNK_SIZE) {
                 int chunkSize = Math.min(CHUNK_SIZE, fileData.length - i);
                 byte[] chunk = Arrays.copyOfRange(fileData, i, i + chunkSize);
                 
                 int currentChunkIndex = encryptedChunks.size();
+                LoggingManager.logSecurityStep(logger, "CHUNK_ENCRYPTION", 
+                        "Encrypting chunk " + (currentChunkIndex + 1) + " of size " + chunkSize + 
+                        " bytes with sequence number for anti-replay protection");
                 LoggingManager.logCrypto(logger, "Chunk encryption", "Encrypting chunk " + (currentChunkIndex + 1) + " of size " + chunkSize);
                 
                 // Pass the chunk index to encrypt it with sequence information for replay protection
@@ -310,19 +343,30 @@ public class Client {
             }
             
             logger.info("File split into " + encryptedChunks.size() + " encrypted chunks");
+            LoggingManager.logSecurityStep(logger, "FILE_PREPARATION_COMPLETE", 
+                    "File preparation complete: " + fileName + " split into " + 
+                    encryptedChunks.size() + " encrypted chunks with integrity protection");
             LoggingManager.logTransfer(logger, transferId, "File prepared", 
                 fileName + " chunked into " + encryptedChunks.size() + " encrypted segments");
             
             Integer startPoint = transferProgress.getOrDefault(transferId, 0);
+            LoggingManager.logSecurityStep(logger, "TRANSFER_RESUME_CHECK", 
+                    "Checking transfer resume point: " + (startPoint > 0 ? 
+                    "Resuming from chunk " + startPoint : "Starting new transfer"));
             
             Socket directSocket = null;
             ObjectOutputStream directOut = null;
             
             try {
+                LoggingManager.logSecurityStep(logger, "CHUNK_TRANSMISSION", 
+                        "Beginning secure chunk transmission for transfer ID: " + transferId);
+                        
                 for (int i = startPoint; i < encryptedChunks.size(); i++) {
                     if (Boolean.TRUE.equals(pausedTransfers.get(transferId))) {
                         logger.info("Transfer paused: " + transferId + " at chunk " + i);
                         transferProgress.put(transferId, i);
+                        LoggingManager.logSecurityStep(logger, "TRANSFER_PAUSED", 
+                                "Transfer paused at chunk " + i + " of " + encryptedChunks.size());
                         LoggingManager.logTransfer(logger, transferId, "Transfer paused", 
                             "Paused at chunk " + i + " of " + encryptedChunks.size());
                         return;
@@ -411,19 +455,30 @@ public class Client {
     
     private void receiveFileChunk(String transferId, int chunkIndex, int totalChunks, SecureMessage chunk) {
         try {
+            LoggingManager.logSecurityStep(logger, "RECEIVE_CHUNK_START", 
+                    "Starting processing of received chunk " + chunkIndex + " of " + totalChunks +
+                    " for transfer ID: " + transferId);
             LoggingManager.logTransfer(logger, transferId, "Receiving chunk", 
                 "Chunk " + chunkIndex + " of " + totalChunks);
                 
             FileTransferRequest request = activeTransfers.get(transferId);
             if (request == null) {
                 logger.warning("Transfer not found for chunk: " + transferId);
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                        "Received chunk for unknown transfer: " + transferId + 
+                        " - possible replay attack or stale chunk");
                 LoggingManager.logTransfer(logger, transferId, "Chunk processing failed", 
                     "Transfer request not found");
                 return;
             }
             
+            LoggingManager.logSecurityStep(logger, "KEY_VERIFICATION", 
+                    "Verifying encryption key availability for transfer: " + transferId);
+                    
             if (request.getEncryptedSymmetricKey() == null) {
                 logger.warning("No encrypted key available for transfer: " + transferId);
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                        "Missing encryption key for transfer: " + transferId);
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "No encryption key available");
                 }
@@ -432,6 +487,8 @@ public class Client {
             
             if (user.getPublicKey() == null) {
                 logger.warning("No public key available for current user: " + user.getUsername());
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                        "Missing public key for user: " + user.getUsername());
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Public key not available for decryption");
                 }
@@ -439,11 +496,17 @@ public class Client {
             }
             
             // SECURITY: Validate our own public key before using it for decryption
+            LoggingManager.logSecurityStep(logger, "PUBLIC_KEY_VALIDATION", 
+                    "Validating public key before decryption for user: " + user.getUsername());
             try {
                 CryptoUtils.validatePublicKey(user.getPublicKey());
+                LoggingManager.logKeyManagement(logger, "VALIDATION", "user_public_key", 
+                        "Public key successfully validated for: " + user.getUsername());
             } catch (Exception e) {
                 logger.severe("SECURITY: Our own public key is invalid: " + e.getMessage());
-                LoggingManager.logSecurity(logger, "SECURITY ALERT: Own public key validation failed for user " + user.getUsername());
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.ALERT, 
+                        "Own public key validation failed for user " + user.getUsername() + 
+                        ": " + e.getMessage());
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Invalid public key for decryption");
                 }
@@ -453,6 +516,8 @@ public class Client {
             String downloadPath = DOWNLOADS_DIR + File.separator + request.getFileName();
             File downloadFile = new File(downloadPath);
             
+            LoggingManager.logSecurityStep(logger, "SYMMETRIC_KEY_DECRYPTION", 
+                    "Decrypting symmetric AES key for transfer: " + transferId);
             SecretKey symmetricKey;
             try {
                 symmetricKey = CryptoUtils.decryptKey(
@@ -460,8 +525,13 @@ public class Client {
                     user.getPrivateKey(),
                     CryptoUtils.AES_ALGORITHM
                 );
+                LoggingManager.logKeyManagement(logger, "DECRYPT", "symmetric_key", 
+                        "Successfully decrypted AES symmetric key for transfer: " + transferId);
             } catch (javax.crypto.BadPaddingException e) {
                 logger.warning("Cannot decrypt the symmetric key, possibly wrong public key was used: " + e.getMessage());
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                        "Failed to decrypt symmetric key for transfer " + transferId + 
+                        ": " + e.getMessage() + " - possible key mismatch or tampering attempt");
                 if (eventListener != null) {
                     eventListener.onTransferError(transferId, "Cannot decrypt the file: incorrect key");
                 }
@@ -469,6 +539,8 @@ public class Client {
             }
             
             // Decrypt the HMAC key first
+            LoggingManager.logSecurityStep(logger, "HMAC_KEY_DECRYPTION", 
+                    "Decrypting HMAC key for integrity verification");
             SecretKey senderHmacKey = null;
             if (request.getEncryptedHmacKey() != null) {
                 try {
@@ -477,8 +549,13 @@ public class Client {
                         user.getPrivateKey(),
                         CryptoUtils.HMAC_ALGORITHM
                     );
+                    LoggingManager.logKeyManagement(logger, "DECRYPT", "hmac_key", 
+                            "Successfully decrypted HMAC key for transfer: " + transferId);
                 } catch (Exception e) {
                     logger.warning("Cannot decrypt the HMAC key: " + e.getMessage());
+                    LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                            "Failed to decrypt HMAC key: " + e.getMessage() + 
+                            " - falling back to receiver's key");
                     if (eventListener != null) {
                         eventListener.onTransferError(transferId, "Cannot decrypt the HMAC key: " + e.getMessage());
                     }
@@ -488,18 +565,27 @@ public class Client {
             
             // Use sender's HMAC key for integrity verification if available, otherwise fallback to receiver's key
             SecretKey hmacKeyToUse = (senderHmacKey != null) ? senderHmacKey : user.getHmacKey();
+            LoggingManager.logSecurityStep(logger, "KEY_SELECTION", 
+                    "Using " + (senderHmacKey != null ? "sender's" : "receiver's") + 
+                    " HMAC key for integrity verification");
             
             // First perform basic integrity check without sequence validation
+            LoggingManager.logSecurityStep(logger, "INTEGRITY_VERIFICATION", 
+                    "Verifying message integrity for chunk " + chunkIndex + 
+                    " using HMAC-SHA256");
             try {
                 if (!CryptoUtils.verifyIntegrity(chunk, hmacKeyToUse)) {
                     logger.warning("Integrity check failed for chunk: " + chunkIndex);
-                    LoggingManager.logSecurity(logger, "SECURITY ALERT: Integrity verification failed for chunk " + 
-                                            chunkIndex + " in transfer " + transferId + ". Possible tampered data.");
+                    LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.ALERT, 
+                            "Integrity verification failed for chunk " + chunkIndex + 
+                            " in transfer " + transferId + ". Possible tampered data or HMAC key mismatch.");
                     if (eventListener != null) {
                         eventListener.onTransferError(transferId, "Integrity check failed for chunk: " + chunkIndex);
                     }
                     return;
                 }
+                LoggingManager.logSecurityStep(logger, "INTEGRITY_SUCCESS", 
+                        "Message integrity verified for chunk " + chunkIndex);
                 
                 // If integrity check passes, try sequence validation separately
                 try {
@@ -541,8 +627,15 @@ public class Client {
             }
             
             // Decrypt chunk
+            LoggingManager.logSecurityStep(logger, "CHUNK_DECRYPTION", 
+                    "Decrypting chunk " + chunkIndex + " using AES symmetric key");
             byte[] decryptedChunk = CryptoUtils.decryptChunk(chunk, symmetricKey);
+            LoggingManager.logCrypto(logger, "AES_DECRYPT", 
+                    "Successfully decrypted chunk " + chunkIndex + 
+                    " (" + chunk.encryptedData.length + " bytes → " + decryptedChunk.length + " bytes)");
             
+            LoggingManager.logSecurityStep(logger, "FILE_WRITING", 
+                    "Writing decrypted chunk " + chunkIndex + " to file: " + downloadFile.getName());
             try (FileOutputStream fos = new FileOutputStream(downloadFile, true)) {
                 fos.write(decryptedChunk);
             }

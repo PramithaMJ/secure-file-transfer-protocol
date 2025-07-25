@@ -1,0 +1,245 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.7">
+  <diagram name="Complete Security Flow with Logs" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
+    <mxGraphModel dx="1216" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7baba1c4bc27f4b0-2" value="Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="510" y="50" width="100" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-10" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-2" vertex="1">
+          <mxGeometry x="45" y="100" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-3" value="Alice (Sender)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="120" y="60" width="135" height="770" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-13" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
+          <mxGeometry x="62.5" y="100" width="10" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-30" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
+          <mxGeometry x="62.5" y="260" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-41" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
+          <mxGeometry x="62.5" y="500" width="10" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-49" value="" style="curved=1;endArrow=classic;html=1;rounded=0;dashed=1;entryX=-0.224;entryY=0.484;entryDx=0;entryDy=0;entryPerimeter=0;" parent="7baba1c4bc27f4b0-3" target="KKTwY3WBQpIhuzL1Xa2i-41" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="58" y="530" as="sourcePoint" />
+            <mxPoint x="53.2800000000002" y="583.5599999999998" as="targetPoint" />
+            <Array as="points">
+              <mxPoint y="530" />
+              <mxPoint x="-20" y="560" />
+              <mxPoint y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-54" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-3" vertex="1">
+          <mxGeometry x="62.5" y="720" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-59" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Securely erase ephemeral keys&lt;br&gt;to ensure Perfect Forward Secrecy&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="7baba1c4bc27f4b0-3" vertex="1">
+          <mxGeometry x="-17.5" y="680" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-4" value="Bob (Recipient)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#d5e8d4;strokeColor=#82b366;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="1" vertex="1">
+          <mxGeometry x="827.5" y="55" width="135" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-11" value="1) Register and send RSA public key&lt;br&gt;[RSA-2048]" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="170" as="sourcePoint" />
+            <mxPoint x="550" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-1" value="3) Register and send RSA public key&lt;br&gt;[RSA-2048]" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;elbow=vertical;fontColor=#000066;exitX=-0.017;exitY=0.194;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="7baba1c4bc27f4b0-8" edge="1">
+          <mxGeometry x="-0.0017" y="-5" relative="1" as="geometry">
+            <mxPoint x="910" y="200" as="sourcePoint" />
+            <mxPoint x="564.9957142857143" y="200.00000000000017" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-2" value="2) Success + session token" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#006600;" parent="1" source="7baba1c4bc27f4b0-10" target="7baba1c4bc27f4b0-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="216" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-3" value="4) Success + session token" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#006600;" parent="1" source="7baba1c4bc27f4b0-2" target="7baba1c4bc27f4b0-8" edge="1">
+          <mxGeometry x="0.0127" y="10" relative="1" as="geometry">
+            <mxPoint x="510" y="240" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="570" y="230" />
+            </Array>
+            <mxPoint x="440" y="240" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-25" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="555" y="320" width="10" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-26" value="5) Request Bob&#39;s public key" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;elbow=vertical;fontColor=#000066;" parent="1" edge="1">
+          <mxGeometry x="0.0011" y="10" relative="1" as="geometry">
+            <mxPoint x="200" y="340" as="sourcePoint" />
+            <mxPoint x="550" y="340" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-27" value="6) Bob&#39;s verified public key" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#006600;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="370" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="370" />
+            </Array>
+            <mxPoint x="555" y="370" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-31" value="Generate AES-256 symmetric&lt;br&gt;key and HMAC key" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=#000066;" parent="1" vertex="1">
+          <mxGeometry x="30" y="350" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-32" value="&lt;b&gt;HMAC&lt;/b&gt;: HMAC-SHA256&lt;br&gt;&lt;b&gt;RSA&lt;/b&gt;: SHA256withRSA&lt;br&gt;&lt;b&gt;AES&lt;/b&gt;: AES-256-GCM" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000066;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="40" y="170" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-34" value="7) Encrypt symmetric key with&lt;br&gt;Bob&#39;s public key [RSA/OAEP]&lt;br&gt;Create transfer request" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=#000066;" parent="1" vertex="1">
+          <mxGeometry x="20" y="390" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-36" value="8) Send file transfer request with&lt;br&gt;encrypted symmetric key + file metadata" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.862;exitY=0.961;exitDx=0;exitDy=0;exitPerimeter=0;fontColor=#000066;" parent="1" source="KKTwY3WBQpIhuzL1Xa2i-30" edge="1">
+          <mxGeometry x="-0.007" relative="1" as="geometry">
+            <mxPoint x="240" y="350" as="sourcePoint" />
+            <mxPoint x="550" y="426" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-38" value="9) Forward request with&lt;br&gt;unique transfer ID" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565.0003448275861" y="460.2413793103449" as="sourcePoint" />
+            <mxPoint x="880" y="460" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="950" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-42" value="10) Accept transfer request" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontColor=#000066;" parent="1" source="KKTwY3WBQpIhuzL1Xa2i-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="430" as="sourcePoint" />
+            <mxPoint x="570" y="540" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="760" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-43" value="11) Notify of acceptance" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;entryX=1;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontColor=#006600;" parent="1" target="KKTwY3WBQpIhuzL1Xa2i-41" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="460" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="560" />
+            </Array>
+            <mxPoint x="550" y="560" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-45" value="12) Forward encrypted chunks with&lt;br&gt;digital signature and HMAC" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;exitX=1.259;exitY=0.308;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="KKTwY3WBQpIhuzL1Xa2i-41" edge="1">
+          <mxGeometry x="0.0699" y="5" relative="1" as="geometry">
+            <mxPoint x="150" y="615" as="sourcePoint" />
+            <mxPoint x="550" y="615" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-46" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="555" y="600" width="10" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-47" value="13) Forward to Bob" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="KKTwY3WBQpIhuzL1Xa2i-46" target="KKTwY3WBQpIhuzL1Xa2i-44" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="630" as="sourcePoint" />
+            <mxPoint x="625" y="630" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-53" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="555" y="680" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-57" value="14) Transfer complete notification" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;entryX=0;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="690" as="sourcePoint" />
+            <mxPoint x="555" y="690" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-58" value="15) Forward completion notice" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=10;edgeStyle=elbowEdgeStyle;elbow=vertical;fontColor=#000066;exitX=1.069;exitY=0.762;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="750.96" as="sourcePoint" />
+            <mxPoint x="890" y="750" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="759.31" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-60" value="&lt;font color=&quot;#0000cc&quot; style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Secure File Transfer Protocol - Complete Security Flow with Logging&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="320" y="10" width="470" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-8" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="190" width="10" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-35" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="340" width="10" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-40" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="520" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-44" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="570" width="10" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-51" value="" style="curved=1;endArrow=classic;html=1;rounded=0;dashed=1;exitX=1.15;exitY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.833;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="KKTwY3WBQpIhuzL1Xa2i-44" target="KKTwY3WBQpIhuzL1Xa2i-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="915" y="610" as="sourcePoint" />
+            <mxPoint x="965" y="560" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="955" y="600" />
+              <mxPoint x="955" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-55" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="730" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-56" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Securely erase ephemeral keys&lt;br&gt;to ensure Perfect Forward Secrecy&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="810" y="690" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KKTwY3WBQpIhuzL1Xa2i-50" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;For each file chunk:&lt;br&gt;1. Generate nonce with&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;sequence&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;font-size: 10px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;number&lt;/span&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;2. Encrypt with AES-256-GCM&lt;br&gt;3. Add HMAC (integrity)&lt;br&gt;4. Sign with RSA private key&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="10" y="630" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="TaYypAxcR74lfXL05OrR-4" value="&lt;font style=&quot;forced-color-adjust: none; font-family: Helvetica; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 10px; box-shadow: none !important; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;For each received chunk:&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important;&quot;&gt;1. Verify Alice&#39;s signature&amp;nbsp;&lt;/font&gt;&lt;div style=&quot;forced-color-adjust: none; font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-shadow: none !important;&quot;&gt;&lt;font style=&quot;forced-color-adjust: none; font-size: 10px; box-shadow: none !important; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;with her public key&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important;&quot;&gt;2. Verify HMAC integrity&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important;&quot;&gt;3. Check nonce and sequence numbers&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important;&quot;&gt;4. Decrypt with symmetric key&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important;&quot;&gt;5. Write to file&lt;/font&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="920" y="500" width="175" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-1" value="&lt;font style=&quot;font-size: 9px;&quot; color=&quot;#990000&quot;&gt;Log: [SECURITY] Established socket connection to localhost:9999&lt;br&gt;Log: [SECURITY] Creating user object with credentials for: Alice&lt;br&gt;Log: [SECURITY] Sending authentication request to server&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="230" y="90" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-2" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [SECURITY] Session token received: dcb976a1...&lt;br&gt;Log: [SECURITY] Session refresh timer started&lt;br&gt;Log: [SECURITY] Authentication successful for user: Alice&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="240" y="220" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-3" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [SECURITY] Public key validation passed - RSA 2048 bits, exponent: 65537&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="240" y="340" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-4" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [TRANSFER:560b7259-dd84-4796-97e5-8e3968ed4256] Received transfer request: File: index.html, From: Bob, Size: 22751 bytes&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="575" y="385" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-5" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [TRANSFER:560b7259-dd84-4796-97e5-8e3968ed4256] Saved transfer record: File: index.html, Status: IN_PROGRESS, From: Bob, To: Alice&lt;br&gt;Log: Client sendAcceptTransfer] Added transfer to recipient&#39;s history: 560b7259-dd84-4796-97e5-8e3968ed4256&lt;br&gt;Log: [Client sendAcceptTransfer] Sent transfer acceptance for: 560b7259-dd84-4796-97e5-8e3968ed4256&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="210" y="470" width="310" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-6" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [TRANSFER:560b7259-dd84-4796-97e5-8e3968ed4256] Receiving signed chunk: Chunk 0 of 6 with digital signature&lt;br&gt;Log: [SECURITY] Created signable data: 4214 bytes from SecureMessage&lt;br&gt;Log: [SECURITY] Digital signature verification PASSED - sender identity confirmed&lt;br&gt;Log: [SECURITY] SignedSecureMessage verification PASSED from Bob&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="565" y="640" width="310" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-7" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [SECURITY] Sequence tracking info: Transfer 560b7259-dd84-4796-97e5-8e3968ed4256 has 0 sequences tracked&lt;br&gt;Log: [SECURITY] Recorded chunk sequence 0 for transfer 560b7259-dd84-4796-97e5-8e3968ed4256&lt;br&gt;Log: [SECURITY] Processing chunk sequence 0 for transfer 560b7259-dd84-4796-97e5-8e3968ed4256&lt;br&gt;Log: [SECURITY] Digital signature VERIFIED successfully for chunk 0 from Bob in transfer 560b7259-dd84-4796-97e5-8e3968ed4256&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="590" width="310" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-8" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [SECURITY] Message integrity verified successfully. Nonce: fe4c7739...&lt;br&gt;Log: [SECURITY] Sequence tracking info: Transfer 560b7259-dd84-4796-97e5-8e3968ed4256 has 1 sequences tracked&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="690" width="290" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-9" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [TRANSFER:560b7259-dd84-4796-97e5-8e3968ed4256] Transfer completed: Successfully received file: index.html from Bob&lt;br&gt;Log: [Client processStringMessage] Transfer completed: 560b7259-dd84-4796-97e5-8e3968ed4256&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="580" y="770" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HLsPFoTbtj-l6FU0hzT8-10" value="&lt;font color=&quot;#990000&quot; style=&quot;font-size: 9px;&quot;&gt;Log: [SECURITY] Reset sequence tracking for completed transfer: 560b7259-dd84-4796-97e5-8e3968ed4256 (6 sequences)&lt;br&gt;Log: [SECURITY] Initiating secure disconnect from server&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;align=left;size=14;" parent="1" vertex="1">
+          <mxGeometry x="225" y="790" width="300" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

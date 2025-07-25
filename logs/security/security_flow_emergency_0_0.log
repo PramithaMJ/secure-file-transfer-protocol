@@ -1,0 +1,154 @@
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] Connection allowed for IP: 127.0.0.1 (active: 1)
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: AUTH_REQUEST | Authentication request for user: Alice from IP: 127.0.0.1
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_LOOKUP | Looking up user account for: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: NEW_USER_REGISTRATION | Registering new user: Alice from IP: 127.0.0.1
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_CREATION | Creating new session for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_TOKEN_GENERATION | Generating secure session token for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_SESSION_CLEANUP | Removing any existing sessions for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_SESSION_CLEANUP | Removing all existing sessions for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | CREATED | New session created for user: Alice, with timeout: 30 minutes
+Jul 25, 2025 6:49:55 PM common.LoggingManager logAuthentication
+INFO: [SECURITY_FLOW] AUTH: SUCCESS | User: Alice | New user registered from IP: 127.0.0.1
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | CREATED | New session for newly registered user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: CONNECTION_REGISTRATION | Registering connection for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_MONITORING | Starting session monitoring for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_MONITORING_START | Starting session monitoring for session: ea07320d..., User: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d... for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d...
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: ea07320d...
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | VALIDATED | Session successfully validated and refreshed for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d... for user: Alice
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d...
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: ea07320d...
+Jul 25, 2025 6:49:55 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | VALIDATED | Session successfully validated and refreshed for user: Alice
+Jul 25, 2025 6:49:57 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] Connection allowed for IP: 127.0.0.1 (active: 2)
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: AUTH_REQUEST | Authentication request for user: Bob from IP: 127.0.0.1
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_LOOKUP | Looking up user account for: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: NEW_USER_REGISTRATION | Registering new user: Bob from IP: 127.0.0.1
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_CREATION | Creating new session for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_TOKEN_GENERATION | Generating secure session token for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_SESSION_CLEANUP | Removing any existing sessions for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: USER_SESSION_CLEANUP | Removing all existing sessions for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | CREATED | New session created for user: Bob, with timeout: 30 minutes
+Jul 25, 2025 6:49:58 PM common.LoggingManager logAuthentication
+INFO: [SECURITY_FLOW] AUTH: SUCCESS | User: Bob | New user registered from IP: 127.0.0.1
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | CREATED | New session for newly registered user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: CONNECTION_REGISTRATION | Registering connection for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_MONITORING | Starting session monitoring for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_MONITORING_START | Starting session monitoring for session: 7cafc0be..., User: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be... for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: 7cafc0be...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | VALIDATED | Session successfully validated and refreshed for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d... for user: Alice
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: ea07320d...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: ea07320d...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | VALIDATED | Session successfully validated and refreshed for user: Alice
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be... for user: Bob
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: 7cafc0be...
+Jul 25, 2025 6:49:58 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | VALIDATED | Session successfully validated and refreshed for user: Bob
+Jul 25, 2025 6:50:03 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: TRANSFER_REQUEST | Received file transfer request from Bob to Alice: index.html (22751 bytes)
+Jul 25, 2025 6:50:03 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: RECEIVER_VALIDATION | Verifying receiver exists and is online: Alice
+Jul 25, 2025 6:50:03 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: TRANSFER_CREATION | Created new transfer with ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+Jul 25, 2025 6:50:03 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | INITIATED | File: index.html (22751 bytes), From: Bob, To: Alice
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 0 of 6 with digital signature
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 0 forwarded to Alice
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 1 of 6 with digital signature
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 1 forwarded to Alice
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 2 of 6 with digital signature
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 2 forwarded to Alice
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 3 of 6 with digital signature
+Jul 25, 2025 6:50:04 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 3 forwarded to Alice
+Jul 25, 2025 6:50:05 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 4 of 6 with digital signature
+Jul 25, 2025 6:50:05 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 4 forwarded to Alice
+Jul 25, 2025 6:50:05 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Relaying signed chunk | Chunk 5 of 6 with digital signature
+Jul 25, 2025 6:50:05 PM common.LoggingManager logTransfer
+INFO: [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Signed chunk forwarded | Chunk 5 forwarded to Alice
+Jul 25, 2025 6:50:13 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] Security monitoring status: RateLimitStats{activeIPs=1, trackedRequestIPs=1, trackedLoginIPs=1, blacklistedIPs=0}
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] User logging out: Alice
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REMOVAL | Removing session: ea07320d...
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: ea07320d9ec05d4efb2f268d7346012b78e87a2b1837a4992dfc600c8f80e1aa | REMOVED | Session removed for user: Alice
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] Connection released for IP: 127.0.0.1
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be... for user: Bob
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_VALIDATION | Validating session token: 7cafc0be...
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REFRESH | Refreshing activity timestamp for session: 7cafc0be...
+Jul 25, 2025 6:50:18 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | VALIDATED | Session successfully validated and refreshed for user: Bob
+Jul 25, 2025 6:50:19 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] User logging out: Bob
+Jul 25, 2025 6:50:19 PM common.LoggingManager logSecurityStep
+INFO: [SECURITY_FLOW] STEP: SESSION_REMOVAL | Removing session: 7cafc0be...
+Jul 25, 2025 6:50:19 PM common.LoggingManager logSession
+INFO: [SECURITY_FLOW] SESSION: 7cafc0be2e80358a5a2900c6b8bf5eb139ef6936d7243ae1bc479dcb02411a76 | REMOVED | Session removed for user: Bob
+Jul 25, 2025 6:50:19 PM common.LoggingManager logSecurity
+INFO: [SECURITY_FLOW] Connection released for IP: 127.0.0.1

@@ -103,13 +103,21 @@ public class CryptoUtils {
      */
     public static SecureMessage encryptChunk(byte[] chunk, SecretKey symmetricKey, SecretKey hmacKey, int chunkIndex)
             throws Exception {
+        LoggingManager.logSecurityStep(logger, "CHUNK_ENCRYPTION", 
+                "Starting encryption of chunk with index: " + chunkIndex + ", Size: " + chunk.length + " bytes");
+                
         if (chunk == null || symmetricKey == null || hmacKey == null) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                    "Null input to encryptChunk - chunk, symmetric key, or HMAC key is null");
             throw new IllegalArgumentException("Input parameters cannot be null");
         }
         if (chunk.length == 0) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, "Attempted to encrypt empty chunk");
             throw new IllegalArgumentException("Chunk cannot be empty");
         }
         if (chunk.length > CHUNK_SIZE * 2) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Chunk size exceeds maximum allowed: " + chunk.length + " bytes");
             throw new IllegalArgumentException("Chunk size exceeds maximum allowed size: " + chunk.length);
         }
         
@@ -117,20 +125,31 @@ public class CryptoUtils {
         byte[] iv = new byte[16];
         SecureRandom.getInstanceStrong().nextBytes(iv);
         IvParameterSpec ivSpec = new IvParameterSpec(iv);
+        LoggingManager.logSecurityStep(logger, "IV_GENERATION", "Generated random IV for AES encryption");
 
         // Encrypt chunk
+        LoggingManager.logSecurityStep(logger, "AES_ENCRYPTION", 
+                "Encrypting chunk with AES using transformation: " + AES_TRANSFORMATION);
         Cipher aesCipher = Cipher.getInstance(AES_TRANSFORMATION);
         aesCipher.init(Cipher.ENCRYPT_MODE, symmetricKey, ivSpec);
         byte[] encryptedChunk = aesCipher.doFinal(chunk);
+        LoggingManager.logCrypto(logger, "AES_ENCRYPT", 
+                "Encrypted " + chunk.length + " bytes to " + encryptedChunk.length + " bytes");
 
         // Generate timestamp and secure nonce
         long timestamp = System.currentTimeMillis();
         String baseNonce = generateSecureNonce();
+        LoggingManager.logSecurityStep(logger, "NONCE_GENERATION", 
+                "Generated secure nonce: " + baseNonce.substring(0, 8) + "...");
         
         // Embed chunk index in the nonce for sequence verification
         String sequenceNonce = baseNonce + ":" + chunkIndex;
+        LoggingManager.logSecurityStep(logger, "SEQUENCE_EMBEDDING", 
+                "Embedded sequence number " + chunkIndex + " into nonce");
 
         // Calculate HMAC for integrity
+        LoggingManager.logSecurityStep(logger, "HMAC_CALCULATION", 
+                "Calculating HMAC for integrity protection using algorithm: " + HMAC_ALGORITHM);
         Mac hmac = Mac.getInstance(HMAC_ALGORITHM);
         hmac.init(hmacKey);
 
@@ -141,7 +160,13 @@ public class CryptoUtils {
         hmac.update(sequenceNonce.getBytes("UTF-8"));
         hmac.update(String.valueOf(chunkIndex).getBytes("UTF-8")); // Explicitly include chunk index in MAC
         byte[] mac = hmac.doFinal();
+        LoggingManager.logCrypto(logger, "HMAC_GENERATION", 
+                "Generated HMAC of length: " + mac.length + " bytes");
 
+        LoggingManager.logSecurityStep(logger, "SECURE_MESSAGE_CREATION", 
+                "Created secure message with nonce: " + sequenceNonce.substring(0, 8) + "..., " +
+                "timestamp: " + timestamp + ", sequence: " + chunkIndex);
+                
         return new SecureMessage(encryptedChunk, mac, iv, timestamp, sequenceNonce);
     }
     
@@ -150,12 +175,41 @@ public class CryptoUtils {
      */
     public static byte[] decryptChunk(SecureMessage message, SecretKey symmetricKey)
             throws Exception {
+        // Extract sequence number from nonce if present
+        int sequenceNumber = -1;
+        if (message.nonce != null && message.nonce.contains(":")) {
+            try {
+                String[] nonceParts = message.nonce.split(":");
+                if (nonceParts.length >= 2) {
+                    sequenceNumber = Integer.parseInt(nonceParts[1]);
+                }
+            } catch (NumberFormatException e) {
+                // If we can't parse the sequence, just proceed with decryption
+            }
+        }
+        
+        LoggingManager.logSecurityStep(logger, "CHUNK_DECRYPTION", 
+                "Starting decryption of chunk" + 
+                (sequenceNumber >= 0 ? " with sequence: " + sequenceNumber : "") + 
+                ", Encrypted size: " + message.encryptedData.length + " bytes");
+        
         IvParameterSpec ivSpec = new IvParameterSpec(message.iv);
+        LoggingManager.logSecurityStep(logger, "IV_RETRIEVAL", "Using provided IV for decryption");
 
+        LoggingManager.logSecurityStep(logger, "AES_DECRYPTION", 
+                "Decrypting chunk with AES using transformation: " + AES_TRANSFORMATION);
         Cipher aesCipher = Cipher.getInstance(AES_TRANSFORMATION);
         aesCipher.init(Cipher.DECRYPT_MODE, symmetricKey, ivSpec);
 
-        return aesCipher.doFinal(message.encryptedData);
+        byte[] decryptedData = aesCipher.doFinal(message.encryptedData);
+        
+        LoggingManager.logCrypto(logger, "AES_DECRYPT", 
+                "Decrypted " + message.encryptedData.length + " bytes to " + decryptedData.length + " bytes");
+        LoggingManager.logSecurityStep(logger, "DECRYPTION_COMPLETE", 
+                "Successfully decrypted chunk" + 
+                (sequenceNumber >= 0 ? " with sequence: " + sequenceNumber : ""));
+        
+        return decryptedData;
     }
     
     /**
@@ -178,11 +232,16 @@ public class CryptoUtils {
      * @return true if message integrity is verified and no replay detected
      */
     public static boolean verifyIntegrity(SecureMessage message, SecretKey hmacKey, String transferId) throws Exception {
+        LoggingManager.logSecurityStep(logger, "INTEGRITY_CHECK", 
+                "Starting message integrity verification" + (transferId != null ? " for transfer: " + transferId : ""));
+        
         // Input validation for security
         if (message == null || hmacKey == null) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, "NULL input to verifyIntegrity - message or key is null");
             throw new IllegalArgumentException("Message and HMAC key cannot be null");
         }
         if (message.nonce == null || message.nonce.trim().isEmpty()) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, "Empty nonce in message integrity check");
             throw new IllegalArgumentException("Message nonce cannot be null or empty");
         }
         
@@ -192,17 +251,21 @@ public class CryptoUtils {
         
         boolean ageWarning = false;
         
+        LoggingManager.logSecurityStep(logger, "TIMESTAMP_CHECK", 
+                "Message timestamp: " + message.timestamp + ", Current time: " + currentTime + 
+                ", Age: " + (messageAge / 1000) + "s");
+        
         if (messageAge > MAX_MESSAGE_AGE_MS * 2) { // Double the timeout for tolerance
             // Message is too old, but we'll still try to verify integrity
-            LoggingManager.logSecurity(logger, "SECURITY WARNING: Message is old (age: " + 
-                                     (messageAge / 1000) + "s). Continuing with verification.");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Message is old (age: " + (messageAge / 1000) + "s). Continuing with verification.");
             ageWarning = true;
         }
         
         if (messageAge < -MAX_TIMESTAMP_SKEW_MS * 2) { // Double the skew tolerance
             // Message from future, but we'll still verify integrity
-            LoggingManager.logSecurity(logger, "SECURITY WARNING: Message from future (" +
-                                     (-messageAge / 1000) + "s ahead). Possible clock skew, continuing with verification.");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Message from future (" + (-messageAge / 1000) + "s ahead). Possible clock skew, continuing with verification.");
             ageWarning = true;
         }
         
@@ -211,10 +274,14 @@ public class CryptoUtils {
         String nonceKey = message.nonce + ":" + message.timestamp;
         Long existingTimestamp = usedNonces.get(nonceKey);
         
+        LoggingManager.logSecurityStep(logger, "ANTI_REPLAY_CHECK", 
+                "Checking nonce uniqueness: " + message.nonce.substring(0, 8) + "...");
+        
         if (existingTimestamp != null && !ageWarning) {    
             // Only log the warning but continue with verification
-            LoggingManager.logSecurity(logger, "SECURITY WARNING: Potential replay detected - duplicate nonce: " + 
-                                     message.nonce.substring(0, 8) + "... - proceeding with verification");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Potential replay detected - duplicate nonce: " + 
+                    message.nonce.substring(0, 8) + "... - proceeding with verification");
         }
         
         // 3. Parse sequence number from nonce if present
@@ -224,14 +291,21 @@ public class CryptoUtils {
                 String[] nonceParts = message.nonce.split(":");
                 if (nonceParts.length >= 2) {
                     sequenceNumber = Integer.parseInt(nonceParts[1]);
+                    LoggingManager.logSecurityStep(logger, "SEQUENCE_CHECK", 
+                            "Extracted sequence number: " + sequenceNumber + 
+                            (transferId != null ? " for transfer: " + transferId : ""));
                 }
             } catch (NumberFormatException e) {
                 // If we can't parse the sequence, just proceed with basic integrity check
-                LoggingManager.logSecurity(logger, "WARNING: Could not parse sequence number from nonce: " + message.nonce);
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                        "Could not parse sequence number from nonce: " + message.nonce);
             }
         }
         
         // 4. Verify MAC calculation with same method used in encryption
+        LoggingManager.logSecurityStep(logger, "MAC_CALCULATION", 
+                "Calculating HMAC for integrity verification");
+                
         Mac hmac = Mac.getInstance(HMAC_ALGORITHM);
         hmac.init(hmacKey);
         hmac.update(message.encryptedData);
@@ -249,32 +323,44 @@ public class CryptoUtils {
         // Use timing-safe comparison to prevent timing attacks
         boolean macValid = MessageDigest.isEqual(computedMac, message.mac);
         
+        LoggingManager.logSecurityStep(logger, "MAC_VERIFICATION", 
+                "MAC verification result: " + (macValid ? "PASSED" : "FAILED"));
+        
         // 5. ANTI-REPLAY and sequence validation: Track nonces but be more lenient with failures
         if (macValid) {
             // Track this nonce as used - even in temporary fallback mode
             usedNonces.put(nonceKey, currentTime);
+            LoggingManager.logSecurityStep(logger, "NONCE_TRACKING", 
+                    "Recorded nonce as used: " + message.nonce.substring(0, 8) + "...");
             
             // If transfer ID is provided and sequence number was parsed, log sequence info
             if (transferId != null && sequenceNumber >= 0) {
                 // Get or create sequence tracking map for this transfer
                 Map<Integer, String> sequenceMap = transferSequences.computeIfAbsent(transferId, k -> new ConcurrentHashMap<>());
                 
+                LoggingManager.logSecurityStep(logger, "SEQUENCE_TRACKING", 
+                        "Validating sequence " + sequenceNumber + " for transfer: " + transferId);
+                
                 // Check if we've seen this sequence number before in this transfer
                 if (sequenceMap.containsKey(sequenceNumber)) {
                     // Same sequence number was used before - log but don't fail
-                    LoggingManager.logSecurity(logger, "SECURITY WARNING: Duplicate sequence number " + 
-                                              sequenceNumber + " for transfer " + transferId + " - allowing anyway");
+                    LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                            "Duplicate sequence number " + sequenceNumber + 
+                            " for transfer " + transferId + " - allowing anyway");
                 }
                 
                 // Store this sequence number as used for this transfer ID 
                 sequenceMap.put(sequenceNumber, nonceKey);
-                LoggingManager.logSecurity(logger, "Recorded chunk sequence " + sequenceNumber + " for transfer " + transferId);
+                LoggingManager.logSecurityStep(logger, "SEQUENCE_RECORDING", 
+                        "Recorded chunk sequence " + sequenceNumber + " for transfer " + transferId);
             }
             
-            LoggingManager.logSecurity(logger, "Message integrity verified successfully. Nonce: " + message.nonce.substring(0, 8) + "...");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.INFO, 
+                    "Message integrity verified successfully. Nonce: " + message.nonce.substring(0, 8) + "...");
         } else {
-            LoggingManager.logSecurity(logger, "SECURITY ALERT: MAC verification failed for message with nonce: " + 
-                                     message.nonce.substring(0, 8) + "...");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.ALERT, 
+                    "MAC verification failed for message with nonce: " + 
+                    message.nonce.substring(0, 8) + "... - POTENTIAL SECURITY BREACH");
         }
         
         return macValid;

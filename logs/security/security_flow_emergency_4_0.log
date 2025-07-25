@@ -1,0 +1,278 @@
+2025-07-25 18:49:58.272 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Session refresh timer started
+2025-07-25 18:49:58.283 INFO [common.LoggingManager logAuthentication] [SECURITY_FLOW] AUTH: SUCCESS | User: Bob | New user registration successful
+2025-07-25 18:50:03.641 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:03.642 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:03.656 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Using validated public key for Alice, fingerprint: b890122c9314e7a9...
+2025-07-25 18:50:03.710 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Saved transfer record | File: index.html, Status: IN_PROGRESS, From: Bob, To: Alice
+2025-07-25 18:50:04.824 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_TRANSFER_START | Starting secure file transfer process for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:04.830 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_LOADED | Loaded file data: index.html, Size: 22751 bytes
+2025-07-25 18:50:04.831 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Starting file transfer | File: index.html, Size: 22751 bytes
+2025-07-25 18:50:04.832 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ENCRYPTION_START | Starting file encryption process, using AES symmetric key
+2025-07-25 18:50:04.834 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 1 of size 4096 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.837 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 0, Size: 4096 bytes
+2025-07-25 18:50:04.840 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.840 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.847 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: d6f8d50a...
+2025-07-25 18:50:04.848 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 0 into nonce
+2025-07-25 18:50:04.849 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.854 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: d6f8d50a..., timestamp: 1753449604845, sequence: 0
+2025-07-25 18:50:04.855 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 2 of size 4096 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.855 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 1, Size: 4096 bytes
+2025-07-25 18:50:04.855 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.856 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.856 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: cba3f6a3...
+2025-07-25 18:50:04.857 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 1 into nonce
+2025-07-25 18:50:04.857 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.858 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: cba3f6a3..., timestamp: 1753449604856, sequence: 1
+2025-07-25 18:50:04.862 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 3 of size 4096 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.863 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 2, Size: 4096 bytes
+2025-07-25 18:50:04.866 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.870 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.871 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: 597b1a38...
+2025-07-25 18:50:04.871 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 2 into nonce
+2025-07-25 18:50:04.871 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.872 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: 597b1a38..., timestamp: 1753449604871, sequence: 2
+2025-07-25 18:50:04.873 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 4 of size 4096 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.874 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 3, Size: 4096 bytes
+2025-07-25 18:50:04.875 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.875 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.877 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: 8fe6e4d7...
+2025-07-25 18:50:04.878 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 3 into nonce
+2025-07-25 18:50:04.879 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.882 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: 8fe6e4d7..., timestamp: 1753449604876, sequence: 3
+2025-07-25 18:50:04.883 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 5 of size 4096 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.884 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 4, Size: 4096 bytes
+2025-07-25 18:50:04.884 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.885 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.886 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: 3298373a...
+2025-07-25 18:50:04.886 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 4 into nonce
+2025-07-25 18:50:04.886 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.887 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: 3298373a..., timestamp: 1753449604885, sequence: 4
+2025-07-25 18:50:04.888 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Encrypting chunk 6 of size 2271 bytes with sequence number for anti-replay protection
+2025-07-25 18:50:04.888 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_ENCRYPTION | Starting encryption of chunk with index: 5, Size: 2271 bytes
+2025-07-25 18:50:04.888 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_GENERATION | Generated random IV for AES encryption
+2025-07-25 18:50:04.888 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_ENCRYPTION | Encrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:04.891 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_GENERATION | Generated secure nonce: 76c3c361...
+2025-07-25 18:50:04.891 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_EMBEDDING | Embedded sequence number 5 into nonce
+2025-07-25 18:50:04.891 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_CALCULATION | Calculating HMAC for integrity protection using algorithm: HmacSHA256
+2025-07-25 18:50:04.893 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SECURE_MESSAGE_CREATION | Created secure message with nonce: 76c3c361..., timestamp: 1753449604890, sequence: 5
+2025-07-25 18:50:04.893 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_PREPARATION_COMPLETE | File preparation complete: index.html split into 6 encrypted chunks with integrity protection
+2025-07-25 18:50:04.898 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | File prepared | index.html chunked into 6 encrypted segments
+2025-07-25 18:50:04.898 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TRANSFER_RESUME_CHECK | Checking transfer resume point: Starting new transfer
+2025-07-25 18:50:04.899 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_TRANSMISSION | Beginning secure chunk transmission for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:04.899 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Sending chunk | Chunk 0 of 6
+2025-07-25 18:50:04.900 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:04.908 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:04.912 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: d6f8d50a...)
+2025-07-25 18:50:04.916 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 0 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:04.950 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Sending chunk | Chunk 1 of 6
+2025-07-25 18:50:04.950 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:04.954 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:04.954 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: cba3f6a3...)
+2025-07-25 18:50:04.955 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 1 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:04.969 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Sending chunk | Chunk 2 of 6
+2025-07-25 18:50:04.970 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:04.974 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:04.974 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: 597b1a38...)
+2025-07-25 18:50:04.974 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 2 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:04.986 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Sending chunk | Chunk 3 of 6
+2025-07-25 18:50:04.986 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:04.990 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:04.991 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: 8fe6e4d7...)
+2025-07-25 18:50:04.991 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 3 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.004 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Sending chunk | Chunk 4 of 6
+2025-07-25 18:50:05.005 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:05.008 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:05.008 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: 3298373a...)
+2025-07-25 18:50:05.008 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 4 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.104 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.105 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.106 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:05.107 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature verification PASSED - sender identity confirmed
+2025-07-25 18:50:05.108 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SignedSecureMessage verification PASSED from Bob
+2025-07-25 18:50:05.108 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Recorded chunk sequence 1 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.109 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Processing chunk sequence 1 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.109 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature VERIFIED successfully for chunk 1 from Bob in transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.109 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: RECEIVE_CHUNK_START | Starting processing of received chunk 1 of 6 for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.110 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving chunk | Chunk 1 of 6
+2025-07-25 18:50:05.110 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_VERIFICATION | Verifying encryption key availability for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.110 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: PUBLIC_KEY_VALIDATION | Validating public key before decryption for user: Alice
+2025-07-25 18:50:05.111 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.111 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: VALIDATION | KeyID: user_public_key | Public key successfully validated for: Alice
+2025-07-25 18:50:05.112 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SYMMETRIC_KEY_DECRYPTION | Decrypting symmetric AES key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.115 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: symmetric_key | Successfully decrypted AES symmetric key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.116 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_KEY_DECRYPTION | Decrypting HMAC key for integrity verification
+2025-07-25 18:50:05.119 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: hmac_key | Successfully decrypted HMAC key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.120 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_SELECTION | Using sender's HMAC key for integrity verification
+2025-07-25 18:50:05.120 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_VERIFICATION | Verifying message integrity for chunk 1 using HMAC-SHA256
+2025-07-25 18:50:05.121 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_CHECK | Starting message integrity verification
+2025-07-25 18:50:05.121 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TIMESTAMP_CHECK | Message timestamp: 1753449604856, Current time: 1753449605121, Age: 0s
+2025-07-25 18:50:05.121 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ANTI_REPLAY_CHECK | Checking nonce uniqueness: cba3f6a3...
+2025-07-25 18:50:05.121 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_CHECK | Extracted sequence number: 1
+2025-07-25 18:50:05.122 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_CALCULATION | Calculating HMAC for integrity verification
+2025-07-25 18:50:05.122 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_VERIFICATION | MAC verification result: PASSED
+2025-07-25 18:50:05.122 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_TRACKING | Recorded nonce as used: cba3f6a3...
+2025-07-25 18:50:05.122 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] [SECURITY_INFO] Message integrity verified successfully. Nonce: cba3f6a3...
+2025-07-25 18:50:05.122 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_SUCCESS | Message integrity verified for chunk 1
+2025-07-25 18:50:05.123 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Decrypting chunk 1 using AES symmetric key
+2025-07-25 18:50:05.123 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Starting decryption of chunk with sequence: 1, Encrypted size: 4112 bytes
+2025-07-25 18:50:05.124 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_RETRIEVAL | Using provided IV for decryption
+2025-07-25 18:50:05.124 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_DECRYPTION | Decrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:05.124 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: DECRYPTION_COMPLETE | Successfully decrypted chunk with sequence: 1
+2025-07-25 18:50:05.125 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_WRITING | Writing decrypted chunk 1 to file: index.html
+2025-07-25 18:50:05.128 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving signed chunk | Chunk 2 of 6 with digital signature
+2025-07-25 18:50:05.129 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.129 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.130 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:05.131 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature verification PASSED - sender identity confirmed
+2025-07-25 18:50:05.131 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SignedSecureMessage verification PASSED from Bob
+2025-07-25 18:50:05.131 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Recorded chunk sequence 2 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.131 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Processing chunk sequence 2 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.131 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature VERIFIED successfully for chunk 2 from Bob in transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: RECEIVE_CHUNK_START | Starting processing of received chunk 2 of 6 for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving chunk | Chunk 2 of 6
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_VERIFICATION | Verifying encryption key availability for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: PUBLIC_KEY_VALIDATION | Validating public key before decryption for user: Alice
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: VALIDATION | KeyID: user_public_key | Public key successfully validated for: Alice
+2025-07-25 18:50:05.132 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SYMMETRIC_KEY_DECRYPTION | Decrypting symmetric AES key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.136 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: symmetric_key | Successfully decrypted AES symmetric key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.137 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_KEY_DECRYPTION | Decrypting HMAC key for integrity verification
+2025-07-25 18:50:05.142 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: hmac_key | Successfully decrypted HMAC key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.142 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_SELECTION | Using sender's HMAC key for integrity verification
+2025-07-25 18:50:05.142 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_VERIFICATION | Verifying message integrity for chunk 2 using HMAC-SHA256
+2025-07-25 18:50:05.143 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_CHECK | Starting message integrity verification
+2025-07-25 18:50:05.143 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TIMESTAMP_CHECK | Message timestamp: 1753449604871, Current time: 1753449605143, Age: 0s
+2025-07-25 18:50:05.143 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ANTI_REPLAY_CHECK | Checking nonce uniqueness: 597b1a38...
+2025-07-25 18:50:05.143 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_CHECK | Extracted sequence number: 2
+2025-07-25 18:50:05.144 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_CALCULATION | Calculating HMAC for integrity verification
+2025-07-25 18:50:05.144 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_VERIFICATION | MAC verification result: PASSED
+2025-07-25 18:50:05.144 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_TRACKING | Recorded nonce as used: 597b1a38...
+2025-07-25 18:50:05.145 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] [SECURITY_INFO] Message integrity verified successfully. Nonce: 597b1a38...
+2025-07-25 18:50:05.145 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_SUCCESS | Message integrity verified for chunk 2
+2025-07-25 18:50:05.146 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Decrypting chunk 2 using AES symmetric key
+2025-07-25 18:50:05.146 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Starting decryption of chunk with sequence: 2, Encrypted size: 4112 bytes
+2025-07-25 18:50:05.146 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_RETRIEVAL | Using provided IV for decryption
+2025-07-25 18:50:05.146 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_DECRYPTION | Decrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:05.147 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: DECRYPTION_COMPLETE | Successfully decrypted chunk with sequence: 2
+2025-07-25 18:50:05.147 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_WRITING | Writing decrypted chunk 2 to file: index.html
+2025-07-25 18:50:05.148 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving signed chunk | Chunk 3 of 6 with digital signature
+2025-07-25 18:50:05.149 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.149 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.149 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:05.150 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature verification PASSED - sender identity confirmed
+2025-07-25 18:50:05.154 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SignedSecureMessage verification PASSED from Bob
+2025-07-25 18:50:05.154 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Recorded chunk sequence 3 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.154 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Processing chunk sequence 3 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.154 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature VERIFIED successfully for chunk 3 from Bob in transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.155 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: RECEIVE_CHUNK_START | Starting processing of received chunk 3 of 6 for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.155 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving chunk | Chunk 3 of 6
+2025-07-25 18:50:05.156 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_VERIFICATION | Verifying encryption key availability for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.156 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: PUBLIC_KEY_VALIDATION | Validating public key before decryption for user: Alice
+2025-07-25 18:50:05.156 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.157 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: VALIDATION | KeyID: user_public_key | Public key successfully validated for: Alice
+2025-07-25 18:50:05.157 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SYMMETRIC_KEY_DECRYPTION | Decrypting symmetric AES key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.162 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: symmetric_key | Successfully decrypted AES symmetric key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.162 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_KEY_DECRYPTION | Decrypting HMAC key for integrity verification
+2025-07-25 18:50:05.165 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: hmac_key | Successfully decrypted HMAC key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.165 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_SELECTION | Using sender's HMAC key for integrity verification
+2025-07-25 18:50:05.166 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_VERIFICATION | Verifying message integrity for chunk 3 using HMAC-SHA256
+2025-07-25 18:50:05.166 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_CHECK | Starting message integrity verification
+2025-07-25 18:50:05.166 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TIMESTAMP_CHECK | Message timestamp: 1753449604876, Current time: 1753449605166, Age: 0s
+2025-07-25 18:50:05.166 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ANTI_REPLAY_CHECK | Checking nonce uniqueness: 8fe6e4d7...
+2025-07-25 18:50:05.167 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_CHECK | Extracted sequence number: 3
+2025-07-25 18:50:05.167 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_CALCULATION | Calculating HMAC for integrity verification
+2025-07-25 18:50:05.168 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_VERIFICATION | MAC verification result: PASSED
+2025-07-25 18:50:05.168 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_TRACKING | Recorded nonce as used: 8fe6e4d7...
+2025-07-25 18:50:05.168 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] [SECURITY_INFO] Message integrity verified successfully. Nonce: 8fe6e4d7...
+2025-07-25 18:50:05.168 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_SUCCESS | Message integrity verified for chunk 3
+2025-07-25 18:50:05.169 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Decrypting chunk 3 using AES symmetric key
+2025-07-25 18:50:05.169 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Starting decryption of chunk with sequence: 3, Encrypted size: 4112 bytes
+2025-07-25 18:50:05.169 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_RETRIEVAL | Using provided IV for decryption
+2025-07-25 18:50:05.170 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_DECRYPTION | Decrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:05.171 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: DECRYPTION_COMPLETE | Successfully decrypted chunk with sequence: 3
+2025-07-25 18:50:05.171 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_WRITING | Writing decrypted chunk 3 to file: index.html
+2025-07-25 18:50:05.172 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving signed chunk | Chunk 4 of 6 with digital signature
+2025-07-25 18:50:05.173 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.173 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.173 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 4214 bytes from SecureMessage
+2025-07-25 18:50:05.174 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature verification PASSED - sender identity confirmed
+2025-07-25 18:50:05.174 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SignedSecureMessage verification PASSED from Bob
+2025-07-25 18:50:05.174 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Recorded chunk sequence 4 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.174 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Processing chunk sequence 4 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.174 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature VERIFIED successfully for chunk 4 from Bob in transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.175 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: RECEIVE_CHUNK_START | Starting processing of received chunk 4 of 6 for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.175 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving chunk | Chunk 4 of 6
+2025-07-25 18:50:05.175 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_VERIFICATION | Verifying encryption key availability for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.175 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: PUBLIC_KEY_VALIDATION | Validating public key before decryption for user: Alice
+2025-07-25 18:50:05.176 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.176 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: VALIDATION | KeyID: user_public_key | Public key successfully validated for: Alice
+2025-07-25 18:50:05.177 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SYMMETRIC_KEY_DECRYPTION | Decrypting symmetric AES key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.179 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: symmetric_key | Successfully decrypted AES symmetric key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.179 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_KEY_DECRYPTION | Decrypting HMAC key for integrity verification
+2025-07-25 18:50:05.182 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: hmac_key | Successfully decrypted HMAC key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.182 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_SELECTION | Using sender's HMAC key for integrity verification
+2025-07-25 18:50:05.182 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_VERIFICATION | Verifying message integrity for chunk 4 using HMAC-SHA256
+2025-07-25 18:50:05.182 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_CHECK | Starting message integrity verification
+2025-07-25 18:50:05.182 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TIMESTAMP_CHECK | Message timestamp: 1753449604885, Current time: 1753449605182, Age: 0s
+2025-07-25 18:50:05.183 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ANTI_REPLAY_CHECK | Checking nonce uniqueness: 3298373a...
+2025-07-25 18:50:05.183 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_CHECK | Extracted sequence number: 4
+2025-07-25 18:50:05.183 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_CALCULATION | Calculating HMAC for integrity verification
+2025-07-25 18:50:05.184 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_VERIFICATION | MAC verification result: PASSED
+2025-07-25 18:50:05.184 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_TRACKING | Recorded nonce as used: 3298373a...
+2025-07-25 18:50:05.184 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] [SECURITY_INFO] Message integrity verified successfully. Nonce: 3298373a...
+2025-07-25 18:50:05.185 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_SUCCESS | Message integrity verified for chunk 4
+2025-07-25 18:50:05.185 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Decrypting chunk 4 using AES symmetric key
+2025-07-25 18:50:05.185 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Starting decryption of chunk with sequence: 4, Encrypted size: 4112 bytes
+2025-07-25 18:50:05.185 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_RETRIEVAL | Using provided IV for decryption
+2025-07-25 18:50:05.185 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_DECRYPTION | Decrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: DECRYPTION_COMPLETE | Successfully decrypted chunk with sequence: 4
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_WRITING | Writing decrypted chunk 4 to file: index.html
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving signed chunk | Chunk 5 of 6 with digital signature
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.186 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 2374 bytes from SecureMessage
+2025-07-25 18:50:05.187 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature verification PASSED - sender identity confirmed
+2025-07-25 18:50:05.187 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SignedSecureMessage verification PASSED from Bob
+2025-07-25 18:50:05.187 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Recorded chunk sequence 5 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.188 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Processing chunk sequence 5 for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.188 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Digital signature VERIFIED successfully for chunk 5 from Bob in transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.188 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: RECEIVE_CHUNK_START | Starting processing of received chunk 5 of 6 for transfer ID: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.189 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Receiving chunk | Chunk 5 of 6
+2025-07-25 18:50:05.189 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_VERIFICATION | Verifying encryption key availability for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.189 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: PUBLIC_KEY_VALIDATION | Validating public key before decryption for user: Alice
+2025-07-25 18:50:05.190 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Public key validation passed - RSA 2048 bits, exponent: 65537
+2025-07-25 18:50:05.190 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: VALIDATION | KeyID: user_public_key | Public key successfully validated for: Alice
+2025-07-25 18:50:05.190 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SYMMETRIC_KEY_DECRYPTION | Decrypting symmetric AES key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.192 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: symmetric_key | Successfully decrypted AES symmetric key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.193 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: HMAC_KEY_DECRYPTION | Decrypting HMAC key for integrity verification
+2025-07-25 18:50:05.196 INFO [common.LoggingManager logKeyManagement] [SECURITY_FLOW] KEY_MGMT: DECRYPT | KeyID: hmac_key | Successfully decrypted HMAC key for transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.196 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: KEY_SELECTION | Using sender's HMAC key for integrity verification
+2025-07-25 18:50:05.196 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_VERIFICATION | Verifying message integrity for chunk 5 using HMAC-SHA256
+2025-07-25 18:50:05.196 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_CHECK | Starting message integrity verification
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: TIMESTAMP_CHECK | Message timestamp: 1753449604890, Current time: 1753449605196, Age: 0s
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: ANTI_REPLAY_CHECK | Checking nonce uniqueness: 76c3c361...
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: SEQUENCE_CHECK | Extracted sequence number: 5
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_CALCULATION | Calculating HMAC for integrity verification
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: MAC_VERIFICATION | MAC verification result: PASSED
+2025-07-25 18:50:05.197 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: NONCE_TRACKING | Recorded nonce as used: 76c3c361...
+2025-07-25 18:50:05.198 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] [SECURITY_INFO] Message integrity verified successfully. Nonce: 76c3c361...
+2025-07-25 18:50:05.198 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: INTEGRITY_SUCCESS | Message integrity verified for chunk 5
+2025-07-25 18:50:05.199 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Decrypting chunk 5 using AES symmetric key
+2025-07-25 18:50:05.199 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: CHUNK_DECRYPTION | Starting decryption of chunk with sequence: 5, Encrypted size: 2272 bytes
+2025-07-25 18:50:05.199 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: IV_RETRIEVAL | Using provided IV for decryption
+2025-07-25 18:50:05.199 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: AES_DECRYPTION | Decrypting chunk with AES using transformation: AES/CBC/PKCS5Padding
+2025-07-25 18:50:05.200 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: DECRYPTION_COMPLETE | Successfully decrypted chunk with sequence: 5
+2025-07-25 18:50:05.200 INFO [common.LoggingManager logSecurityStep] [SECURITY_FLOW] STEP: FILE_WRITING | Writing decrypted chunk 5 to file: index.html
+2025-07-25 18:50:05.202 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Saved transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.203 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Saved transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.203 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Transfer record updated | Status: Completed, File: index.html
+2025-07-25 18:50:05.204 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Transfer completed | Successfully received file: index.html from Bob
+2025-07-25 18:50:05.208 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.368 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.570 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:15.212 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Reset sequence tracking for completed transfer: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 (6 sequences)
+2025-07-25 18:50:18.484 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Session refresh timer stopped
+2025-07-25 18:50:18.485 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] User logged out, session terminated
+2025-07-25 18:50:18.485 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Initiating secure disconnect from server
+2025-07-25 18:50:18.487 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Disconnect complete, transfer thread pool shutdown

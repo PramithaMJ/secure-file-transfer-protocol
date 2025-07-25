@@ -1,0 +1,16 @@
+2025-07-25 18:50:05.033 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Created signable data: 2374 bytes from SecureMessage
+2025-07-25 18:50:05.037 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Data signed successfully with SHA256withRSA (signature length: 256 bytes)
+2025-07-25 18:50:05.037 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] SecureMessage digitally signed by Bob (nonce: 76c3c361...)
+2025-07-25 18:50:05.037 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Chunk 5 digitally signed by Bob for transfer ddcad2f9-69c3-43b1-84ad-8ee1d5cca012
+2025-07-25 18:50:05.050 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Transfer finishing | Sending completion notification
+2025-07-25 18:50:05.053 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Saved transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.055 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Saved transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.056 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Transfer record updated and saved | Status: Completed, File: index.html
+2025-07-25 18:50:05.063 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Transfer completed | All 6 chunks of index.html sent successfully
+2025-07-25 18:50:05.075 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.246 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:05.448 INFO [common.LoggingManager logTransfer] [SECURITY_FLOW] TRANSFER: ddcad2f9-69c3-43b1-84ad-8ee1d5cca012 | Loaded transfer record | File: index.html, Status: COMPLETED, From: Bob, To: Alice
+2025-07-25 18:50:19.572 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Session refresh timer stopped
+2025-07-25 18:50:19.572 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] User logged out, session terminated
+2025-07-25 18:50:19.573 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Initiating secure disconnect from server
+2025-07-25 18:50:19.576 INFO [common.LoggingManager logSecurity] [SECURITY_FLOW] Disconnect complete, transfer thread pool shutdown

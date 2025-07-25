@@ -7,7 +7,9 @@ This project implements a secure file transfer protocol that ensures confidentia
 ## Video Demo : [YouTube](https://youtu.be/0arjgfnfygI)
 
 ## Directory Structure
+
 Directory structure:
+
 ```
 └──secure-file-transfer-protocol/
     ├── README.md
@@ -85,7 +87,185 @@ java -cp build client.ClientUI
 
 project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
+---
+
+### Secure File Transfer Protocol Flow
+
+![1753446591666](images/README/1753446591666.png)
+
+---
+
+```
+                                                 Server
+                                                   |
+                                                   |
+                +-----------------------------------+--------------------------------+
+                |                                                                    |
+                |                                                                    |
+                v                                                                    v
+           Alice (Sender)                                                      Bob (Recipient)
+               |                                                                    |
+1) Alice registers with Server, generates RSA key pair                              |
+   and sends her public key to Server                                               |
+   [RSA 2048-bit]                                                                   |
+               |                                                                    |
+2) Server stores Alice's public key in user registry                                |
+               |                                                                    |
+               |                                                                    |
+               |                                         3) Bob registers with Server, generates
+               |                                            RSA key pair and sends his public key
+               |                                            [RSA 2048-bit]
+               |                                                                    |
+               |                                         4) Server stores Bob's public key in 
+               |                                            user registry
+               |                                                                    |
+5) Alice requests Bob's public key from Server                                      |
+               |                                                                    |
+6) Server sends Bob's verified public key to Alice                                  |
+   (with server signature to prevent MITM)                                          |
+               |                                                                    |
+7) Alice generates session-specific symmetric key                                   |
+   [AES-256] and HMAC key [SHA-256] for this transfer                               |
+               |                                                                    |
+8) Alice encrypts symmetric key with Bob's public key                               |
+   [RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING]                                          |
+               |                                                                    |
+9) Alice sends transfer request to Server with                                      |
+   encrypted symmetric key and file metadata                                        |
+               |                                                                    |
+10) Server assigns unique transfer ID and forwards                                  |
+    request to Bob                                                                  |
+               |                                                                    |
+               |                                                                    v
+               |                                         11) Bob receives transfer request with 
+               |                                             encrypted symmetric key
+               |                                                                    |
+               |                                         12) Bob accepts transfer and sends
+               |                                             acceptance to Server
+               |                                                                    |
+13) Server notifies Alice that Bob accepted                                         |
+               |                                                                    |
+14) For each file chunk:                                                            |
+    a) Alice reads chunk from file                                                  |
+    b) Alice generates secure nonce with chunk index                                |
+    c) Alice encrypts chunk with AES-256-GCM                                        |
+    d) Alice computes HMAC-SHA256 over encrypted data                               |
+       + IV + timestamp + nonce                                                     |
+    e) Alice signs the encrypted chunk with her private key                         |
+       [SHA256withRSA]                                                              |
+    f) Alice sends signed, encrypted chunk to Server                                |
+               |                                                                    |
+15) Server forwards signed, encrypted chunk to Bob                                  |
+               |                                                                    v
+               |                                         16) For each received chunk:
+               |                                             a) Bob verifies Alice's signature with 
+               |                                                her public key [SHA256withRSA]
+               |                                             b) Bob decrypts the symmetric key with
+               |                                                his private key [RSA decrypt]
+               |                                             c) Bob verifies HMAC for integrity and
+               |                                                anti-replay protection
+               |                                             d) Bob decrypts chunk with AES-256-GCM
+               |                                             e) Bob validates chunk sequence number
+               |                                             f) Bob writes decrypted chunk to file
+               |                                                                    |
+17) Alice sends transfer complete message to Server                                 |
+               |                                                                    |
+18) Server forwards completion message to Bob                                       |
+               |                                                                    v
+               |                                         19) Bob marks transfer complete and 
+               |                                             performs cleanup of ephemeral keys
+               v                                                                    |
+20) Alice performs cleanup of ephemeral keys                                        |
+    to maintain Perfect Forward Secrecy (PFS)                                       |
+```
+
+## Participants
+
+* **Alice (Sender)** - File sender
+* **Server** - Central server handling key exchange and routing
+* **Bob (Recipient)** - File receiver
+
+## Cryptographic Specifications
+
+* **HMAC**: HMAC-SHA256
+* **RSA**: SHA256withRSA (RSA-2048)
+* **AES**: AES-256-GCM
+
 ## Security Features
+
+**Advanced Security Features:**
+
+* Perfect Forward Secrecy
+* Anti-replay protection
+* Sequence validation
+* Digital signatures
+* Message integrity (HMAC)
+* End-to-end encryption
+
+## Protocol Flow
+
+### Phase 1: Initial Registration and Key Exchange
+
+1. **Alice → Server**: Register and send RSA public key [RSA-2048]
+2. **Server → Alice**: Success + session token
+3. **Bob → Server**: Register and send RSA public key [RSA-2048]
+4. **Server → Bob**: Success + session token
+
+### Phase 2: Key Distribution Setup
+
+5. **Alice → Server**: Request Bob's public key
+6. **Server → Alice**: Bob's verified public key
+
+### Phase 3: Symmetric Key Generation and Distribution
+
+7. **Alice (Internal)**:
+   * Generate AES-256 symmetric key and HMAC key
+   * Encrypt symmetric key with Bob's public key [RSA/OAEP]
+   * Create transfer request
+8. **Alice → Server**: Send file transfer request with encrypted symmetric key + file metadata
+9. **Server → Bob**: Forward request with unique transfer ID
+
+### Phase 4: Transfer Authorization
+
+10. **Bob → Server**: Accept transfer request
+11. **Server → Alice**: Notify of acceptance
+
+### Phase 5: Secure File Transfer
+
+12. **Alice (Internal Processing)**: For each file chunk:
+    * Generate nonce with sequence number
+    * Encrypt with AES-256-GCM
+    * Add HMAC (integrity)
+    * Sign with RSA private key
+13. **Alice → Server**: Forward encrypted chunks with digital signature and HMAC
+14. **Server → Bob**: Forward to Bob
+15. **Bob (Internal Processing)**: For each received chunk:
+    * Verify Alice's signature with her public key
+    * Verify HMAC integrity
+    * Check nonce and sequence numbers
+    * Decrypt with symmetric key
+    * Write to file
+
+### Phase 6: Completion and Cleanup
+
+16. **Alice → Server**: Transfer complete notification
+17. **Server → Bob**: Forward completion notice
+18. **Both Alice & Bob**: Securely erase ephemeral keys to ensure Perfect Forward Secrecy
+
+## Security Analysis
+
+This protocol implements multiple layers of security:
+
+1. **Authentication**: RSA digital signatures ensure message authenticity
+2. **Confidentiality**: AES-256-GCM provides strong encryption
+3. **Integrity**: HMAC-SHA256 prevents tampering
+4. **Forward Secrecy**: Ephemeral keys are securely erased after use
+5. **Replay Protection**: Nonces and sequence numbers prevent replay attacks
+6. **End-to-End Security**: Server cannot decrypt file contents
+
+The protocol follows security best practices by combining asymmetric encryption for key exchange with symmetric encryption for bulk data transfer, ensuring both security and performance.
+
+Security Features
 
 1. **Confidentiality**:
 

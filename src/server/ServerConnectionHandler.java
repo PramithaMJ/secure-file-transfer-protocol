@@ -187,37 +187,65 @@ public class ServerConnectionHandler implements Runnable {
     private void handleUserLogin(User user) throws IOException {
         String username = user.getUsername();
         
+        LoggingManager.logSecurityStep(logger, "AUTH_REQUEST", 
+                "Authentication request for user: " + username + " from IP: " + clientIP);
+        
         if (!rateLimitManager.allowLoginAttempt(clientIP)) {
             logger.warning("Login rate limit exceeded for IP: " + clientIP);
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Authentication rate limit exceeded for IP: " + clientIP + 
+                    " - potential brute force attack");
+            LoggingManager.logAuthentication(logger, username, false, 
+                    "Rate limit exceeded from IP: " + clientIP);
             send("LOGIN_FAILED|Too many login attempts. Please try again later.");
             return;
         }
         
+        LoggingManager.logSecurityStep(logger, "USER_LOOKUP", 
+                "Looking up user account for: " + username);
         User existingUser = userManager.getUser(username);
         
         if (existingUser == null) {
+            LoggingManager.logSecurityStep(logger, "NEW_USER_REGISTRATION", 
+                    "Registering new user: " + username + " from IP: " + clientIP);
             userManager.addUser(user);
             currentUser = user;
             currentUser.setOnline(true);
             
+            LoggingManager.logSecurityStep(logger, "SESSION_CREATION", 
+                    "Creating new session for user: " + username);
             currentSessionToken = sessionManager.createSession(username);
             
-            LoggingManager.logSecurity(logger, "New user registered: " + username + " from IP: " + clientIP);
+            LoggingManager.logAuthentication(logger, username, true, 
+                    "New user registered from IP: " + clientIP);
+            LoggingManager.logSession(logger, currentSessionToken, "CREATED", 
+                    "New session for newly registered user: " + username);
             send("REGISTER_SUCCESS|" + username + "|" + currentSessionToken);
         } else {
+            LoggingManager.logSecurityStep(logger, "EXISTING_USER_LOGIN", 
+                    "Processing login for existing user: " + username);
             currentUser = existingUser;
             currentUser.setOnline(true);
             
+            LoggingManager.logSecurityStep(logger, "SESSION_CREATION", 
+                    "Creating new session for user: " + username);
             currentSessionToken = sessionManager.createSession(username);
             
-            LoggingManager.logSecurity(logger, "User logged in: " + username + " from IP: " + clientIP +
-                                     ", Session: " + currentSessionToken.substring(0, 8) + "...");
+            LoggingManager.logAuthentication(logger, username, true, 
+                    "User logged in from IP: " + clientIP + 
+                    ", Session: " + currentSessionToken.substring(0, 8) + "...");
+            LoggingManager.logSession(logger, currentSessionToken, "CREATED", 
+                    "New session for user: " + username);
             send("LOGIN_SUCCESS|" + username + "|" + currentSessionToken);
         }
         
+        LoggingManager.logSecurityStep(logger, "CONNECTION_REGISTRATION", 
+                "Registering connection for user: " + username);
         userManager.registerConnection(username, this);
         userManager.broadcastUserStatus(currentUser);
         
+        LoggingManager.logSecurityStep(logger, "SESSION_MONITORING", 
+                "Starting session monitoring for user: " + username);
         startSessionMonitoring();
         
         sendUsersList();
@@ -227,16 +255,40 @@ public class ServerConnectionHandler implements Runnable {
         String sender = request.getSenderUsername();
         String receiver = request.getReceiverUsername();
         
-        logger.info("File transfer request from " + sender + " to " + receiver + ": " + request.getFileName());
+        LoggingManager.logSecurityStep(logger, "TRANSFER_REQUEST", 
+                "Received file transfer request from " + sender + " to " + receiver + 
+                ": " + request.getFileName() + " (" + request.getFileSize() + " bytes)");
+        
+        // Verify sender identity matches current user
+        if (currentUser == null || !currentUser.getUsername().equals(sender)) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.CRITICAL, 
+                    "Potential identity spoofing in transfer request: claimed sender '" + 
+                    sender + "' doesn't match authenticated user '" + 
+                    (currentUser != null ? currentUser.getUsername() : "none") + "'");
+            sendError("Sender authentication failed");
+            return;
+        }
+        
+        LoggingManager.logSecurityStep(logger, "RECEIVER_VALIDATION", 
+                "Verifying receiver exists and is online: " + receiver);
         
         User receiverUser = userManager.getUser(receiver);
         if (receiverUser == null || !receiverUser.isOnline()) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Transfer request failed: Recipient '" + receiver + "' not found or offline");
             sendError("Recipient " + receiver + " not found or offline");
             return;
         }
         
         String transferId = UUID.randomUUID().toString();
         activeTransfers.put(transferId, request);
+        
+        LoggingManager.logSecurityStep(logger, "TRANSFER_CREATION", 
+                "Created new transfer with ID: " + transferId);
+        
+        LoggingManager.logTransfer(logger, transferId, "INITIATED", 
+                "File: " + request.getFileName() + " (" + request.getFileSize() + " bytes), " +
+                "From: " + sender + ", To: " + receiver);
         
         userManager.forwardFileTransferRequest(request, transferId);
         
@@ -245,17 +297,41 @@ public class ServerConnectionHandler implements Runnable {
     
     private void handleFileChunk(SecureMessage chunk) {
         try {
+            // Extract sequence number from nonce if present
+            int sequenceNumber = -1;
+            if (chunk.nonce != null && chunk.nonce.contains(":")) {
+                try {
+                    String[] nonceParts = chunk.nonce.split(":");
+                    if (nonceParts.length >= 2) {
+                        sequenceNumber = Integer.parseInt(nonceParts[1]);
+                    }
+                } catch (NumberFormatException e) {
+                    // If we can't parse the sequence, just proceed
+                }
+            }
+            
+            LoggingManager.logSecurityStep(logger, "CHUNK_RECEIVED", 
+                    "Received encrypted chunk" + 
+                    (sequenceNumber >= 0 ? " with sequence: " + sequenceNumber : "") + 
+                    ", Size: " + (chunk.encryptedData != null ? chunk.encryptedData.length : 0) + " bytes");
+            
             int chunkSize = chunk.encryptedData != null ? chunk.encryptedData.length : 0;
             if (!rateLimitManager.allowBandwidth(clientIP, chunkSize)) {
                 logger.warning("Bandwidth limit exceeded for IP: " + clientIP);
+                LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                        "Bandwidth limit exceeded for IP: " + clientIP + " - potential DoS attempt");
                 sendError("Bandwidth limit exceeded. Transfer throttled.");
                 return;
             }
             
-            logger.info("Processing file chunk of size: " + chunkSize + " bytes from IP: " + clientIP);
+            LoggingManager.logSecurityStep(logger, "CHUNK_PROCESSING", 
+                    "Processing file chunk of size: " + chunkSize + " bytes from IP: " + clientIP + 
+                    (sequenceNumber >= 0 ? ", Sequence: " + sequenceNumber : ""));
             
         } catch (Exception e) {
             logger.log(Level.WARNING, "Error handling file chunk", e);
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Error processing file chunk: " + e.getMessage());
             sendError("Error processing file chunk: " + e.getMessage());
         }
     }
@@ -510,14 +586,23 @@ public class ServerConnectionHandler implements Runnable {
     }
 
     private void startSessionMonitoring() {
+        LoggingManager.logSecurityStep(logger, "SESSION_MONITORING_START", 
+                "Starting session monitoring for session: " + 
+                (currentSessionToken != null ? currentSessionToken.substring(0, 8) + "..." : "unknown") + 
+                ", User: " + (currentUser != null ? currentUser.getUsername() : "unknown"));
+                
         Thread sessionMonitor = new Thread(() -> {
             while (running && currentSessionToken != null) {
                 try {
                     Thread.sleep(5 * 60 * 1000); // Check every 5 minutes
                     
+                    LoggingManager.logSecurityStep(logger, "SESSION_VALIDATION", 
+                            "Validating session: " + currentSessionToken.substring(0, 8) + "...");
+                            
                     if (!validateSession()) {
-                        LoggingManager.logSecurity(logger, "Session expired for user: " + 
-                                                 (currentUser != null ? currentUser.getUsername() : "unknown"));
+                        LoggingManager.logSession(logger, currentSessionToken, "EXPIRED", 
+                                "Session expired for user: " + 
+                                (currentUser != null ? currentUser.getUsername() : "unknown"));
                         try {
                             send("SESSION_EXPIRED|Your session has expired. Please login again.");
                             Thread.sleep(1000); // Give time for message to be sent
@@ -548,17 +633,28 @@ public class ServerConnectionHandler implements Runnable {
     
     private boolean validateSession() {
         if (currentSessionToken == null) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Session validation failed: No active session token");
             return false;
         }
+        
+        String username = currentUser != null ? currentUser.getUsername() : "unknown";
+        LoggingManager.logSecurityStep(logger, "SESSION_VALIDATION", 
+                "Validating session token: " + currentSessionToken.substring(0, 8) + "... for user: " + username);
         
         boolean valid = sessionManager.validateAndRefreshSession(currentSessionToken);
         
         if (!valid) {
+            LoggingManager.logSession(logger, currentSessionToken, "INVALIDATED", 
+                    "Session validation failed for user: " + username);
             currentSessionToken = null;
             if (currentUser != null) {
                 currentUser.setOnline(false);
                 userManager.broadcastUserStatus(currentUser);
             }
+        } else {
+            LoggingManager.logSession(logger, currentSessionToken, "VALIDATED", 
+                    "Session successfully validated and refreshed for user: " + username);
         }
         
         return valid;

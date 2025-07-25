@@ -34,46 +34,66 @@ public class SessionManager {
     }
     
     public String createSession(String username) {
+        LoggingManager.logSecurityStep(logger, "SESSION_TOKEN_GENERATION", 
+                "Generating secure session token for user: " + username);
         String sessionToken = generateSecureToken();
         Session session = new Session(sessionToken, username);
         
+        LoggingManager.logSecurityStep(logger, "USER_SESSION_CLEANUP", 
+                "Removing any existing sessions for user: " + username);
         removeUserSessions(username);
         
         activeSessions.put(sessionToken, session);
         
-        logger.info("Session created for user: " + username + 
-                   ", token: " + sessionToken.substring(0, 8) + "...");
+        LoggingManager.logSession(logger, sessionToken, "CREATED", 
+                "New session created for user: " + username + 
+                ", with timeout: " + (SESSION_TIMEOUT_MS/1000/60) + " minutes");
         
         return sessionToken;
     }
     
     public boolean validateAndRefreshSession(String sessionToken) {
+        LoggingManager.logSecurityStep(logger, "SESSION_VALIDATION", 
+                "Validating session token: " + (sessionToken != null ? 
+                sessionToken.substring(0, Math.min(8, sessionToken.length())) + "..." : "null"));
+                
         if (sessionToken == null || sessionToken.trim().isEmpty()) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Attempted to validate null or empty session token");
             return false;
         }
         
         Session session = activeSessions.get(sessionToken);
         
         if (session == null) {
-            logger.warning("SECURITY ALERT: Invalid session token attempted: " + 
-                          sessionToken.substring(0, Math.min(8, sessionToken.length())) + "...");
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Invalid session token attempted: " + 
+                    sessionToken.substring(0, Math.min(8, sessionToken.length())) + "... - session not found");
             return false;
         }
         
         long now = System.currentTimeMillis();
         
         if (now - session.getLastActivity() > SESSION_TIMEOUT_MS) {
-            logger.info("Session expired due to inactivity for user: " + session.getUsername());
+            LoggingManager.logSession(logger, sessionToken, "EXPIRED_INACTIVITY", 
+                    "Session expired due to " + (SESSION_TIMEOUT_MS/1000/60) + 
+                    " minutes of inactivity for user: " + session.getUsername());
             removeSession(sessionToken);
             return false;
         }
         
         if (now - session.getCreatedTime() > MAX_SESSION_DURATION_MS) {
-            logger.info("Session expired due to maximum duration for user: " + session.getUsername());
+            LoggingManager.logSession(logger, sessionToken, "EXPIRED_MAX_DURATION", 
+                    "Session expired due to maximum duration (" + 
+                    (MAX_SESSION_DURATION_MS/1000/60/60) + " hours) for user: " + 
+                    session.getUsername());
             removeSession(sessionToken);
             return false;
         }
         
+        LoggingManager.logSecurityStep(logger, "SESSION_REFRESH", 
+                "Refreshing activity timestamp for session: " + 
+                sessionToken.substring(0, Math.min(8, sessionToken.length())) + "...");
         session.updateLastActivity();
         
         return true;
@@ -100,13 +120,19 @@ public class SessionManager {
 
     public boolean removeSession(String sessionToken) {
         if (sessionToken == null) {
+            LoggingManager.logSecurity(logger, LoggingManager.SecurityLevel.WARNING, 
+                    "Attempted to remove null session token");
             return false;
         }
+        
+        LoggingManager.logSecurityStep(logger, "SESSION_REMOVAL", 
+                "Removing session: " + sessionToken.substring(0, Math.min(8, sessionToken.length())) + "...");
         
         Session session = activeSessions.remove(sessionToken);
         
         if (session != null) {
-            logger.info("Session removed for user: " + session.getUsername());
+            LoggingManager.logSession(logger, sessionToken, "REMOVED", 
+                    "Session removed for user: " + session.getUsername());
             return true;
         }
         
@@ -114,9 +140,14 @@ public class SessionManager {
     }
 
     public void removeUserSessions(String username) {
+        LoggingManager.logSecurityStep(logger, "USER_SESSION_CLEANUP", 
+                "Removing all existing sessions for user: " + username);
+        
         activeSessions.entrySet().removeIf(entry -> {
             if (entry.getValue().getUsername().equals(username)) {
-                logger.info("Removing existing session for user: " + username);
+                LoggingManager.logSession(logger, entry.getKey(), "REMOVED", 
+                        "Removing existing session for user: " + username + 
+                        " due to new login");
                 return true;
             }
             return false;
@@ -144,19 +175,25 @@ public class SessionManager {
     }
     
     private void cleanupExpiredSessions() {
+        LoggingManager.logSecurityStep(logger, "SESSION_CLEANUP", 
+                "Starting periodic cleanup of expired sessions");
+        
         long now = System.currentTimeMillis();
         int removedCount = 0;
         
         for (var iterator = activeSessions.entrySet().iterator(); iterator.hasNext();) {
             var entry = iterator.next();
             Session session = entry.getValue();
+            String token = entry.getKey();
             
             boolean expiredInactivity = (now - session.getLastActivity()) > SESSION_TIMEOUT_MS;
             boolean expiredDuration = (now - session.getCreatedTime()) > MAX_SESSION_DURATION_MS;
             
             if (expiredInactivity || expiredDuration) {
-                logger.info("Cleaning up expired session for user: " + session.getUsername() +
-                           (expiredInactivity ? " (inactivity)" : " (max duration)"));
+                String reason = expiredInactivity ? "inactivity timeout" : "maximum duration reached";
+                LoggingManager.logSession(logger, token, "AUTO_CLEANUP", 
+                        "Cleaning up expired session for user: " + session.getUsername() +
+                        " due to " + reason);
                 iterator.remove();
                 removedCount++;
             }
