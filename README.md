@@ -13,8 +13,6 @@ This project implements a secure file transfer protocol that ensures confidentia
 
 ## Directory Structure
 
-Directory structure:
-
 ```
 └──-secure-file-transfer-protocol/
     ├── README.md
@@ -25,13 +23,20 @@ Directory structure:
     │   ├── Alice_transfer_history.dat
     │   └── Bob_transfer_history.dat
     ├── docs/
-    │   └── draw.io/
-    │       ├── [Update]Security Flow Architecture.drawio
-    │       ├── architecture.xml
-    │       ├── Detailed_Security_Flow.drawio
-    │       ├── Detailed_Security_Flow_with_Logs.drawio
-    │       ├── Security Flow Architecture.drawio
-    │       └── securityfllow.drawio
+    │   ├── draw.io/
+    │   │   ├── [Update]Security Flow Architecture.drawio
+    │   │   ├── architecture.xml
+    │   │   ├── Detailed_Security_Flow.drawio
+    │   │   ├── Detailed_Security_Flow_with_Logs.drawio
+    │   │   ├── Security Flow Architecture.drawio
+    │   │   └── securityfllow.drawio
+    │   └── md/
+    │       ├── ALICE_BOB_SECURITY_DEMO_CODEBASE.md
+    │       ├── ATTACK_PREVENTION_DEMO.md
+    │       ├── COMPREHENSIVE_SECURITY_REPORT.md
+    │       ├── INTERACTIVE_SECURITY_FLOW.md
+    │       ├── PFS_INTERACTIVE_DEMO.md
+    │       └── VISUAL_SECURITY_GUIDE.md
     ├── logs/
     │   └── security/
     │       ├── security_flow_emergency_1_0.log.lck
@@ -72,7 +77,6 @@ Directory structure:
     │       └── build.yml
     └── .scannerwork/
         └── .sonar_lock
-
 ```
 
 ## Java Version Requirement
