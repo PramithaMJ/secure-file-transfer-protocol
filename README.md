@@ -8,6 +8,7 @@
 This project implements a secure file transfer protocol that ensures confidentiality, integrity, and protection against replay attacks. It uses a client-server architecture to support multiple users transferring files securely.
 
 ## Video Demo : [YouTube](https://youtu.be/0arjgfnfygI)
+
 ### For details output refer : [Logs](https://github.com/PramithaMJ/secure-file-transfer-protocol/tree/master/logs)
 
 ## Directory Structure
@@ -110,6 +111,25 @@ project implements a secure file transfer protocol that ensures confidentiality,
 ![1753446591666](images/README/1753446591666.png)
 
 ---
+
+```mermaid
+graph TD
+A[Client Connection] --> B{IP Blacklisted?}
+B -->|Yes| C[Reject Connection]
+B -->|No| D{Rate Limit OK?}
+D -->|No| E[Temporary Block]
+D -->|Yes| F[Accept Connection]
+F --> G[User Login Request]
+G --> H{Valid Public Key?}
+H -->|No| I[Authentication Failed]
+H -->|Yes| J[Create Session]
+J --> K[Generate Session Token]
+K --> L[Authentication Success]
+```
+
+---
+
+
 
 ```
                                                  Server
